@@ -1,0 +1,25 @@
+parameters:
+    ongr_magento.triggers.content.track_fields:
+        - page_id
+        - creation_time
+        - update_time
+
+services:
+    # Products triggers
+    ongr_magento.triggers.content_insert:
+        class: %ongr_magento.triggers.simple_trigger.class%
+        arguments: [catalog_category_entity, C, 1, category, NEW.page_id]
+        tags:
+            - { name: ongr_connections.trigger, trigger: content_insert }
+
+    ongr_magento.triggers.content_update:
+        class: %ongr_magento.triggers.simple_trigger.class%
+        arguments: [catalog_category_entity, U, 1, category, NEW.page_id, %ongr_magento.triggers.content.track_fields%]
+        tags:
+            - { name: ongr_connections.trigger, trigger: content_update }
+
+    ongr_magento.triggers.content_delete:
+        class: %ongr_magento.triggers.simple_trigger.class%
+        arguments: [catalog_category_entity, D, 1, category, OLD.page_id]
+        tags:
+            - { name: ongr_connections.trigger, trigger: content_delete }

@@ -1,0 +1,2 @@
+parameters:
+    ongr_magento.triggers.simple_trigger.class: ONGR\ConnectionsBundle\Sync\Trigger\SimpleTrigger
