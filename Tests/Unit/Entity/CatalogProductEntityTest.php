@@ -2,7 +2,7 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Entity;
 
-use ONGR\ConnectionsBundle\Tests\Functional\Entity\AbstractEntityTest;
+use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 
 class CatalogProductEntityTest extends AbstractEntityTest
 {

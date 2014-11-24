@@ -7,8 +7,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class Configuration.
- *
- * @package ONGR\MagentoConnectorBundle\DependencyInjection
  */
 class Configuration implements ConfigurationInterface
 {
