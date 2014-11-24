@@ -160,9 +160,8 @@ class ProductModifier implements ModifierInterface
         try {
             $path = $category->getCategory()->getPath();
 
-            // Trim first two categories from path.
-            $path = substr($path, strpos($path, '/') + 1);
-            $path = substr($path, strpos($path, '/') + 1);
+            // Trim first two categories (RootCatalog and DefaultCatalog) from path.
+            $path = preg_replace('/^([^\/]*\/){2}/', '', $path);
             $categories = explode('/', $path);
 
             $document->category = [$path];

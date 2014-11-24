@@ -7,6 +7,7 @@ use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Modifier\CategoryModifier;
 use ONGR\MagentoConnectorBundle\Modifier\Helpers\AttributeTypes;
+use ONGR\MagentoConnectorBundle\Tests\Helpers\CategoryDocument;
 
 class CategoryModifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -59,7 +60,7 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
             ->setPath('1/2/3')
             ->setSort(3);
 
-        $expectedDocument = new CategoryModel();
+        $expectedDocument = new CategoryDocument();
         $expectedDocument->id = 2;
         $expectedDocument->path = '/3';
         $expectedDocument->parentid = 1;
@@ -69,9 +70,23 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->url = ['url'];
         $expectedDocument->expired_url = [];
 
-        $document = new CategoryModel();
+        $document = new CategoryDocument();
         $modifier->modify($document, $entity);
 
         $this->assertEquals($expectedDocument, $document);
+
+        $entity
+            ->setPath('1/2')
+            ->setLevel(2);
+        $expectedDocument->path = '';
+        $expectedDocument->parentid = 'oxrootid';
+        $modifier->modify($document, $entity);
+        $this->assertEquals($expectedDocument, $document);
+
+        $entity
+            ->setPath('1')
+            ->setLevel(1);
+        $this->setExpectedException('ONGR\ConnectionsBundle\DataCollector\Exception\DocumentSyncCancelException');
+        $modifier->modify($document, $entity);
     }
 }

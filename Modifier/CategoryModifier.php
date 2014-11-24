@@ -36,7 +36,6 @@ class CategoryModifier implements ModifierInterface
     {
         /** @var CatalogCategoryEntity $entity */
         $document->id = $entity->getId();
-        $document->path = $entity->getPath();
         $document->parentid = $entity->getParentId();
         $document->expired_url = [];
 
@@ -47,9 +46,12 @@ class CategoryModifier implements ModifierInterface
             throw new DocumentSyncCancelException;
         }
 
-        // Trim first two categories from path.
-        $document->path = substr($document->path, strpos($document->path, '/') + 1);
-        $document->path = substr($document->path, strpos($document->path, '/'));
+        // Trim first two categories (RootCatalog and DefaultCatalog) from path.
+        $document->path = preg_replace('/^([^\/]*\/){2}/', '/', $entity->getPath(), -1, $replacements);
+
+        if ($replacements == 0) {
+            $document->path = '';
+        }
 
         $document->sort = $entity->getSort();
         $document->url = [];

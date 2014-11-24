@@ -2,7 +2,6 @@
 
 namespace ONGR\MagentoConnectorBundle\Provider;
 
-use Doctrine\ORM\EntityManager;
 use ONGR\ConnectionsBundle\Doctrine\Iterator\MemoryEfficientEntitiesIterator;
 use ONGR\ConnectionsBundle\Doctrine\Provider\Provider;
 
@@ -29,11 +28,18 @@ class ContentProvider extends Provider
      */
     public function getAllEntities()
     {
-        $query = sprintf('SELECT e FROM %s e', $this->entityClass);
-        $query .= sprintf(' WHERE e.storeId=%d', $this->storeId);
+        $querySql = 'SELECT e FROM ?1 e
+                  WHERE e.storeId = ?2';
+
+        $query = $this->entityManager
+            ->createQuery($querySql)
+            ->setParameters([
+                1 => $this->entityClass,
+                2 => $this->storeId
+            ]);
 
         return new MemoryEfficientEntitiesIterator(
-            $this->entityManager->createQuery($query)->iterate(),
+            $query->iterate(),
             $this->entityManager
         );
     }

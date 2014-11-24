@@ -10,7 +10,7 @@ use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductIndexPrice;
 use ONGR\MagentoConnectorBundle\Modifier\Helpers\AttributeTypes;
 use ONGR\MagentoConnectorBundle\Modifier\ProductModifier;
-use ONGR\ProductBundle\Model\ProductModel;
+use ONGR\MagentoConnectorBundle\Tests\Helpers\ProductDocument;
 
 class ProductModifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -92,7 +92,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         /** @var CatalogCategoryEntity $category */
         $category = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity');
         $category->setId(1);
-        $category->setPath('1/2/1');
+        $category->setPath('1/2/3');
 
         /** @var CatalogProductEntityVarchar $varchar */
         $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
@@ -110,7 +110,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             ->setVarcharAttributes($varcharAttributes)
             ->setCategory($categoryCross);
 
-        $expectedDocument = new ProductModel();
+        $expectedDocument = new ProductDocument();
         $expectedDocument->id = 123;
         $expectedDocument->price = 123.99;
         $expectedDocument->sku = 'foo';
@@ -120,9 +120,9 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->image = 'image';
         $expectedDocument->thumb = 'thumb';
         $expectedDocument->url = ['link'];
-        $expectedDocument->category = [1];
+        $expectedDocument->category = [3];
         $expectedDocument->mainCategory = 1;
-        $expectedDocument->category_id = [1];
+        $expectedDocument->category_id = [3];
         $expectedDocument->category_title = ['category title'];
         $expectedDocument->expired_url = [];
         $expectedDocument->origin = new \stdClass;
@@ -132,7 +132,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->location->lon = 0;
         $expectedDocument->location->lat = 0;
 
-        $document = new ProductModel();
+        $document = new ProductDocument();
         $modifier->modify($document, $entity);
 
         $this->assertEquals($expectedDocument, $document);

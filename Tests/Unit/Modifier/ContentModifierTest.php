@@ -2,10 +2,10 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\MagentoConnectorBundle\Entity\CmsPage;
 use ONGR\MagentoConnectorBundle\Entity\CmsPageStore;
 use ONGR\MagentoConnectorBundle\Modifier\ContentModifier;
+use ONGR\MagentoConnectorBundle\Tests\Helpers\ContentDocument;
 
 class ContentModifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,7 +28,7 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $entity = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CmsPageStore');
         $entity->setPage($page);
 
-        $expectedDocument = new DocumentInterface();
+        $expectedDocument = new ContentDocument();
         $expectedDocument->id = 1;
         $expectedDocument->slug = 'slug';
         $expectedDocument->title = 'title';
@@ -36,7 +36,7 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->url = ['slug/'];
         $expectedDocument->expired_url = [];
 
-        $document = new DocumentInterface();
+        $document = new ContentDocument();
 
         $modifier->modify($document, $entity);
 
