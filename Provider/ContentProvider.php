@@ -33,10 +33,12 @@ class ContentProvider extends Provider
 
         $query = $this->entityManager
             ->createQuery($querySql)
-            ->setParameters([
-                1 => $this->entityClass,
-                2 => $this->storeId
-            ]);
+            ->setParameters(
+                [
+                    1 => $this->entityClass,
+                    2 => $this->storeId,
+                ]
+            );
 
         return new MemoryEfficientEntitiesIterator(
             $query->iterate(),

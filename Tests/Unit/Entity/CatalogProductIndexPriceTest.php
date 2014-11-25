@@ -19,7 +19,7 @@ class CatalogProductIndexPriceTest extends AbstractEntityTest
             ['minPrice'],
             ['maxPrice'],
             ['tierPrice'],
-            ['groupPrice']
+            ['groupPrice'],
         ];
     }
 
