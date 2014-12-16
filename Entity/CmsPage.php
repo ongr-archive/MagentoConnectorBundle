@@ -63,6 +63,34 @@ abstract class CmsPage
     protected $heading;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="is_active", type="integer")
+     */
+    protected $isActive;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_description", type="string")
+     */
+    protected $metaDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_keywords", type="string")
+     */
+    protected $metaKeywords;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer")
+     */
+    protected $sortOrder;
+
+    /**
      * @var CmsPageStore
      *
      * @ORM\OneToOne(targetEntity="CmsPageStore")
@@ -228,5 +256,69 @@ abstract class CmsPage
         $this->updateTime = $updateTime;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param int $isActive
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMetaDescription()
+    {
+        return $this->metaDescription;
+    }
+
+    /**
+     * @param string $metaDescription
+     */
+    public function setMetaDescription($metaDescription)
+    {
+        $this->metaDescription = $metaDescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMetaKeywords()
+    {
+        return $this->metaKeywords;
+    }
+
+    /**
+     * @param string $metaKeywords
+     */
+    public function setMetaKeywords($metaKeywords)
+    {
+        $this->metaKeywords = $metaKeywords;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
+
+    /**
+     * @param int $sortOrder
+     */
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
     }
 }

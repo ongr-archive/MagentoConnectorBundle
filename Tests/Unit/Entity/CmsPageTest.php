@@ -20,6 +20,10 @@ class CmsPageTest extends AbstractEntityTest
             ['content'],
             ['heading'],
             ['store'],
+            ['isActive'],
+            ['metaDescription'],
+            ['metaKeywords'],
+            ['sortOrder'],
         ];
     }
 

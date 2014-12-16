@@ -2,31 +2,35 @@
 
 namespace ONGR\MagentoConnectorBundle\Modifier;
 
-use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
-use ONGR\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
+use ONGR\ConnectionsBundle\Event\AbstractInitialSyncModifyEvent;
+use ONGR\ConnectionsBundle\Event\ImportItem;
+use ONGR\MagentoConnectorBundle\Documents\ContentDocument;
 use ONGR\MagentoConnectorBundle\Entity\CmsPage;
 use ONGR\MagentoConnectorBundle\Entity\CmsPageStore;
 
 /**
  * Modifies entities to match ongr content mapping.
  */
-class ContentModifier implements ModifierInterface
+class ContentModifier extends AbstractInitialSyncModifyEvent
 {
     /**
      * {@inheritdoc}
      */
-    public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
+    protected function modify(ImportItem $eventItem)
     {
+        /** @var ContentDocument $document */
+        $document = $eventItem->getDocument();
+        /** @var CmsPageStore $entity */
+        $entity = $eventItem->getEntity();
+
         /** @var CmsPage $page */
         $page = $entity->getPage();
 
-        $document->id = $page->getId();
-        $document->slug = $page->getSlug();
-        $document->title = $page->getTitle();
-        $document->content = $this->joinContent($page);
-        $document->url = [$page->getSlug() . '/'];
-        $document->expired_url = [];
+        $document->setId($page->getId());
+        $document->setSlug($page->getSlug());
+        $document->setTitle($page->getTitle());
+        $document->setContent($this->joinContent($page));
+        //$document->addUrlString();
     }
 
     /**

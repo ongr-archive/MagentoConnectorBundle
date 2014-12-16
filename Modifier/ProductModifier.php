@@ -3,10 +3,10 @@
 namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use Doctrine\ORM\EntityNotFoundException;
-use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
-use ONGR\ConnectionsBundle\DataCollector\Exception\DocumentSyncCancelException;
-use ONGR\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
+use Exception;
+use ONGR\ConnectionsBundle\Event\AbstractInitialSyncModifyEvent;
+use ONGR\ConnectionsBundle\Event\ImportItem;
+use ONGR\MagentoConnectorBundle\Documents\ProductDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText;
@@ -16,7 +16,7 @@ use ONGR\MagentoConnectorBundle\Modifier\Helpers\AttributeTypes;
 /**
  * Modifies entities to match ongr product mapping.
  */
-class ProductModifier implements ModifierInterface
+class ProductModifier extends AbstractInitialSyncModifyEvent
 {
     const ENTITY_TYPE_PRODUCT = 4;
 
@@ -36,18 +36,17 @@ class ProductModifier implements ModifierInterface
     /**
      * {@inheritdoc}
      */
-    public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
+    protected function modify(ImportItem $eventItem)
     {
-        $document->id = $entity->getId();
-        $document->url = [];
-        $document->expired_url = [];
-        $document->sku = $entity->getSku();
-        $document->origin = new \stdClass();
-        $document->origin->country = '';
-        $document->origin->location = '';
-        $document->location = new \stdClass();
-        $document->location->lon = 0;
-        $document->location->lat = 0;
+        /** @var ProductDocument $document */
+        $document = $eventItem->getDocument();
+        /** @var CatalogProductEntity $entity */
+        $entity = $eventItem->getEntity();
+
+        $document->setId($entity->getId());
+        $document->setUrl([]);
+        $document->setExpiredUrl([]);
+        $document->setSku($entity->getSku());
 
         $this->addPrice($entity, $document);
         $this->addTextAttributes($entity, $document);
@@ -56,39 +55,39 @@ class ProductModifier implements ModifierInterface
     }
 
     /**
-     * Adds price field to DocumentInterface $document.
+     * Adds price field to document.
      *
-     * @param CatalogProductEntity  $entity
-     * @param DocumentInterface     $document
+     * @param CatalogProductEntity $entity
+     * @param ProductDocument      $document
      *
-     * @throws DocumentSyncCancelException
+     * @throws Exception
      */
-    public function addPrice($entity, DocumentInterface $document)
+    public function addPrice($entity, ProductDocument $document)
     {
         try {
-            $document->price = $entity->getPrice()->getPrice();
+            $document->setPrice($entity->getPrice()->getPrice());
         } catch (EntityNotFoundException $exception) {
             // Do nothing, product has no price.
         }
 
-        if (!($document->price)) {
-            throw new DocumentSyncCancelException;
+        if (!($document->getPrice())) {
+            throw new Exception; // todo: before was 'DocumentSyncCancelException'
         }
     }
 
     /**
-     * Adds longDescription and Description fields to DocumentInterface $document.
+     * Adds longDescription and Description fields to document.
      *
-     * @param CatalogProductEntity  $entity
-     * @param DocumentInterface     $document
+     * @param CatalogProductEntity $entity
+     * @param ProductDocument      $document
      *
-     * @throws DocumentSyncCancelException
+     * @throws Exception
      */
-    public function addTextAttributes($entity, DocumentInterface $document)
+    public function addTextAttributes($entity, ProductDocument $document)
     {
         $textAttributes = $entity->getTextAttributes();
         if (count($textAttributes) === 0) {
-            throw new DocumentSyncCancelException;
+            throw new Exception; // todo: before was 'DocumentSyncCancelException'
         }
         /** @var CatalogProductEntityText $attribute */
         foreach ($textAttributes as $attribute) {
@@ -97,10 +96,10 @@ class ProductModifier implements ModifierInterface
             }
             switch ($attribute->getAttributeId()) {
                 case AttributeTypes::PRODUCT_DESCRIPTION:
-                    $document->longDescription = $attribute->getValue();
+                    $document->setLongDescription($attribute->getValue());
                     break;
                 case AttributeTypes::PRODUCT_SHORT_DESCRIPTION:
-                    $document->description = $attribute->getValue();
+                    $document->setDescription($attribute->getValue());
                     break;
                 default:
                     // Do nothing.
@@ -110,18 +109,18 @@ class ProductModifier implements ModifierInterface
     }
 
     /**
-     * Adds title, url, image and thumb fields to DocumentInterface $document.
+     * Adds title, url, image and thumb fields to document.
      *
-     * @param CatalogProductEntity  $entity
-     * @param DocumentInterface     $document
+     * @param CatalogProductEntity $entity
+     * @param ProductDocument      $document
      *
-     * @throws DocumentSyncCancelException
+     * @throws Exception
      */
-    public function addVarcharAttributes($entity, DocumentInterface $document)
+    public function addVarcharAttributes($entity, ProductDocument $document)
     {
         $varcharAttributes = $entity->getVarcharAttributes();
         if (count($varcharAttributes) === 0) {
-            throw new DocumentSyncCancelException;
+            throw new Exception; // todo: before was 'DocumentSyncCancelException'
         }
         /** @var CatalogProductEntityVarchar $attribute */
         foreach ($varcharAttributes as $attribute) {
@@ -130,16 +129,16 @@ class ProductModifier implements ModifierInterface
             }
             switch ($attribute->getAttributeId()) {
                 case AttributeTypes::PRODUCT_META_TITLE:
-                    $document->title = $attribute->getValue();
+                    $document->setTitle($attribute->getValue());
                     break;
                 case AttributeTypes::PRODUCT_LINKS_TITLE:
-                    $document->url[] = $attribute->getValue();
+                    $document->addUrl($attribute->getValue());
                     break;
                 case AttributeTypes::PRODUCT_IMAGE:
-                    $document->image = $attribute->getValue();
+                    $document->addImageUrl($attribute->getValue());
                     break;
                 case AttributeTypes::PRODUCT_SMALL_IMAGE:
-                    $document->thumb = $attribute->getValue();
+                    $document->thumb = $attribute->getValue(); // todo
                     break;
                 default:
                     // Do nothing.
@@ -149,12 +148,12 @@ class ProductModifier implements ModifierInterface
     }
 
     /**
-     * Adds categories field to DocumentInterface $document.
+     * Adds categories field to document.
      *
-     * @param CatalogProductEntity  $entity
-     * @param DocumentInterface     $document
+     * @param CatalogProductEntity $entity
+     * @param ProductDocument      $document
      */
-    public function addCategory($entity, DocumentInterface $document)
+    public function addCategory($entity, ProductDocument $document)
     {
         $category = $entity->getCategory();
         try {
@@ -164,18 +163,18 @@ class ProductModifier implements ModifierInterface
             $path = preg_replace('/^([^\/]*\/){2}/', '', $path);
             $categories = explode('/', $path);
 
-            $document->category = [$path];
-            $document->category_id = $categories;
+            $document->category = [$path]; // todo
+            $document->category_id = $categories; // todo
 
             $document->mainCategory = $category->getCategory()->getId();
             foreach ($category->getCategory()->getVarcharAttributes() as $attribute) {
                 /** @var CatalogCategoryEntityVarchar $attribute */
                 switch ($attribute->getAttributeId()) {
                     case AttributeTypes::CATEGORY_TITLE:
-                        $document->category_title = [$attribute->getValue()];
+                        $document->category_title = [$attribute->getValue()]; // todo
                         break;
                     case AttributeTypes::CATEGORY_LINKS_TITLE:
-                        $document->category_url = [$attribute->getValue()];
+                        $document->category_url = [$attribute->getValue()]; // todo
                         break;
                     default:
                         // Do nothing.
@@ -183,7 +182,7 @@ class ProductModifier implements ModifierInterface
                 }
             }
         } catch (EntityNotFoundException $exception) {
-            // Do nothing.
+            // Do nothing. // todo
         }
     }
 }

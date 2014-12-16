@@ -2,19 +2,19 @@
 
 namespace ONGR\MagentoConnectorBundle\Modifier;
 
-use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
-use ONGR\ConnectionsBundle\DataCollector\Exception\DocumentSyncCancelException;
-use ONGR\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
+use ONGR\ConnectionsBundle\Event\AbstractInitialSyncModifyEvent;
+use ONGR\ConnectionsBundle\Event\ImportItem;
+use ONGR\MagentoConnectorBundle\Documents\CategoryDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Modifier\Helpers\AttributeTypes;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Modifies entities to match ongr category mapping.
  */
-class CategoryModifier implements ModifierInterface
+class CategoryModifier extends AbstractInitialSyncModifyEvent
 {
     /**
      * @var int
@@ -32,29 +32,33 @@ class CategoryModifier implements ModifierInterface
     /**
      * {@inheritdoc}
      */
-    public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
+    protected function modify(ImportItem $eventItem)
     {
+        /** @var CategoryDocument $document */
+        $document = $eventItem->getDocument();
         /** @var CatalogCategoryEntity $entity */
-        $document->id = $entity->getId();
-        $document->parentid = $entity->getParentId();
-        $document->expired_url = [];
+        $entity = $eventItem->getEntity();
+
+        $document->setId($entity->getId());
+        $document->setParentId($entity->getParentId());
+        $document->setExpiredUrl([]);
 
         if ($entity->getLevel() == 2) {
             // Root categories.
-            $document->parentid = 'oxrootid';
+            $document->setParentId('oxrootid');
         } elseif ($entity->getLevel() < 2) {
-            throw new DocumentSyncCancelException;
+            throw new Exception; // todo: before was 'DocumentSyncCancelException'
         }
 
         // Trim first two categories (RootCatalog and DefaultCatalog) from path.
-        $document->path = preg_replace('/^([^\/]*\/){2}/', '/', $entity->getPath(), -1, $replacements);
+        $document->setPath(preg_replace('/^([^\/]*\/){2}/', '/', $entity->getPath(), -1, $replacements));
 
         if ($replacements == 0) {
-            $document->path = '';
+            $document->setPath('');
         }
 
-        $document->sort = $entity->getSort();
-        $document->url = [];
+        $document->setSort($entity->getSort());
+        $document->setUrl([]);
 
         $this->addVarcharAttributes($entity, $document);
         $this->addIntegerAttributes($entity, $document);
@@ -62,15 +66,15 @@ class CategoryModifier implements ModifierInterface
 
     /**
      * @param CatalogCategoryEntity $entity
-     * @param DocumentInterface     $document
+     * @param CategoryDocument      $document
      *
-     * @throws DocumentSyncCancelException
+     * @throws Exception
      */
-    public function addVarcharAttributes($entity, DocumentInterface $document)
+    public function addVarcharAttributes($entity, CategoryDocument $document)
     {
         $varcharAttributes = $entity->getVarcharAttributes();
         if (count($varcharAttributes) === 0) {
-            throw new DocumentSyncCancelException;
+            throw new Exception; // todo: before was 'DocumentSyncCancelException'
         }
         foreach ($varcharAttributes as $attribute) {
             if ($this->storeId !== $attribute->getStore()) {
@@ -79,10 +83,10 @@ class CategoryModifier implements ModifierInterface
             /** @var CatalogCategoryEntityVarchar $attribute */
             switch ($attribute->getAttributeId()) {
                 case AttributeTypes::CATEGORY_TITLE:
-                    $document->title = $attribute->getValue();
+                    $document->setTitle($attribute->getValue());
                     break;
                 case AttributeTypes::CATEGORY_LINKS_TITLE:
-                    $document->url[] = $attribute->getValue();
+                    $document->addUrlString($attribute->getValue());
                     break;
                 default:
                     // Do nothing.
@@ -93,15 +97,15 @@ class CategoryModifier implements ModifierInterface
 
     /**
      * @param CatalogCategoryEntity $entity
-     * @param DocumentInterface     $document
+     * @param CategoryDocument      $document
      *
-     * @throws DocumentSyncCancelException
+     * @throws Exception
      */
-    public function addIntegerAttributes($entity, DocumentInterface $document)
+    public function addIntegerAttributes($entity, CategoryDocument $document)
     {
         $integerAttributes = $entity->getIntegerAttributes();
         if (count($integerAttributes) === 0) {
-            throw new DocumentSyncCancelException;
+            throw new Exception; // todo: before was 'DocumentSyncCancelException'
         }
         foreach ($integerAttributes as $attribute) {
             if ($this->storeId !== $attribute->getStore()) {
@@ -110,7 +114,7 @@ class CategoryModifier implements ModifierInterface
             /** @var CatalogCategoryEntityInt $attribute */
             switch ($attribute->getAttributeId()) {
                 case AttributeTypes::CATEGORY_IS_ACTIVE:
-                    $document->active = ((bool)$attribute->getValue()) ? 'true' : 'false';
+                    $document->setActive((bool)$attribute->getValue());
                     break;
                 default:
                     // Do nothing.
