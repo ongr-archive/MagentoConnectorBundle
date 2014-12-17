@@ -4,8 +4,8 @@ namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use Doctrine\ORM\EntityNotFoundException;
 use Exception;
-use ONGR\ConnectionsBundle\Event\AbstractInitialSyncModifyEvent;
-use ONGR\ConnectionsBundle\Event\ImportItem;
+use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Import\Item\AbstractImportItem;
 use ONGR\MagentoConnectorBundle\Documents\ProductDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity;
@@ -16,7 +16,7 @@ use ONGR\MagentoConnectorBundle\Modifier\Helpers\AttributeTypes;
 /**
  * Modifies entities to match ongr product mapping.
  */
-class ProductModifier extends AbstractInitialSyncModifyEvent
+class ProductModifier extends AbstractImportModifyEventListener
 {
     const ENTITY_TYPE_PRODUCT = 4;
 
@@ -36,7 +36,7 @@ class ProductModifier extends AbstractInitialSyncModifyEvent
     /**
      * {@inheritdoc}
      */
-    protected function modify(ImportItem $eventItem)
+    protected function modify(AbstractImportItem $eventItem)
     {
         /** @var ProductDocument $document */
         $document = $eventItem->getDocument();

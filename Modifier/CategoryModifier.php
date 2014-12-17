@@ -2,8 +2,8 @@
 
 namespace ONGR\MagentoConnectorBundle\Modifier;
 
-use ONGR\ConnectionsBundle\Event\AbstractInitialSyncModifyEvent;
-use ONGR\ConnectionsBundle\Event\ImportItem;
+use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Import\Item\AbstractImportItem;
 use ONGR\MagentoConnectorBundle\Documents\CategoryDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
@@ -14,7 +14,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 /**
  * Modifies entities to match ongr category mapping.
  */
-class CategoryModifier extends AbstractInitialSyncModifyEvent
+class CategoryModifier extends AbstractImportModifyEventListener
 {
     /**
      * @var int
@@ -32,7 +32,7 @@ class CategoryModifier extends AbstractInitialSyncModifyEvent
     /**
      * {@inheritdoc}
      */
-    protected function modify(ImportItem $eventItem)
+    protected function modify(AbstractImportItem $eventItem)
     {
         /** @var CategoryDocument $document */
         $document = $eventItem->getDocument();

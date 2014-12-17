@@ -2,7 +2,7 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
-use ONGR\ConnectionsBundle\Event\ImportItem;
+use ONGR\ConnectionsBundle\Import\Item\ImportItem;
 use ONGR\MagentoConnectorBundle\Entity\CmsPage;
 use ONGR\MagentoConnectorBundle\Entity\CmsPageStore;
 use ONGR\MagentoConnectorBundle\Modifier\ContentModifier;

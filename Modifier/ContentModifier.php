@@ -2,8 +2,8 @@
 
 namespace ONGR\MagentoConnectorBundle\Modifier;
 
-use ONGR\ConnectionsBundle\Event\AbstractInitialSyncModifyEvent;
-use ONGR\ConnectionsBundle\Event\ImportItem;
+use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Import\Item\AbstractImportItem;
 use ONGR\MagentoConnectorBundle\Documents\ContentDocument;
 use ONGR\MagentoConnectorBundle\Entity\CmsPage;
 use ONGR\MagentoConnectorBundle\Entity\CmsPageStore;
@@ -11,12 +11,12 @@ use ONGR\MagentoConnectorBundle\Entity\CmsPageStore;
 /**
  * Modifies entities to match ongr content mapping.
  */
-class ContentModifier extends AbstractInitialSyncModifyEvent
+class ContentModifier extends AbstractImportModifyEventListener
 {
     /**
      * {@inheritdoc}
      */
-    protected function modify(ImportItem $eventItem)
+    protected function modify(AbstractImportItem $eventItem)
     {
         /** @var ContentDocument $document */
         $document = $eventItem->getDocument();
