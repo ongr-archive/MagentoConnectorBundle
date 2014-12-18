@@ -23,7 +23,7 @@ abstract class CatalogProductIndexPrice
     /**
      * @var CatalogProductEntity
      *
-     * @ORM\ManyToOne(targetEntity="CatalogProductEntity", inversedBy="price")
+     * @ORM\ManyToOne(targetEntity="CatalogProductEntity", inversedBy="prices")
      * @ORM\JoinColumn(name="entity_id", referencedColumnName="entity_id")
      */
     protected $product;

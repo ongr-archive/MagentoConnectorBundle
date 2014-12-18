@@ -2,7 +2,6 @@
 
 namespace ONGR\MagentoConnectorBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -78,13 +77,11 @@ abstract class CatalogCategoryEntity
     protected $varcharAttributes;
 
     /**
-     * Initialises ArrayCollections.
+     * @var CatalogCategoryProduct[]
+     *
+     * @ORM\OneToMany(targetEntity="CatalogCategoryProduct", mappedBy="category")
      */
-    public function __construct()
-    {
-        $this->integerAttributes = new ArrayCollection();
-        $this->varcharAttributes = new ArrayCollection();
-    }
+    protected $products;
 
     /**
      * @return \DateTime
@@ -135,15 +132,13 @@ abstract class CatalogCategoryEntity
     }
 
     /**
-     * @param CatalogProductEntityInt[] $integerAttributes
+     * @param CatalogCategoryEntityInt[] $integerAttributes
      *
      * @return self
      */
     public function setIntegerAttributes($integerAttributes)
     {
-        foreach ($integerAttributes as $attribute) {
-            $this->addIntegerAttribute($attribute);
-        }
+        $this->integerAttributes = $integerAttributes;
 
         return $this;
     }
@@ -155,7 +150,7 @@ abstract class CatalogCategoryEntity
      */
     public function addIntegerAttribute($attribute)
     {
-        $this->integerAttributes->add($attribute);
+        $this->integerAttributes[] = $attribute;
 
         return $this;
     }
@@ -169,7 +164,7 @@ abstract class CatalogCategoryEntity
      */
     public function removeIntegerAttribute($attribute)
     {
-        $this->integerAttributes->removeElement($attribute);
+        $this->removeElement($attribute, $this->integerAttributes);
 
         return $this;
     }
@@ -249,21 +244,19 @@ abstract class CatalogCategoryEntity
      */
     public function setVarcharAttributes($varcharAttributes)
     {
-        foreach ($varcharAttributes as $attribute) {
-            $this->addVarcharAttribute($attribute);
-        }
+        $this->varcharAttributes = $varcharAttributes;
 
         return $this;
     }
 
     /**
-     * @param CatalogProductEntityText $attribute
+     * @param CatalogProductEntityVarchar $attribute
      *
      * @return self
      */
     public function addVarcharAttribute($attribute)
     {
-        $this->varcharAttributes->add($attribute);
+        $this->varcharAttributes[] = $attribute;
 
         return $this;
     }
@@ -271,13 +264,13 @@ abstract class CatalogCategoryEntity
     /**
      * Removes attribute from varcharAttributes ArrayCollection.
      *
-     * @param CatalogProductEntityText $attribute
+     * @param CatalogProductEntityVarchar $attribute
      *
      * @return self
      */
     public function removeVarcharAttribute($attribute)
     {
-        $this->varcharAttributes->removeElement($attribute);
+        $this->removeElement($attribute, $this->varcharAttributes);
 
         return $this;
     }
@@ -320,5 +313,65 @@ abstract class CatalogCategoryEntity
         $this->level = $level;
 
         return $this;
+    }
+
+    /**
+     * @return CatalogCategoryProduct[]
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param CatalogCategoryProduct[] $products
+     *
+     * @return self
+     */
+    public function setProducts($products)
+    {
+        $this->products = $products;
+
+        return $this;
+    }
+
+    /**
+     * @param CatalogCategoryProduct $product
+     *
+     * @return self
+     */
+    public function addProduct($product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Removes product from products ArrayColection.
+     *
+     * @param CatalogCategoryProduct $product
+     *
+     * @return self
+     */
+    public function removeProduct($product)
+    {
+        $this->removeElement($product, $this->products);
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $element
+     * @param array $array
+     * @return bool
+     */
+    private function removeElement($element, &$array)
+    {
+        $key = array_search($element, $array, true);
+
+        if ($key !== false) {
+            unset($array[$key]);
+        }
     }
 }

@@ -14,6 +14,19 @@ use ONGR\MagentoConnectorBundle\Entity\CmsPageStore;
 class ContentModifier extends AbstractImportModifyEventListener
 {
     /**
+     * @var int
+     */
+    protected $storeId;
+
+    /**
+     * @param int $storeId
+     */
+    public function __construct($storeId)
+    {
+        $this->storeId = $storeId;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function modify(AbstractImportItem $eventItem)
@@ -29,23 +42,7 @@ class ContentModifier extends AbstractImportModifyEventListener
         $document->setId($page->getId());
         $document->setSlug($page->getSlug());
         $document->setTitle($page->getTitle());
-        $document->setContent($this->joinContent($page));
-        //$document->addUrlString();
-    }
-
-    /**
-     * Joins heading with content, if heading is present.
-     *
-     * @param CmsPage $entity
-     *
-     * @return string
-     */
-    public function joinContent($entity)
-    {
-        if ($entity->getHeading()) {
-            return '<h1>' . $entity->getHeading() . '</h1>' . $entity->getContent();
-        } else {
-            return $entity->getContent();
-        }
+        $document->setContent($page->getContent());
+        $document->setHeading($page->getHeading());
     }
 }

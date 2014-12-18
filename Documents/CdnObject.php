@@ -25,14 +25,14 @@ class CdnObject
      *
      * @ES\Property(name="cdn_url", type="string")
      */
-    private $cdn_url;
+    private $cdnUrl;
 
     /**
      * @return string
      */
     public function getCdnUrl()
     {
-        return $this->cdn_url;
+        return $this->cdnUrl;
     }
 
     /**
@@ -40,6 +40,6 @@ class CdnObject
      */
     public function setCdnUrl($cdn_url)
     {
-        $this->cdn_url = $cdn_url;
+        $this->cdnUrl = $cdn_url;
     }
 }

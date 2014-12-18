@@ -29,7 +29,7 @@ abstract class CmsPageStore
     /**
      * @var CmsPage
      *
-     * @ORM\OneToOne(targetEntity="CmsPage", inversedBy="store")
+     * @ORM\ManyToOne(targetEntity="CmsPage", inversedBy="stores")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="page_id")
      */
     protected $page;

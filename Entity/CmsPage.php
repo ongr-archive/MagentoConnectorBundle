@@ -63,7 +63,7 @@ abstract class CmsPage
     protected $heading;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="is_active", type="integer")
      */
@@ -84,19 +84,18 @@ abstract class CmsPage
     protected $metaKeywords;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="sort_order", type="integer")
      */
     protected $sortOrder;
 
     /**
-     * @var CmsPageStore
+     * @var CmsPageStore[]
      *
-     * @ORM\OneToOne(targetEntity="CmsPageStore")
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="page_id")
+     * @ORM\OneToMany(targetEntity="CmsPageStore", mappedBy="page")
      */
-    protected $store;
+    protected $stores;
 
     /**
      * @return string
@@ -199,11 +198,23 @@ abstract class CmsPage
     }
 
     /**
-     * @return CmsPageStore
+     * @return CmsPageStore[]
      */
-    public function getStore()
+    public function getStores()
     {
-        return $this->store;
+        return $this->stores;
+    }
+
+    /**
+     * @param CmsPageStore[] $stores
+     *
+     * @return self
+     */
+    public function setStores($stores)
+    {
+        $this->stores = $stores;
+
+        return $this;
     }
 
     /**
@@ -211,9 +222,23 @@ abstract class CmsPage
      *
      * @return self
      */
-    public function setStore($store)
+    public function addStore($store)
     {
-        $this->store = $store;
+        $this->stores[] = $store;
+
+        return $this;
+    }
+
+    /**
+     * Removes store from stores ArrayColection.
+     *
+     * @param CmsPageStore $store
+     *
+     * @return self
+     */
+    public function removeStore($store)
+    {
+        $this->removeElement($store, $this->stores);
 
         return $this;
     }
@@ -320,5 +345,19 @@ abstract class CmsPage
     public function setSortOrder($sortOrder)
     {
         $this->sortOrder = $sortOrder;
+    }
+
+    /**
+     * @param mixed $element
+     * @param array $array
+     * @return bool
+     */
+    private function removeElement($element, &$array)
+    {
+        $key = array_search($element, $array, true);
+
+        if ($key !== false) {
+            unset($array[$key]);
+        }
     }
 }

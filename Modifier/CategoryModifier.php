@@ -8,14 +8,16 @@ use ONGR\MagentoConnectorBundle\Documents\CategoryDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
-use ONGR\MagentoConnectorBundle\Modifier\Helpers\AttributeTypes;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Modifies entities to match ongr category mapping.
  */
 class CategoryModifier extends AbstractImportModifyEventListener
 {
+    const CATEGORY_TITLE = 41;
+    const CATEGORY_IS_ACTIVE = 42;
+    const CATEGORY_LINKS_TITLE = 57;
+
     /**
      * @var int
      */
@@ -47,7 +49,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
             // Root categories.
             $document->setParentId('oxrootid');
         } elseif ($entity->getLevel() < 2) {
-            throw new Exception; // todo: before was 'DocumentSyncCancelException'
+            throw new \Exception('Wrong category level. Got level=' . $entity->getLevel());
         }
 
         // Trim first two categories (RootCatalog and DefaultCatalog) from path.
@@ -67,25 +69,21 @@ class CategoryModifier extends AbstractImportModifyEventListener
     /**
      * @param CatalogCategoryEntity $entity
      * @param CategoryDocument      $document
-     *
-     * @throws Exception
      */
     public function addVarcharAttributes($entity, CategoryDocument $document)
     {
         $varcharAttributes = $entity->getVarcharAttributes();
-        if (count($varcharAttributes) === 0) {
-            throw new Exception; // todo: before was 'DocumentSyncCancelException'
-        }
+
         foreach ($varcharAttributes as $attribute) {
             if ($this->storeId !== $attribute->getStore()) {
                 continue;
             }
             /** @var CatalogCategoryEntityVarchar $attribute */
             switch ($attribute->getAttributeId()) {
-                case AttributeTypes::CATEGORY_TITLE:
+                case self::CATEGORY_TITLE:
                     $document->setTitle($attribute->getValue());
                     break;
-                case AttributeTypes::CATEGORY_LINKS_TITLE:
+                case self::CATEGORY_LINKS_TITLE:
                     $document->addUrlString($attribute->getValue());
                     break;
                 default:
@@ -98,22 +96,18 @@ class CategoryModifier extends AbstractImportModifyEventListener
     /**
      * @param CatalogCategoryEntity $entity
      * @param CategoryDocument      $document
-     *
-     * @throws Exception
      */
     public function addIntegerAttributes($entity, CategoryDocument $document)
     {
         $integerAttributes = $entity->getIntegerAttributes();
-        if (count($integerAttributes) === 0) {
-            throw new Exception; // todo: before was 'DocumentSyncCancelException'
-        }
+
         foreach ($integerAttributes as $attribute) {
             if ($this->storeId !== $attribute->getStore()) {
                 continue;
             }
             /** @var CatalogCategoryEntityInt $attribute */
             switch ($attribute->getAttributeId()) {
-                case AttributeTypes::CATEGORY_IS_ACTIVE:
+                case self::CATEGORY_IS_ACTIVE:
                     $document->setActive((bool)$attribute->getValue());
                     break;
                 default:

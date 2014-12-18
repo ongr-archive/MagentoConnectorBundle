@@ -31,6 +31,12 @@ class CatalogCategoryEntityTest extends AbstractEntityTest
                 'addVarcharAttribute',
                 'removeVarcharAttribute',
             ],
+            [
+                'products',
+                'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity',
+                'addProduct',
+                'removeProduct',
+            ],
         ];
     }
 

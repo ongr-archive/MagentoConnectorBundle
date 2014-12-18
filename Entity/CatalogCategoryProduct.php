@@ -23,7 +23,7 @@ class CatalogCategoryProduct
     /**
      * @var CatalogProductEntity
      *
-     * @ORM\OneToOne(targetEntity="CatalogProductEntity", inversedBy="category")
+     * @ORM\ManyToOne(targetEntity="CatalogProductEntity", inversedBy="categories")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="entity_id")
      */
     protected $product;
@@ -31,7 +31,7 @@ class CatalogCategoryProduct
     /**
      * @var CatalogCategoryEntity
      *
-     * @ORM\OneToOne(targetEntity="CatalogCategoryEntity")
+     * @ORM\ManyToOne(targetEntity="CatalogCategoryEntity", inversedBy="products")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="entity_id")
      */
     protected $category;

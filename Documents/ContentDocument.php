@@ -52,6 +52,13 @@ class ContentDocument implements DocumentInterface
     private $expiredUrl = [];
 
     /**
+     * @var string
+     *
+     * @ES\Property(type="string", name="heading")
+     */
+    private $heading;
+
+    /**
      * @return \string[]
      */
     public function getExpiredUrl()
@@ -107,5 +114,21 @@ class ContentDocument implements DocumentInterface
         $urlObject = new UrlObject();
         $urlObject->setUrl($urlString);
         $this->url[] = $urlObject;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeading()
+    {
+        return $this->heading;
+    }
+
+    /**
+     * @param string $heading
+     */
+    public function setHeading($heading)
+    {
+        $this->heading = $heading;
     }
 }

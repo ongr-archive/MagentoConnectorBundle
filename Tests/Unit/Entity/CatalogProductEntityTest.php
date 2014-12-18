@@ -15,7 +15,12 @@ class CatalogProductEntityTest extends AbstractEntityTest
             ['id'],
             ['createdAt'],
             ['updatedAt'],
-            ['price'],
+            [
+                'prices',
+                'ONGR\MagentoConnectorBundle\Entity\CatalogProductIndexPrice',
+                'addPrice',
+                'removePrice',
+            ],
             [
                 'integerAttributes',
                 'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt',
@@ -35,7 +40,12 @@ class CatalogProductEntityTest extends AbstractEntityTest
                 'addVarcharAttribute',
                 'removeVarcharAttribute',
             ],
-            ['category'],
+            [
+                'categories',
+                'ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity',
+                'addCategory',
+                'removeCategory',
+            ],
             ['attributeSetId'],
         ];
     }

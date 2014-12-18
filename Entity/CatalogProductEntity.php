@@ -2,7 +2,6 @@
 
 namespace ONGR\MagentoConnectorBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,12 +49,11 @@ abstract class CatalogProductEntity
     protected $sku;
 
     /**
-     * @var CatalogProductIndexPrice
+     * @var CatalogProductIndexPrice[]
      *
-     * @ORM\OneToOne(targetEntity="CatalogProductIndexPrice")
-     * @ORM\JoinColumn(name="entity_id", referencedColumnName="entity_id")
+     * @ORM\OneToMany(targetEntity="CatalogProductIndexPrice", mappedBy="product")
      */
-    protected $price;
+    protected $prices;
 
     /**
      * @var CatalogProductEntityInt[]
@@ -79,29 +77,30 @@ abstract class CatalogProductEntity
     protected $varcharAttributes;
 
     /**
-     * @var CatalogCategoryProduct
+     * @var CatalogCategoryProduct[]
      *
-     * @ORM\OneToOne(targetEntity="CatalogCategoryProduct", inversedBy="product")
-     * @ORM\JoinColumn(name="entity_id", referencedColumnName="product_id")
+     * @ORM\OneToMany(targetEntity="CatalogCategoryProduct", mappedBy="product")
      */
-    protected $category;
+    protected $categories;
 
     /**
-     * Initialises ArrayCollections.
+     * @return CatalogCategoryProduct[]
      */
-    public function __construct()
+    public function getCategories()
     {
-        $this->integerAttributes = new ArrayCollection();
-        $this->textAttributes = new ArrayCollection();
-        $this->varcharAttributes = new ArrayCollection();
+        return $this->categories;
     }
 
     /**
-     * @return CatalogCategoryProduct
+     * @param CatalogCategoryProduct[] $categories
+     *
+     * @return self
      */
-    public function getCategory()
+    public function setCategories($categories)
     {
-        return $this->category;
+        $this->categories = $categories;
+
+        return $this;
     }
 
     /**
@@ -109,9 +108,23 @@ abstract class CatalogProductEntity
      *
      * @return self
      */
-    public function setCategory($category)
+    public function addCategory($category)
     {
-        $this->category = $category;
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Removes category from categories ArrayColection.
+     *
+     * @param CatalogCategoryProduct $category
+     *
+     * @return self
+     */
+    public function removeCategory($category)
+    {
+        $this->removeElement($category, $this->categories);
 
         return $this;
     }
@@ -171,9 +184,7 @@ abstract class CatalogProductEntity
      */
     public function setIntegerAttributes($integerAttributes)
     {
-        foreach ($integerAttributes as $attribute) {
-            $this->addIntegerAttribute($attribute);
-        }
+        $this->integerAttributes = $integerAttributes;
 
         return $this;
     }
@@ -185,7 +196,7 @@ abstract class CatalogProductEntity
      */
     public function addIntegerAttribute($attribute)
     {
-        $this->integerAttributes->add($attribute);
+        $this->integerAttributes[] = $attribute;
 
         return $this;
     }
@@ -199,17 +210,29 @@ abstract class CatalogProductEntity
      */
     public function removeIntegerAttribute($attribute)
     {
-        $this->integerAttributes->removeElement($attribute);
+        $this->removeElement($attribute, $this->integerAttributes);
 
         return $this;
     }
 
     /**
-     * @return CatalogProductIndexPrice
+     * @return CatalogProductIndexPrice[]
      */
-    public function getPrice()
+    public function getPrices()
     {
-        return $this->price;
+        return $this->prices;
+    }
+
+    /**
+     * @param CatalogProductIndexPrice[] $prices
+     *
+     * @return self
+     */
+    public function setPrices($prices)
+    {
+        $this->prices = $prices;
+
+        return $this;
     }
 
     /**
@@ -217,9 +240,23 @@ abstract class CatalogProductEntity
      *
      * @return self
      */
-    public function setPrice($price)
+    public function addPrice($price)
     {
-        $this->price = $price;
+        $this->prices[] = $price;
+
+        return $this;
+    }
+
+    /**
+     * Removes price from prices ArrayColection.
+     *
+     * @param CatalogProductIndexPrice $price
+     *
+     * @return self
+     */
+    public function removePrice($price)
+    {
+        $this->removeElement($price, $this->prices);
 
         return $this;
     }
@@ -259,9 +296,7 @@ abstract class CatalogProductEntity
      */
     public function setTextAttributes($textAttributes)
     {
-        foreach ($textAttributes as $attribute) {
-            $this->addTextAttribute($attribute);
-        }
+        $this->textAttributes = $textAttributes;
 
         return $this;
     }
@@ -273,7 +308,7 @@ abstract class CatalogProductEntity
      */
     public function addTextAttribute($attribute)
     {
-        $this->textAttributes->add($attribute);
+        $this->textAttributes[] = $attribute;
 
         return $this;
     }
@@ -287,7 +322,7 @@ abstract class CatalogProductEntity
      */
     public function removeTextAttribute($attribute)
     {
-        $this->textAttributes->removeElement($attribute);
+        $this->removeElement($attribute, $this->textAttributes);
 
         return $this;
     }
@@ -327,21 +362,19 @@ abstract class CatalogProductEntity
      */
     public function setVarcharAttributes($varcharAttributes)
     {
-        foreach ($varcharAttributes as $attribute) {
-            $this->addVarcharAttribute($attribute);
-        }
+        $this->varcharAttributes = $varcharAttributes;
 
         return $this;
     }
 
     /**
-     * @param CatalogProductEntityText $attribute
+     * @param CatalogProductEntityVarchar $attribute
      *
      * @return self
      */
     public function addVarcharAttribute($attribute)
     {
-        $this->varcharAttributes->add($attribute);
+        $this->varcharAttributes[] = $attribute;
 
         return $this;
     }
@@ -349,13 +382,13 @@ abstract class CatalogProductEntity
     /**
      * Removes attribute from varcharAttributes ArrayCollection.
      *
-     * @param CatalogProductEntityText $attribute
+     * @param CatalogProductEntityVarchar $attribute
      *
      * @return self
      */
     public function removeVarcharAttribute($attribute)
     {
-        $this->varcharAttributes->removeElement($attribute);
+        $this->removeElement($attribute, $this->varcharAttributes);
 
         return $this;
     }
@@ -378,5 +411,19 @@ abstract class CatalogProductEntity
         $this->attributeSetId = $attributeSetId;
 
         return $this;
+    }
+
+    /**
+     * @param mixed $element
+     * @param array $array
+     * @return bool
+     */
+    private function removeElement($element, &$array)
+    {
+        $key = array_search($element, $array, true);
+
+        if ($key !== false) {
+            unset($array[$key]);
+        }
     }
 }

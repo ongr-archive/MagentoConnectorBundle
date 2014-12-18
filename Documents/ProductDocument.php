@@ -54,14 +54,21 @@ class ProductDocument implements DocumentInterface
     /**
      * @var ImagesNested[]|\Iterator
      *
-     * @ES\Property(type="nested", objectName="MagentoConnectorBundle:ImagesNested", multiple=true, name="images")
+     * @ES\Property(name="images", type="nested", objectName="MagentoConnectorBundle:ImagesNested", multiple=true)
      */
     private $images;
 
     /**
+     * @var ImagesNested[]|\Iterator
+     *
+     * @ES\Property(name="small_images", type="nested", objectName="MagentoConnectorBundle:ImagesNested", multiple=true)
+     */
+    private $smallImages;
+
+    /**
      * @var CategoryObject[]|\Iterator
      *
-     * @ES\Property(type="object", objectName="MagentoConnectorBundle:CategoryObject", multiple=true, name="categories")
+     * @ES\Property(name="categories", type="object", objectName="MagentoConnectorBundle:CategoryObject", multiple=true)
      */
     private $categories;
 
@@ -139,15 +146,11 @@ class ProductDocument implements DocumentInterface
         $this->categories = $categories;
     }
 
-    public function addCategoryObject($categoryObject)
+    /**
+     * @param CategoryObject $categoryObject
+     */
+    public function addCategory($categoryObject)
     {
-        $this->categories[] = $categoryObject;
-    }
-
-    public function addCategory($category)
-    {
-        $categoryObject = new CategoryObject();
-        $categoryObject;
         $this->categories[] = $categoryObject;
     }
 
@@ -170,7 +173,7 @@ class ProductDocument implements DocumentInterface
     /**
      * @param ImagesNested $imageObject
      */
-    public function addImageObject($imageObject)
+    public function addImage($imageObject)
     {
         $this->images[] = $imageObject;
     }
@@ -183,5 +186,31 @@ class ProductDocument implements DocumentInterface
         $imageObject = new ImagesNested();
         $imageObject->setUrl($imageUrl);
         $this->images[] = $imageObject;
+    }
+
+    /**
+     * @return \Iterator|ImagesNested[]
+     */
+    public function getSmallImages()
+    {
+        return $this->smallImages;
+    }
+
+    /**
+     * @param \Iterator|ImagesNested[] $smallImages
+     */
+    public function setSmallImages($smallImages)
+    {
+        $this->smallImages = $smallImages;
+    }
+
+    /**
+     * @param string $imageUrl
+     */
+    public function addSmallImageUrl($imageUrl)
+    {
+        $imageObject = new ImagesNested();
+        $imageObject->setUrl($imageUrl);
+        $this->smallImages[] = $imageObject;
     }
 }

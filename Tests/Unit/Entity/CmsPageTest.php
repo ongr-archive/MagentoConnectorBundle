@@ -19,7 +19,12 @@ class CmsPageTest extends AbstractEntityTest
             ['slug'],
             ['content'],
             ['heading'],
-            ['store'],
+            [
+                'stores',
+                'ONGR\MagentoConnectorBundle\Entity\CmsPage',
+                'addStore',
+                'removeStore',
+            ],
             ['isActive'],
             ['metaDescription'],
             ['metaKeywords'],

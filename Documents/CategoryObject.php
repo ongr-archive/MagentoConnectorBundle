@@ -20,4 +20,118 @@ use ONGR\ElasticsearchBundle\Annotation as ES;
  */
 class CategoryObject
 {
+    /**
+     * @var string
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $title;
+
+    /**
+     * @var UrlObject
+     */
+    private $url;
+
+    /**
+     * @var string
+     */
+    private $path;
+
+    /**
+     * @var string[]
+     */
+    private $categories;
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return UrlObject
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param UrlObject $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrlString($url)
+    {
+        $urlObject = new UrlObject();
+        $urlObject->setUrl($url);
+        $this->url = $urlObject;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param string[] $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
 }

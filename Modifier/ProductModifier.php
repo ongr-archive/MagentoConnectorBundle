@@ -2,22 +2,26 @@
 
 namespace ONGR\MagentoConnectorBundle\Modifier;
 
-use Doctrine\ORM\EntityNotFoundException;
-use Exception;
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
 use ONGR\ConnectionsBundle\Import\Item\AbstractImportItem;
+use ONGR\MagentoConnectorBundle\Documents\CategoryObject;
 use ONGR\MagentoConnectorBundle\Documents\ProductDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar;
-use ONGR\MagentoConnectorBundle\Modifier\Helpers\AttributeTypes;
 
 /**
  * Modifies entities to match ongr product mapping.
  */
 class ProductModifier extends AbstractImportModifyEventListener
 {
+    const PRODUCT_DESCRIPTION = 72;
+    const PRODUCT_SHORT_DESCRIPTION = 73;
+    const PRODUCT_META_TITLE = 71;
+    const PRODUCT_IMAGE = 85;
+    const PRODUCT_SMALL_IMAGE = 86;
+    const PRODUCT_LINKS_TITLE = 98;
     const ENTITY_TYPE_PRODUCT = 4;
 
     /**
@@ -51,28 +55,21 @@ class ProductModifier extends AbstractImportModifyEventListener
         $this->addPrice($entity, $document);
         $this->addTextAttributes($entity, $document);
         $this->addVarcharAttributes($entity, $document);
-        $this->addCategory($entity, $document);
+        $this->addCategories($entity, $document);
     }
 
     /**
-     * Adds price field to document.
+     * Adds prices to document.
      *
      * @param CatalogProductEntity $entity
      * @param ProductDocument      $document
-     *
-     * @throws Exception
      */
     public function addPrice($entity, ProductDocument $document)
     {
-        try {
-            $document->setPrice($entity->getPrice()->getPrice());
-        } catch (EntityNotFoundException $exception) {
-            // Do nothing, product has no price.
-        }
-
-        if (!($document->getPrice())) {
-            throw new Exception; // todo: before was 'DocumentSyncCancelException'
-        }
+        $prices = $entity->getPrices();
+        // Todo: Temporary hack. Need to process all prices.
+        $price = $prices[0];
+        $document->setPrice($price->getPrice());
     }
 
     /**
@@ -80,25 +77,21 @@ class ProductModifier extends AbstractImportModifyEventListener
      *
      * @param CatalogProductEntity $entity
      * @param ProductDocument      $document
-     *
-     * @throws Exception
      */
     public function addTextAttributes($entity, ProductDocument $document)
     {
         $textAttributes = $entity->getTextAttributes();
-        if (count($textAttributes) === 0) {
-            throw new Exception; // todo: before was 'DocumentSyncCancelException'
-        }
+
         /** @var CatalogProductEntityText $attribute */
         foreach ($textAttributes as $attribute) {
             if ($this->storeId !== $attribute->getStore()) {
                 continue;
             }
             switch ($attribute->getAttributeId()) {
-                case AttributeTypes::PRODUCT_DESCRIPTION:
+                case self::PRODUCT_DESCRIPTION:
                     $document->setLongDescription($attribute->getValue());
                     break;
-                case AttributeTypes::PRODUCT_SHORT_DESCRIPTION:
+                case self::PRODUCT_SHORT_DESCRIPTION:
                     $document->setDescription($attribute->getValue());
                     break;
                 default:
@@ -113,32 +106,28 @@ class ProductModifier extends AbstractImportModifyEventListener
      *
      * @param CatalogProductEntity $entity
      * @param ProductDocument      $document
-     *
-     * @throws Exception
      */
     public function addVarcharAttributes($entity, ProductDocument $document)
     {
         $varcharAttributes = $entity->getVarcharAttributes();
-        if (count($varcharAttributes) === 0) {
-            throw new Exception; // todo: before was 'DocumentSyncCancelException'
-        }
+
         /** @var CatalogProductEntityVarchar $attribute */
         foreach ($varcharAttributes as $attribute) {
             if ($this->storeId !== $attribute->getStore()) {
                 continue;
             }
             switch ($attribute->getAttributeId()) {
-                case AttributeTypes::PRODUCT_META_TITLE:
+                case self::PRODUCT_META_TITLE:
                     $document->setTitle($attribute->getValue());
                     break;
-                case AttributeTypes::PRODUCT_LINKS_TITLE:
+                case self::PRODUCT_LINKS_TITLE:
                     $document->addUrl($attribute->getValue());
                     break;
-                case AttributeTypes::PRODUCT_IMAGE:
+                case self::PRODUCT_IMAGE:
                     $document->addImageUrl($attribute->getValue());
                     break;
-                case AttributeTypes::PRODUCT_SMALL_IMAGE:
-                    $document->thumb = $attribute->getValue(); // todo
+                case self::PRODUCT_SMALL_IMAGE:
+                    $document->addSmallImageUrl($attribute->getValue());
                     break;
                 default:
                     // Do nothing.
@@ -153,36 +142,41 @@ class ProductModifier extends AbstractImportModifyEventListener
      * @param CatalogProductEntity $entity
      * @param ProductDocument      $document
      */
-    public function addCategory($entity, ProductDocument $document)
+    public function addCategories($entity, ProductDocument $document)
     {
-        $category = $entity->getCategory();
-        try {
-            $path = $category->getCategory()->getPath();
+        $categories = $entity->getCategories();
+        $documentCategories = [];
+
+        foreach ($categories as $categoryProduct) {
+            $categoryObject = new CategoryObject();
+            $path = $categoryProduct->getCategory()->getPath();
 
             // Trim first two categories (RootCatalog and DefaultCatalog) from path.
             $path = preg_replace('/^([^\/]*\/){2}/', '', $path);
-            $categories = explode('/', $path);
+            $paths = explode('/', $path);
 
-            $document->category = [$path]; // todo
-            $document->category_id = $categories; // todo
+            $categoryObject->setPath($path);
+            $categoryObject->setCategories($paths);
+            $categoryObject->setId($categoryProduct->getCategory()->getId());
 
-            $document->mainCategory = $category->getCategory()->getId();
-            foreach ($category->getCategory()->getVarcharAttributes() as $attribute) {
+            foreach ($categoryProduct->getCategory()->getVarcharAttributes() as $attribute) {
                 /** @var CatalogCategoryEntityVarchar $attribute */
                 switch ($attribute->getAttributeId()) {
-                    case AttributeTypes::CATEGORY_TITLE:
-                        $document->category_title = [$attribute->getValue()]; // todo
+                    case CategoryModifier::CATEGORY_TITLE:
+                        $categoryObject->setTitle($attribute->getValue());
                         break;
-                    case AttributeTypes::CATEGORY_LINKS_TITLE:
-                        $document->category_url = [$attribute->getValue()]; // todo
+                    case CategoryModifier::CATEGORY_LINKS_TITLE:
+                        $categoryObject->setUrlString($attribute->getValue());
                         break;
                     default:
                         // Do nothing.
                         break;
                 }
             }
-        } catch (EntityNotFoundException $exception) {
-            // Do nothing. // todo
+
+            $documentCategories[] = $categoryObject;
         }
+
+        $document->setCategories($documentCategories);
     }
 }

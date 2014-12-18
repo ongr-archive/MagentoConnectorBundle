@@ -15,6 +15,8 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testModify()
     {
+        $shopId = 1;
+
         /** @var CmsPage $page */
         $page = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CmsPage');
         $page->setId(1);
@@ -31,8 +33,8 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setId(1);
         $expectedDocument->setSlug('slug');
         $expectedDocument->setTitle('title');
-        $expectedDocument->setContent('<h1>head</h1>content');
-        //$expectedDocument->addUrlString('slug/');
+        $expectedDocument->setContent('content');
+        $expectedDocument->setHeading('head');
         $expectedDocument->setExpiredUrl([]);
 
         $document = new ContentDocument();
@@ -43,7 +45,7 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
             'modify'
         );
         $method->setAccessible(true);
-        $method->invoke(new ContentModifier(), $item);
+        $method->invoke(new ContentModifier($shopId), $item);
 
         $this->assertEquals($expectedDocument, $document);
     }
