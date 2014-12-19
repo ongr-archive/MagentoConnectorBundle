@@ -5,6 +5,7 @@ namespace ONGR\MagentoConnectorBundle\Modifier;
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
 use ONGR\ConnectionsBundle\Import\Item\AbstractImportItem;
 use ONGR\MagentoConnectorBundle\Documents\CategoryObject;
+use ONGR\MagentoConnectorBundle\Documents\PriceObject;
 use ONGR\MagentoConnectorBundle\Documents\ProductDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity;
@@ -67,9 +68,12 @@ class ProductModifier extends AbstractImportModifyEventListener
     public function addPrice($entity, ProductDocument $document)
     {
         $prices = $entity->getPrices();
-        // Todo: Temporary hack. Need to process all prices.
-        $price = $prices[0];
-        $document->setPrice($price->getPrice());
+
+        foreach ($prices as $price) {
+            $priceObject = new PriceObject();
+            $priceObject->setPrice($price->getPrice());
+            $document->addPrice($priceObject);
+        }
     }
 
     /**

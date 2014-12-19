@@ -73,6 +73,13 @@ class ProductDocument implements DocumentInterface
     private $categories;
 
     /**
+     * @var PriceObject[]|\Iterator
+     *
+     * @ES\Property(name="prices", type="object", objectName="MagentoConnectorBundle:PriceObject", multiple=true)
+     */
+    private $prices;
+
+    /**
      * @return \string[]
      */
     public function getExpiredUrl()
@@ -212,5 +219,29 @@ class ProductDocument implements DocumentInterface
         $imageObject = new ImagesNested();
         $imageObject->setUrl($imageUrl);
         $this->smallImages[] = $imageObject;
+    }
+
+    /**
+     * @return \Iterator|PriceObject[]
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+
+    /**
+     * @param \Iterator|PriceObject[] $prices
+     */
+    public function setPrices($prices)
+    {
+        $this->prices = $prices;
+    }
+
+    /**
+     * @param PriceObject $price
+     */
+    public function addPrice($price)
+    {
+        $this->prices[] = $price;
     }
 }

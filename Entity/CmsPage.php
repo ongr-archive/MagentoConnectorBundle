@@ -348,9 +348,10 @@ abstract class CmsPage
     }
 
     /**
+     * Removes element from array.
+     *
      * @param mixed $element
      * @param array $array
-     * @return bool
      */
     private function removeElement($element, &$array)
     {

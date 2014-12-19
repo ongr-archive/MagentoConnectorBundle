@@ -4,6 +4,7 @@ namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
 use ONGR\ConnectionsBundle\Import\Item\ImportItem;
 use ONGR\MagentoConnectorBundle\Documents\CategoryObject;
+use ONGR\MagentoConnectorBundle\Documents\PriceObject;
 use ONGR\MagentoConnectorBundle\Documents\UrlObject;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryProduct;
@@ -137,9 +138,12 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $urlObject->setUrl('category link');
         $categoryObject->setUrl($urlObject);
 
+        $priceObject = new PriceObject();
+        $priceObject->setPrice(123.99);
+
         $expectedDocument = new ProductDocument();
         $expectedDocument->setId(123);
-        $expectedDocument->setPrice(123.99);
+        $expectedDocument->addPrice($priceObject);
         $expectedDocument->setSku('foo');
         $expectedDocument->setLongDescription('long description');
         $expectedDocument->setDescription('description');

@@ -14,7 +14,7 @@ namespace ONGR\MagentoConnectorBundle\Documents;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
- * Images nested document for testing.
+ * Images nested document.
  *
  * @ES\Nested
  */
