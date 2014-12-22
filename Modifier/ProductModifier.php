@@ -48,6 +48,17 @@ class ProductModifier extends AbstractImportModifyEventListener
         /** @var CatalogProductEntity $entity */
         $entity = $eventItem->getEntity();
 
+        $this->transform($document, $entity);
+    }
+
+    /**
+     * Assigns data to given document.
+     *
+     * @param ProductDocument      $document
+     * @param CatalogProductEntity $entity
+     */
+    protected function transform(ProductDocument $document, CatalogProductEntity $entity)
+    {
         $document->setId($entity->getId());
         $document->setUrl([]);
         $document->setExpiredUrl([]);

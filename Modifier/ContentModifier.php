@@ -36,6 +36,17 @@ class ContentModifier extends AbstractImportModifyEventListener
         /** @var CmsPageStore $entity */
         $entity = $eventItem->getEntity();
 
+        $this->transform($document, $entity);
+    }
+
+    /**
+     * Assigns data to given document.
+     *
+     * @param ContentDocument $document
+     * @param CmsPageStore    $entity
+     */
+    protected function transform(ContentDocument $document, CmsPageStore $entity)
+    {
         /** @var CmsPage $page */
         $page = $entity->getPage();
 

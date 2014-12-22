@@ -41,6 +41,19 @@ class CategoryModifier extends AbstractImportModifyEventListener
         /** @var CatalogCategoryEntity $entity */
         $entity = $eventItem->getEntity();
 
+        $this->transform($document, $entity);
+    }
+
+    /**
+     * Assigns data to given document.
+     *
+     * @param CategoryDocument      $document
+     * @param CatalogCategoryEntity $entity
+     *
+     * @throws \Exception
+     */
+    protected function transform(CategoryDocument $document, CatalogCategoryEntity $entity)
+    {
         $document->setId($entity->getId());
         $document->setParentId($entity->getParentId());
         $document->setExpiredUrl([]);
