@@ -3,7 +3,7 @@
 namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
-use ONGR\ConnectionsBundle\Import\Item\AbstractImportItem;
+use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
 use ONGR\MagentoConnectorBundle\Documents\CategoryObject;
 use ONGR\MagentoConnectorBundle\Documents\PriceObject;
 use ONGR\MagentoConnectorBundle\Documents\ProductDocument;

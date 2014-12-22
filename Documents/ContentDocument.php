@@ -17,7 +17,7 @@ use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 
 /**
- * Content document.
+ * ElasticSearch Content document.
  *
  * @ES\Document
  */
@@ -54,7 +54,7 @@ class ContentDocument implements DocumentInterface
     /**
      * @var string
      *
-     * @ES\Property(type="string", name="heading")
+     * @ES\Property(name="heading", type="string")
      */
     private $heading;
 

@@ -17,7 +17,7 @@ use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 
 /**
- * Category document.
+ * ElasticSearch Category document.
  *
  * @ES\Document
  */
@@ -101,7 +101,7 @@ class CategoryDocument implements DocumentInterface
     /**
      * @param UrlObject $urlObject
      */
-    public function addUrlObject($urlObject)
+    public function addUrl($urlObject)
     {
         $this->url[] = $urlObject;
     }

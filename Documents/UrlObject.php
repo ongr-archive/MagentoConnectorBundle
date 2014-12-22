@@ -14,7 +14,7 @@ namespace ONGR\MagentoConnectorBundle\Documents;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
- * UrlObject document.
+ * ElasticSearch Url object.
  *
  * @ES\Object
  */

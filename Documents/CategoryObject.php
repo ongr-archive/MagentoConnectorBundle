@@ -14,7 +14,7 @@ namespace ONGR\MagentoConnectorBundle\Documents;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
- * CategoryObject document.
+ * ElasticSearch Category object.
  *
  * @ES\Object
  */
@@ -22,26 +22,36 @@ class CategoryObject
 {
     /**
      * @var string
+     *
+     * @ES\Property(name="id", type="string")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ES\Property(name="title", type="string")
      */
     private $title;
 
     /**
      * @var UrlObject
+     *
+     * @ES\Property(name="url", type="object", objectName="MagentoConnectorBundle:UrlObject")
      */
     private $url;
 
     /**
      * @var string
+     *
+     * @ES\Property(name="path", type="string")
      */
     private $path;
 
     /**
      * @var string[]
+     *
+     * @ES\Property(name="categories", type="string")
      */
     private $categories;
 

@@ -17,7 +17,7 @@ use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 
 /**
- * Product document.
+ * ElasticSearch Product document.
  *
  * @ES\Document
  */
@@ -52,16 +52,16 @@ class ProductDocument implements DocumentInterface
     private $expiredUrl;
 
     /**
-     * @var ImagesNested[]|\Iterator
+     * @var ImageObject[]|\Iterator
      *
-     * @ES\Property(name="images", type="nested", objectName="MagentoConnectorBundle:ImagesNested", multiple=true)
+     * @ES\Property(name="images", type="object", objectName="MagentoConnectorBundle:ImageObject", multiple=true)
      */
     private $images;
 
     /**
-     * @var ImagesNested[]|\Iterator
+     * @var ImageObject[]|\Iterator
      *
-     * @ES\Property(name="small_images", type="nested", objectName="MagentoConnectorBundle:ImagesNested", multiple=true)
+     * @ES\Property(name="small_images", type="object", objectName="MagentoConnectorBundle:ImageObject", multiple=true)
      */
     private $smallImages;
 
@@ -162,7 +162,7 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
-     * @return \Iterator|ImagesNested[]
+     * @return \Iterator|ImageObject[]
      */
     public function getImages()
     {
@@ -170,7 +170,7 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
-     * @param \Iterator|ImagesNested[] $images
+     * @param \Iterator|ImageObject[] $images
      */
     public function setImages($images)
     {
@@ -178,7 +178,7 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
-     * @param ImagesNested $imageObject
+     * @param ImageObject $imageObject
      */
     public function addImage($imageObject)
     {
@@ -190,13 +190,13 @@ class ProductDocument implements DocumentInterface
      */
     public function addImageUrl($imageUrl)
     {
-        $imageObject = new ImagesNested();
+        $imageObject = new ImageObject();
         $imageObject->setUrl($imageUrl);
         $this->images[] = $imageObject;
     }
 
     /**
-     * @return \Iterator|ImagesNested[]
+     * @return \Iterator|ImageObject[]
      */
     public function getSmallImages()
     {
@@ -204,7 +204,7 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
-     * @param \Iterator|ImagesNested[] $smallImages
+     * @param \Iterator|ImageObject[] $smallImages
      */
     public function setSmallImages($smallImages)
     {
@@ -216,7 +216,7 @@ class ProductDocument implements DocumentInterface
      */
     public function addSmallImageUrl($imageUrl)
     {
-        $imageObject = new ImagesNested();
+        $imageObject = new ImageObject();
         $imageObject->setUrl($imageUrl);
         $this->smallImages[] = $imageObject;
     }

@@ -2,7 +2,7 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
-use ONGR\ConnectionsBundle\Import\Item\ImportItem;
+use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\MagentoConnectorBundle\Documents\CategoryObject;
 use ONGR\MagentoConnectorBundle\Documents\PriceObject;
 use ONGR\MagentoConnectorBundle\Documents\UrlObject;

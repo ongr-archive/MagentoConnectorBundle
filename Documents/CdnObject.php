@@ -14,7 +14,7 @@ namespace ONGR\MagentoConnectorBundle\Documents;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
- * CdnObject document for testing.
+ * ElasticSearch Cdn object.
  *
  * @ES\Object
  */

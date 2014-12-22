@@ -14,7 +14,7 @@ namespace ONGR\MagentoConnectorBundle\Documents;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
- * PriceObject document.
+ * ElasticSearch Price object.
  *
  * @ES\Object
  */
@@ -22,6 +22,8 @@ class PriceObject
 {
     /**
      * @var float
+     *
+     * @ES\Property(name="price", type="float")
      */
     private $price;
 

@@ -14,11 +14,11 @@ namespace ONGR\MagentoConnectorBundle\Documents;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
- * Images nested document.
+ * ElasticSearch Image object.
  *
- * @ES\Nested
+ * @ES\Object
  */
-class ImagesNested
+class ImageObject
 {
     /**
      * @var string
