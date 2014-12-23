@@ -51,7 +51,7 @@ class CategoryObject
     /**
      * @var string[]
      *
-     * @ES\Property(name="categories", type="string")
+     * @ES\Property(name="categories", type="string", multiple=true)
      */
     private $categories;
 

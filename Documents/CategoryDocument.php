@@ -47,7 +47,7 @@ class CategoryDocument implements DocumentInterface
     /**
      * @var string[] Array of expired url hashes.
      *
-     * @ES\Property(name="expired_url", type="string")
+     * @ES\Property(name="expired_url", type="string", multiple=true)
      */
     private $expiredUrl = [];
 
