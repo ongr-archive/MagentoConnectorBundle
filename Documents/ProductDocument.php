@@ -19,7 +19,7 @@ use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 /**
  * ElasticSearch Product document.
  *
- * @ES\Document
+ * @ES\Document(type="product")
  */
 class ProductDocument implements DocumentInterface
 {

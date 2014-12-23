@@ -19,7 +19,7 @@ use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 /**
  * ElasticSearch Content document.
  *
- * @ES\Document
+ * @ES\Document(type="content")
  */
 class ContentDocument implements DocumentInterface
 {
