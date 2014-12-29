@@ -26,6 +26,8 @@ class CategoryDocument implements DocumentInterface
     use DocumentTrait;
     use CategoryTrait;
 
+    const ROOT_ID = 'magentorootid';
+
     /**
      * Structure that represents possible URLs for the model.
      *

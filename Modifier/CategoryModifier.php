@@ -69,7 +69,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
 
         if ($entity->getLevel() == 2) {
             // Root categories.
-            $document->setParentId('oxrootid');
+            $document->setParentId(CategoryDocument::ROOT_ID);
         } elseif ($entity->getLevel() < 2) {
             throw new \Exception('Wrong category level. Got level=' . $entity->getLevel());
         }

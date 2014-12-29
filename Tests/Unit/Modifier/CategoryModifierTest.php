@@ -110,7 +110,7 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
             ->setPath('1/2')
             ->setLevel(2);
         $expectedDocument->setPath('');
-        $expectedDocument->setParentId('oxrootid');
+        $expectedDocument->setParentId(CategoryDocument::ROOT_ID);
         $item = new ImportItem($entity, $document);
         $method->invoke($modifier, $item);
         $this->assertEquals($expectedDocument, $document);
