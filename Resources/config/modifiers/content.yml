@@ -1,0 +1,8 @@
+parameters:
+    ongr_magento.modifier.content.class: ONGR\MagentoConnectorBundle\Modifier\ContentModifier
+
+services:
+    ongr_magento.modifier.content:
+        class: %ongr_magento.modifier.content.class%
+        tags:
+            - { name: 'ongr_connections.doctrine.modifier', type: 'content' }

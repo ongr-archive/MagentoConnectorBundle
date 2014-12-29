@@ -1,0 +1,8 @@
+/.idea
+/vendor
+/Tests/app/cache
+/Tests/app/logs
+/Tests/app/build
+/Tests/app/data
+/composer.lock
+/phpunit.xml

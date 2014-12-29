@@ -1,0 +1,10 @@
+parameters:
+    ongr_magento.modifier.category.class: ONGR\MagentoConnectorBundle\Modifier\CategoryModifier
+
+services:
+    ongr_magento.modifier.category:
+        class: %ongr_magento.modifier.category.class%
+        arguments:
+            - %ongr_magento.shop%
+        tags:
+            - { name: 'ongr_connections.doctrine.modifier', type: 'category' }

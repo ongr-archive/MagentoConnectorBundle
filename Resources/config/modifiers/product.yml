@@ -1,0 +1,10 @@
+parameters:
+    ongr_magento.modifier.product.class: ONGR\MagentoConnectorBundle\Modifier\ProductModifier
+
+services:
+    ongr_magento.modifier.product:
+        class: %ongr_magento.modifier.product.class%
+        arguments:
+            - %ongr_magento.shop%
+        tags:
+            - { name: 'ongr_connections.doctrine.modifier', type: 'product' }

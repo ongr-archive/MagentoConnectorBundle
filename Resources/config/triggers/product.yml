@@ -1,0 +1,25 @@
+parameters:
+    ongr_magento.triggers.products.track_fields:
+        - entity_id
+        - created_at
+        - updated_at
+
+services:
+    # Products triggers
+    ongr_magento.triggers.products_insert:
+        class: %ongr_magento.triggers.simple_trigger.class%
+        arguments: [catalog_product_entity, C, 1, product, NEW.entity_id]
+        tags:
+            - { name: ongr_connections.trigger, trigger: products_insert }
+
+    ongr_magento.triggers.products_update:
+        class: %ongr_magento.triggers.simple_trigger.class%
+        arguments: [catalog_product_entity, U, 1, product, NEW.entity_id, %ongr_magento.triggers.products.track_fields%]
+        tags:
+            - { name: ongr_connections.trigger, trigger: products_update }
+
+    ongr_magento.triggers.products_delete:
+        class: %ongr_magento.triggers.simple_trigger.class%
+        arguments: [catalog_product_entity, D, 1, product, OLD.entity_id]
+        tags:
+            - { name: ongr_connections.trigger, trigger: products_delete }
