@@ -28,6 +28,14 @@ class PriceObject
     private $price;
 
     /**
+     * @param float $price
+     */
+    public function __construct($price)
+    {
+        $this->setPrice($price);
+    }
+
+    /**
      * @return mixed
      */
     public function getPrice()

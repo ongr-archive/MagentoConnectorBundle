@@ -44,7 +44,7 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setTitle('title');
         $expectedDocument->setContent('content');
         $expectedDocument->setHeading('head');
-        $expectedDocument->setExpiredUrl([]);
+        $expectedDocument->setExpiredUrls([]);
 
         $document = new ContentDocument();
         $item = new ImportItem($entity, $document);

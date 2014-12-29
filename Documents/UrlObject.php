@@ -35,26 +35,26 @@ class UrlObject
     private $urlKey;
 
     /**
-     * @var CdnObject
+     * @var string
      *
-     * @ES\Property(name="cdn", type="object", objectName="ONGRTestingBundle:CdnObject")
+     * @ES\Property(name="cdn_url", type="string")
      */
-    private $cdn;
+    private $cdnUrl;
 
     /**
-     * @return CdnObject
+     * @return string
      */
-    public function getCdn()
+    public function getCdnUrl()
     {
-        return $this->cdn;
+        return $this->cdnUrl;
     }
 
     /**
-     * @param CdnObject $cdn
+     * @param string $cdn_url
      */
-    public function setCdn($cdn)
+    public function setCdnUrl($cdn_url)
     {
-        $this->cdn = $cdn;
+        $this->cdnUrl = $cdn_url;
     }
 
     /**

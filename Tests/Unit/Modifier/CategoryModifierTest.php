@@ -92,7 +92,7 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setTitle('title');
         $expectedDocument->setActive(true);
         $expectedDocument->addUrlString('url');
-        $expectedDocument->setExpiredUrl([]);
+        $expectedDocument->setExpiredUrls([]);
 
         $method = new \ReflectionMethod(
             'ONGR\MagentoConnectorBundle\Modifier\CategoryModifier',

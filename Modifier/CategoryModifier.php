@@ -65,7 +65,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
     {
         $document->setId($entity->getId());
         $document->setParentId($entity->getParentId());
-        $document->setExpiredUrl([]);
+        $document->setExpiredUrls([]);
 
         if ($entity->getLevel() == 2) {
             // Root categories.
@@ -82,7 +82,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
         }
 
         $document->setSort($entity->getSort());
-        $document->setUrl([]);
+        $document->setUrls([]);
 
         $this->addVarcharAttributes($entity, $document);
         $this->addIntegerAttributes($entity, $document);
@@ -128,13 +128,8 @@ class CategoryModifier extends AbstractImportModifyEventListener
                 continue;
             }
             /** @var CatalogCategoryEntityInt $attribute */
-            switch ($attribute->getAttributeId()) {
-                case self::CATEGORY_IS_ACTIVE:
-                    $document->setActive((bool)$attribute->getValue());
-                    break;
-                default:
-                    // Do nothing.
-                    break;
+            if ($attribute->getAttributeId() == self::CATEGORY_IS_ACTIVE) {
+                $document->setActive((bool)$attribute->getValue());
             }
         }
     }

@@ -130,6 +130,14 @@ class CategoryObject
     }
 
     /**
+     * @param string $category
+     */
+    public function addCategory($category)
+    {
+        $this->categories[] = $category;
+    }
+
+    /**
      * @return string
      */
     public function getPath()

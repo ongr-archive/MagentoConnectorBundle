@@ -40,16 +40,16 @@ class ContentDocument implements DocumentInterface
      *
      * @var UrlObject[]|\Iterator
      *
-     * @ES\Property(name="url", type="object", objectName="MagentoConnectorBundle:UrlObject", multiple=true)
+     * @ES\Property(name="urls", type="object", objectName="MagentoConnectorBundle:UrlObject", multiple=true)
      */
-    private $url = [];
+    private $urls = [];
 
     /**
-     * @var string[] Array of expired url hashes.
+     * @var string[] Array of expired urls hashes.
      *
-     * @ES\Property(name="expired_url", type="string", multiple=true)
+     * @ES\Property(name="expired_urls", type="string", multiple=true)
      */
-    private $expiredUrl = [];
+    private $expiredUrls = [];
 
     /**
      * @var string
@@ -61,17 +61,17 @@ class ContentDocument implements DocumentInterface
     /**
      * @return \string[]
      */
-    public function getExpiredUrl()
+    public function getExpiredUrls()
     {
-        return $this->expiredUrl;
+        return $this->expiredUrls;
     }
 
     /**
-     * @param \string[] $expiredUrl
+     * @param \string[] $expiredUrls
      */
-    public function setExpiredUrl($expiredUrl)
+    public function setExpiredUrls($expiredUrls)
     {
-        $this->expiredUrl = $expiredUrl;
+        $this->expiredUrls = $expiredUrls;
     }
 
     /**
@@ -79,31 +79,31 @@ class ContentDocument implements DocumentInterface
      */
     public function addExpiredUrl($expiredUrl)
     {
-        $this->expiredUrl[] = $expiredUrl;
+        $this->expiredUrls[] = $expiredUrl;
     }
 
     /**
      * @return \Iterator|UrlObject[]
      */
-    public function getUrl()
+    public function getUrls()
     {
-        return $this->url;
+        return $this->urls;
     }
 
     /**
-     * @param \Iterator|UrlObject[] $url
+     * @param \Iterator|UrlObject[] $urls
      */
-    public function setUrl($url)
+    public function setUrls($urls)
     {
-        $this->url = $url;
+        $this->urls = $urls;
     }
 
     /**
      * @param UrlObject $urlObject
      */
-    public function addUrlObject($urlObject)
+    public function addUrl($urlObject)
     {
-        $this->url[] = $urlObject;
+        $this->urls[] = $urlObject;
     }
 
     /**
@@ -113,7 +113,7 @@ class ContentDocument implements DocumentInterface
     {
         $urlObject = new UrlObject();
         $urlObject->setUrl($urlString);
-        $this->url[] = $urlObject;
+        $this->urls[] = $urlObject;
     }
 
     /**

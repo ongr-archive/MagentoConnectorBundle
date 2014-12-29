@@ -147,8 +147,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $urlObject->setUrl('category link');
         $categoryObject->setUrl($urlObject);
 
-        $priceObject = new PriceObject();
-        $priceObject->setPrice(123.99);
+        $priceObject = new PriceObject(123.99);
 
         $expectedDocument = new ProductDocument();
         $expectedDocument->setId(123);
@@ -161,7 +160,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->addSmallImageUrl('thumb');
         $expectedDocument->addUrl('link');
         $expectedDocument->addCategory($categoryObject);
-        $expectedDocument->setExpiredUrl([]);
+        $expectedDocument->setExpiredUrls([]);
 
         $document = new ProductDocument();
         $item = new ImportItem($entity, $document);

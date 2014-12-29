@@ -69,8 +69,8 @@ class ProductModifier extends AbstractImportModifyEventListener
     protected function transform(ProductDocument $document, CatalogProductEntity $entity)
     {
         $document->setId($entity->getId());
-        $document->setUrl([]);
-        $document->setExpiredUrl([]);
+        $document->setUrls([]);
+        $document->setExpiredUrls([]);
         $document->setSku($entity->getSku());
 
         $this->addPrice($entity, $document);
@@ -90,9 +90,7 @@ class ProductModifier extends AbstractImportModifyEventListener
         $prices = $entity->getPrices();
 
         foreach ($prices as $price) {
-            $priceObject = new PriceObject();
-            $priceObject->setPrice($price->getPrice());
-            $document->addPrice($priceObject);
+            $document->addPrice(new PriceObject($price->getPrice()));
         }
     }
 
