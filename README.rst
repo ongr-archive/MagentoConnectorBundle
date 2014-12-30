@@ -21,8 +21,8 @@ Magento Connector Bundle is responsible for transferring data from Magento insta
 .. image:: https://scrutinizer-ci.com/g/ongr-io/MagentoConnectorBundle/badges/coverage.png?b=master
     :target: https://scrutinizer-ci.com/g/ongr-io/MagentoConnectorBundle/?branch=master
 
-.. image:: https://insight.sensiolabs.com/projects/c2fb500d-b29a-439c-ad4a-5f3728a4ba57/mini.png
-    :target: https://insight.sensiolabs.com/projects/c2fb500d-b29a-439c-ad4a-5f3728a4ba57
+.. image:: https://insight.sensiolabs.com/projects/7654bb57-88f5-4ab8-a427-ae3a2dc247d7/mini.png
+    :target: https://insight.sensiolabs.com/projects/7654bb57-88f5-4ab8-a427-ae3a2dc247d7
 
 .. image:: https://poser.pugx.org/ongr/magento-connector-bundle/downloads.svg
     :target: https://packagist.org/packages/ongr/magento-connector-bundle
