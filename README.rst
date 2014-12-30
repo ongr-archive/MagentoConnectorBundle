@@ -2,6 +2,11 @@
 Magento Connector Bundle
 ========================
 
+Warning
+~~~~~~~
+
+This bundle is work in progress in **preview stage**. Codebase will change rapidly with BC breaking features.
+
 Introduction
 ~~~~~~~~~~~~
 
