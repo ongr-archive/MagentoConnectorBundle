@@ -359,7 +359,7 @@ abstract class CmsPage
     /**
      * Removes element from array.
      *
-     * @param CmsPageStore $element
+     * @param CmsPageStore   $element
      * @param CmsPageStore[] $array
      */
     private function removeElement($element, &$array)

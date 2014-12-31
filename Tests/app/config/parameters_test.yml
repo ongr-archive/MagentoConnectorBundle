@@ -9,8 +9,7 @@ parameters:
     database.elastic_search.port: 9200
     database.elastic_search.index: ongr-magento-test
     secret: 'superdupersecretkey#pleasedonttellitanyone'
+    database_server_version: "5.6"
 
     # Dummy override for connections bundle to work
     ongr_connections.import.modifier.class: ONGR\MagentoConnectorBundle\Modifier\ProductModifier
-
-    database_server_version: "5.6"
