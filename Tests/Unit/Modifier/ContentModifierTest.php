@@ -13,7 +13,6 @@ namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\MagentoConnectorBundle\Entity\CmsPage;
-use ONGR\MagentoConnectorBundle\Entity\CmsPageStore;
 use ONGR\MagentoConnectorBundle\Modifier\ContentModifier;
 use ONGR\MagentoConnectorBundle\Documents\ContentDocument;
 
@@ -34,10 +33,6 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $page->setSlug('slug');
         $page->setTitle('title');
 
-        /** @var CmsPageStore $entity */
-        $entity = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CmsPageStore');
-        $entity->setPage($page);
-
         $expectedDocument = new ContentDocument();
         $expectedDocument->setId(1);
         $expectedDocument->setSlug('slug');
@@ -47,7 +42,7 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setExpiredUrls([]);
 
         $document = new ContentDocument();
-        $item = new ImportItem($entity, $document);
+        $item = new ImportItem($page, $document);
 
         $method = new \ReflectionMethod(
             'ONGR\MagentoConnectorBundle\Modifier\ContentModifier',

@@ -31,7 +31,7 @@ class ContentModifierTest extends TestBase
 
         $expectedEntity1 = new ContentDocument();
         $expectedEntity1->setId(2);
-        $expectedEntity1->setContent("<div class=\"slideshow-container\">Madison Island content</div>");
+        $expectedEntity1->setContent('<div class="slideshow-container">Madison Island content</div>');
         $expectedEntity1->setTitle('Madison Island');
         $expectedEntity1->setSlug('home');
 

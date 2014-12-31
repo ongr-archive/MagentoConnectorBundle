@@ -156,18 +156,18 @@ abstract class TestBase extends WebTestCase
         $lines = file($filename);
 
         foreach ($lines as $line) {
-            // Skip it if it's a comment
+            // Skip it if it's a comment.
             if (substr($line, 0, 2) == '--' || $line == '') {
                 continue;
             }
 
-            // Add this line to the current segment
+            // Add this line to the current segment.
             $tempLine .= $line;
 
-            // If it has a semicolon at the end, it's the end of the query
+            // If it has a semicolon at the end, it's the end of the query.
             if (substr(trim($line), -1, 1) == ';') {
                 $connection->exec($tempLine);
-                // Reset temp variable to empty
+                // Reset temp variable to empty.
                 $tempLine = '';
             }
         }

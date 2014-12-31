@@ -34,7 +34,7 @@ class CmsPageTest extends AbstractEntityTest
                 'addStore',
                 'removeStore',
             ],
-            ['active'],
+            ['active', 'boolean'],
             ['metaDescription'],
             ['metaKeywords'],
             ['sortOrder'],
