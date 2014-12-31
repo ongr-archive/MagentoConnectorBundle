@@ -80,7 +80,7 @@ class ProductDocument implements DocumentInterface
     private $prices;
 
     /**
-     * @return \string[]
+     * @return string[]
      */
     public function getExpiredUrls()
     {
@@ -88,7 +88,7 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
-     * @param \string[] $expiredUrls
+     * @param string[] $expiredUrls
      */
     public function setExpiredUrls($expiredUrls)
     {

@@ -11,8 +11,10 @@ class AppKernel extends Kernel
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new ONGR\ElasticsearchBundle\ONGRElasticsearchBundle(),
             new ONGR\ConnectionsBundle\ONGRConnectionsBundle(),
             new ONGR\MagentoConnectorBundle\ONGRMagentoConnectorBundle(),
+            new ONGR\RouterBundle\ONGRRouterBundle(),
         ];
     }
 

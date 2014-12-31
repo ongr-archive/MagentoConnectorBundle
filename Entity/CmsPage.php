@@ -76,7 +76,7 @@ abstract class CmsPage
      *
      * @ORM\Column(name="is_active", type="integer")
      */
-    protected $isActive;
+    protected $active;
 
     /**
      * @var string
@@ -295,17 +295,17 @@ abstract class CmsPage
     /**
      * @return int
      */
-    public function getIsActive()
+    public function isActive()
     {
-        return $this->isActive;
+        return $this->active;
     }
 
     /**
-     * @param int $isActive
+     * @param int $active
      */
-    public function setIsActive($isActive)
+    public function setActive($active)
     {
-        $this->isActive = $isActive;
+        $this->active = $active;
     }
 
     /**
@@ -359,8 +359,8 @@ abstract class CmsPage
     /**
      * Removes element from array.
      *
-     * @param mixed $element
-     * @param array $array
+     * @param CmsPageStore $element
+     * @param CmsPageStore[] $array
      */
     private function removeElement($element, &$array)
     {

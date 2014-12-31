@@ -38,8 +38,15 @@ class ONGRMagentoConnectorExtension extends Extension
         $loader->load('modifiers/category.yml');
         $loader->load('modifiers/content.yml');
         $loader->load('modifiers/product.yml');
-        $loader->load('triggers/category.yml');
-        $loader->load('triggers/content.yml');
-        $loader->load('triggers/product.yml');
+    }
+
+    /**
+     * Returns correct dependency injection alias.
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return 'ongr_magento';
     }
 }
