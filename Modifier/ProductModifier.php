@@ -27,7 +27,7 @@ use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar;
 class ProductModifier extends AbstractImportModifyEventListener
 {
     const PRODUCT_DESCRIPTION = 72;
-    const PRODUCT_SHORT_DESCRIPTION = 73;
+    const PRODUCT_LONG_DESCRIPTION = 73;
     const PRODUCT_META_TITLE = 71;
     const PRODUCT_IMAGE = 85;
     const PRODUCT_SMALL_IMAGE = 86;
@@ -111,10 +111,10 @@ class ProductModifier extends AbstractImportModifyEventListener
             }
             switch ($attribute->getAttributeId()) {
                 case self::PRODUCT_DESCRIPTION:
-                    $document->setLongDescription($attribute->getValue());
-                    break;
-                case self::PRODUCT_SHORT_DESCRIPTION:
                     $document->setDescription($attribute->getValue());
+                    break;
+                case self::PRODUCT_LONG_DESCRIPTION:
+                    $document->setLongDescription($attribute->getValue());
                     break;
                 default:
                     // Do nothing.

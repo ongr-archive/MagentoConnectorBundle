@@ -103,7 +103,7 @@ abstract class TestBase extends WebTestCase
         $connection->getSchemaManager()->dropAndCreateDatabase($container->getParameter('database_name'));
         $connection->close();
 
-        self::executeLargeSqlFile(self::getRootDir($container) . '/data/magento.sql');
+        self::executeLargeSqlFile(self::getRootDir($container) . '/fixtures/magento_db.sql');
     }
 
     /**

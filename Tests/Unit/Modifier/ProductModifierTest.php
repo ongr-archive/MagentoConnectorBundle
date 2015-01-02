@@ -41,13 +41,13 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         /** @var CatalogProductEntityText $text */
         $text = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText');
         $text->setAttributeId(ProductModifier::PRODUCT_DESCRIPTION);
-        $text->setValue('long description');
+        $text->setValue('description');
         $text->setStore($shopId);
         $textAttributes = [ $text ];
 
         $text = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText');
-        $text->setAttributeId(ProductModifier::PRODUCT_SHORT_DESCRIPTION);
-        $text->setValue('description');
+        $text->setAttributeId(ProductModifier::PRODUCT_LONG_DESCRIPTION);
+        $text->setValue('long description');
         $text->setStore($shopId);
         $textAttributes[] = $text;
 

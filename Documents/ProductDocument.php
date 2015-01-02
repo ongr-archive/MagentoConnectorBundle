@@ -212,6 +212,14 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
+     * @param ImageObject $smallImage
+     */
+    public function addSmallImage($smallImage)
+    {
+        $this->smallImages[] = $smallImage;
+    }
+
+    /**
      * @param string $imageUrl
      */
     public function addSmallImageUrl($imageUrl)
