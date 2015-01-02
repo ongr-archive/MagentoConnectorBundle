@@ -66,6 +66,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
         $document->setId($entity->getId());
         $document->setParentId($entity->getParentId());
         $document->setExpiredUrls([]);
+        $document->setHidden(false);
 
         if ($entity->getLevel() == 2) {
             // Root categories.

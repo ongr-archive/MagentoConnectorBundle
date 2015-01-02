@@ -72,14 +72,14 @@ abstract class CatalogCategoryEntity
     protected $level;
 
     /**
-     * @var CatalogProductEntityInt[]
+     * @var CatalogCategoryEntityInt[]
      *
      * @ORM\OneToMany(targetEntity="CatalogCategoryEntityInt", mappedBy="category")
      */
     protected $integerAttributes;
 
     /**
-     * @var CatalogProductEntityVarchar[]
+     * @var CatalogCategoryEntityVarchar[]
      *
      * @ORM\OneToMany(targetEntity="CatalogCategoryEntityVarchar", mappedBy="category")
      */
@@ -133,7 +133,7 @@ abstract class CatalogCategoryEntity
     }
 
     /**
-     * @return CatalogProductEntityInt[]
+     * @return CatalogCategoryEntityInt[]
      */
     public function getIntegerAttributes()
     {
@@ -239,7 +239,7 @@ abstract class CatalogCategoryEntity
     }
 
     /**
-     * @return CatalogProductEntityVarchar[]
+     * @return CatalogCategoryEntityVarchar[]
      */
     public function getVarcharAttributes()
     {
@@ -247,7 +247,7 @@ abstract class CatalogCategoryEntity
     }
 
     /**
-     * @param CatalogProductEntityVarchar[] $varcharAttributes
+     * @param CatalogCategoryEntityVarchar[] $varcharAttributes
      *
      * @return self
      */
@@ -259,7 +259,7 @@ abstract class CatalogCategoryEntity
     }
 
     /**
-     * @param CatalogProductEntityVarchar $attribute
+     * @param CatalogCategoryEntityVarchar $attribute
      *
      * @return self
      */
@@ -273,7 +273,7 @@ abstract class CatalogCategoryEntity
     /**
      * Removes attribute from varcharAttributes ArrayCollection.
      *
-     * @param CatalogProductEntityVarchar $attribute
+     * @param CatalogCategoryEntityVarchar $attribute
      *
      * @return self
      */
