@@ -1,0 +1,61 @@
+parameters:
+    ongr_project.sql_relations.simple_trigger.class: ONGR\ConnectionsBundle\Sync\Extractor\Relation\SimpleSqlRelation
+    ongr_project.sql_relations.composed_trigger.class: ONGR\ConnectionsBundle\Sync\Extractor\Relation\ComposedSqlRelation
+    ongr_project.sql_relations.related_table.class: ONGR\ConnectionsBundle\Sync\Extractor\Relation\JoinStatement
+
+services:
+    ongr_project.sql_relations.category.delete:
+        class: %ongr_project.sql_relations.composed_trigger.class%
+        arguments: [catalog_category_entity, D, 1, category, OLD.entity_id]
+        tags:
+            - { name: ongr_connections.sql_relation }
+        calls:
+            - [ addStatement, [ @ongr_project.sql_relations.category.join.products ] ]
+
+    ongr_project.sql_relations.category.update:
+        class: %ongr_project.sql_relations.composed_trigger.class%
+        arguments: [catalog_category_entity, U, 1, category, OLD.entity_id]
+        tags:
+            - { name: ongr_connections.sql_relation }
+        calls:
+            - [ addStatement, [ @ongr_project.sql_relations.category.join.products ] ]
+
+    ongr_project.sql_relations.category.join.products:
+        class: %ongr_project.sql_relations.related_table.class%
+        arguments: [catalog_category_product AS ccp, ccp.product_id, ccp.category_id=NEW.entity_id, product, U, 1]
+
+    ongr_project.sql_relations.product.create:
+        class: %ongr_project.sql_relations.composed_trigger.class%
+        arguments: [catalog_product_entity, C, 1, product, NEW.entity_id]
+        tags:
+            - { name: ongr_connections.sql_relation }
+
+    ongr_project.sql_relations.product.update:
+        class: %ongr_project.sql_relations.composed_trigger.class%
+        arguments: [catalog_product_entity, U, 1, product, OLD.entity_id]
+        tags:
+            - { name: ongr_connections.sql_relation }
+
+    ongr_project.sql_relations.product.delete:
+        class: %ongr_project.sql_relations.composed_trigger.class%
+        arguments: [catalog_product_entity, D, 1, product, OLD.entity_id]
+        tags:
+            - { name: ongr_connections.sql_relation }
+
+    ongr_project.sql_relations.content.delete:
+        class: %ongr_project.sql_relations.composed_trigger.class%
+        arguments: [cms_page, D, 1, content, OLD.page_id]
+        tags:
+            - { name: ongr_connections.sql_relation }
+
+    ongr_project.sql_relations.content.update:
+        class: %ongr_project.sql_relations.composed_trigger.class%
+        arguments: [cms_page, U, 1, content, OLD.page_id]
+        tags:
+            - { name: ongr_connections.sql_relation }
+
+    ongr_project.sql_relations.content.create:
+            class: %ongr_project.sql_relations.composed_trigger.class%
+            arguments: [cms_page, C, 1, content, NEW.page_id]
+            tags:
+                - { name: ongr_connections.sql_relation }
