@@ -11,6 +11,7 @@
 
 namespace ONGR\MagentoConnectorBundle;
 
+use ONGR\MagentoConnectorBundle\DependencyInjection\ONGRMagentoConnectorExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -20,4 +21,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class ONGRMagentoConnectorBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getContainerExtension()
+    {
+        return new ONGRMagentoConnectorExtension();
+    }
 }

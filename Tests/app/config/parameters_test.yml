@@ -2,10 +2,14 @@ parameters:
     database_driver: pdo_mysql
     database_host: localhost
     database_port: null
-    database_name: ongr_magento_test
+    database_name: ongr_magento_test_db
     database_user: root
     database_password: root
     database.elastic_search.host: localhost
     database.elastic_search.port: 9200
     database.elastic_search.index: ongr-magento-test
     secret: 'superdupersecretkey#pleasedonttellitanyone'
+    database_server_version: "5.6"
+
+    # Dummy override for connections bundle to work
+    ongr_connections.import.modifier.class: ONGR\MagentoConnectorBundle\Modifier\ProductModifier

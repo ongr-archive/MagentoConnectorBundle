@@ -4,5 +4,7 @@ parameters:
 services:
     ongr_magento.modifier.content:
         class: %ongr_magento.modifier.content.class%
+        arguments:
+            - %ongr_magento.shop%
         tags:
             - { name: 'ongr_connections.doctrine.modifier', type: 'content' }

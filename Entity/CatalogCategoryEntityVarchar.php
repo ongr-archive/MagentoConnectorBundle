@@ -18,17 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\MappedSuperclass
  */
-class CatalogCategoryEntityVarchar
+abstract class CatalogCategoryEntityVarchar extends AbstractCatalogCategoryEntityAttribute
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="value_id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
     /**
      * @var CatalogCategoryEntity
      *
@@ -38,85 +29,11 @@ class CatalogCategoryEntityVarchar
     protected $category;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="attribute_id", type="integer")
-     */
-    protected $attributeId;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="value", type="string")
      */
     protected $value;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="store_id", type="integer")
-     */
-    protected $store;
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAttributeId()
-    {
-        return $this->attributeId;
-    }
-
-    /**
-     * @param int $attributeId
-     *
-     * @return self
-     */
-    public function setAttributeId($attributeId)
-    {
-        $this->attributeId = $attributeId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return self
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-
-        return $this;
-    }
 
     /**
      * @return CatalogCategoryEntity
@@ -139,21 +56,21 @@ class CatalogCategoryEntityVarchar
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getStore()
+    public function getValue()
     {
-        return $this->store;
+        return $this->value;
     }
 
     /**
-     * @param int $store
+     * @param string $value
      *
      * @return self
      */
-    public function setStore($store)
+    public function setValue($value)
     {
-        $this->store = $store;
+        $this->value = $value;
 
         return $this;
     }

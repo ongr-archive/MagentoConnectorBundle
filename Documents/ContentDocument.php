@@ -59,7 +59,7 @@ class ContentDocument implements DocumentInterface
     private $heading;
 
     /**
-     * @return \string[]
+     * @return string[]
      */
     public function getExpiredUrls()
     {
@@ -67,7 +67,7 @@ class ContentDocument implements DocumentInterface
     }
 
     /**
-     * @param \string[] $expiredUrls
+     * @param string[] $expiredUrls
      */
     public function setExpiredUrls($expiredUrls)
     {

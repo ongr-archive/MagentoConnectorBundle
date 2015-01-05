@@ -36,7 +36,7 @@ class PriceObject
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getPrice()
     {
@@ -44,7 +44,7 @@ class PriceObject
     }
 
     /**
-     * @param mixed $price
+     * @param float $price
      */
     public function setPrice($price)
     {

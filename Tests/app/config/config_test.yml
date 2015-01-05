@@ -3,19 +3,25 @@ imports:
 
 # Framework Configuration
 framework:
-    secret:          %secret%
+    secret: %secret%
     test: ~
+    templating:
+        engines: ['twig']
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   %database_driver%
-        host:     %database_host%
-        port:     %database_port%
-        dbname:   %database_name%
-        user:     %database_user%
-        password: %database_password%
-        charset:  UTF8
+        server_version: %database_server_version%
+        driver:         %database_driver%
+        host:           %database_host%
+        port:           %database_port%
+        dbname:         %database_name%
+        user:           %database_user%
+        password:       %database_password%
+        charset:        UTF8
         mapping_types:
             enum: string
             set: string
@@ -24,11 +30,36 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
-
-ongr_magento:
-    entity_namespace: ONGRMagentoConnectorBundle
+        mappings:
+            Bundle:
+                type: annotation
+                dir: %kernel.root_dir%/../../Entity
+                alias: ONGRMagentoConnectorBundle
+                prefix: ONGR\MagentoConnectorBundle\Entity
+                is_bundle: false
+            Test:
+                type: annotation
+                dir: %kernel.root_dir%/../Functional/Entity
+                alias: ONGRMagentoConnectorBundleTest
+                prefix: ONGR\MagentoConnectorBundle\Tests\Functional\Entity
+                is_bundle: false
 
 ongr_connections:
     active_shop: test
     shops:
         test: ~
+
+ongr_elasticsearch:
+    connections:
+        default:
+            hosts:
+                - { host: 127.0.0.1:9200 }
+            index_name: ongr-magento-connector-bundle-test
+            settings:
+                refresh_interval: -1
+                number_of_replicas: 0
+    managers:
+        default:
+            connection: default
+            mappings:
+                - ONGRConnectionsBundle

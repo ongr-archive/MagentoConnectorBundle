@@ -61,7 +61,7 @@ class CategoryDocument implements DocumentInterface
     private $path;
 
     /**
-     * @return \string[]
+     * @return string[]
      */
     public function getExpiredUrls()
     {
@@ -69,7 +69,7 @@ class CategoryDocument implements DocumentInterface
     }
 
     /**
-     * @param \string[] $expiredUrls
+     * @param string[] $expiredUrls
      */
     public function setExpiredUrls($expiredUrls)
     {
