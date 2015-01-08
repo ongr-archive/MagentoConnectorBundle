@@ -61,14 +61,24 @@ class ProductDocument implements DocumentInterface
     /**
      * @var ImageObject[]|\Iterator
      *
-     * @ES\Property(name="small_images", type="object", objectName="ONGRMagentoConnectorBundle:ImageObject", multiple=true)
+     * @ES\Property(
+     *      name="small_images",
+     *      type="object",
+     *      objectName="ONGRMagentoConnectorBundle:ImageObject",
+     *      multiple=true
+     * )
      */
     private $smallImages;
 
     /**
      * @var CategoryObject[]|\Iterator
      *
-     * @ES\Property(name="categories", type="object", objectName="ONGRMagentoConnectorBundle:CategoryObject", multiple=true)
+     * @ES\Property(
+     *      name="categories",
+     *      type="object",
+     *      objectName="ONGRMagentoConnectorBundle:CategoryObject",
+     *      multiple=true
+     * )
      */
     private $categories;
 
