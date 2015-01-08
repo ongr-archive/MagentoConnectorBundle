@@ -13,11 +13,11 @@ namespace ONGR\MagentoConnectorBundle\Tests\Functional\Modifier;
 
 use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
-use ONGR\MagentoConnectorBundle\Documents\CategoryObject;
-use ONGR\MagentoConnectorBundle\Documents\ImageObject;
-use ONGR\MagentoConnectorBundle\Documents\PriceObject;
-use ONGR\MagentoConnectorBundle\Documents\ProductDocument;
-use ONGR\MagentoConnectorBundle\Documents\UrlObject;
+use ONGR\MagentoConnectorBundle\Document\CategoryObject;
+use ONGR\MagentoConnectorBundle\Document\ImageObject;
+use ONGR\MagentoConnectorBundle\Document\PriceObject;
+use ONGR\MagentoConnectorBundle\Document\ProductDocument;
+use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Modifier\ProductModifier;
 use ONGR\MagentoConnectorBundle\Tests\Functional\TestBase;
 

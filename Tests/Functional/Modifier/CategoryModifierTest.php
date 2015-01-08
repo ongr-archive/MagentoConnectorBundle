@@ -13,8 +13,8 @@ namespace ONGR\MagentoConnectorBundle\Tests\Functional\Modifier;
 
 use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
-use ONGR\MagentoConnectorBundle\Documents\CategoryDocument;
-use ONGR\MagentoConnectorBundle\Documents\UrlObject;
+use ONGR\MagentoConnectorBundle\Document\CategoryDocument;
+use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Modifier\CategoryModifier;
