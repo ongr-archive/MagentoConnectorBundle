@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ONGR\MagentoConnectorBundle\Documents;
+namespace ONGR\MagentoConnectorBundle\Document;
 
 use ONGR\ElasticsearchBundle\Annotation as ES;
 
@@ -37,7 +37,7 @@ class CategoryObject
     /**
      * @var UrlObject
      *
-     * @ES\Property(name="url", type="object", objectName="MagentoConnectorBundle:UrlObject")
+     * @ES\Property(name="url", type="object", objectName="ONGRMagentoConnectorBundle:UrlObject")
      */
     private $url;
 

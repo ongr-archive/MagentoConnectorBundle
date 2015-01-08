@@ -12,9 +12,9 @@
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
+use ONGR\MagentoConnectorBundle\Document\ContentDocument;
 use ONGR\MagentoConnectorBundle\Entity\CmsPage;
 use ONGR\MagentoConnectorBundle\Modifier\ContentModifier;
-use ONGR\MagentoConnectorBundle\Documents\ContentDocument;
 
 class ContentModifierTest extends \PHPUnit_Framework_TestCase
 {

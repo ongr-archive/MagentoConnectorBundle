@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ONGR\MagentoConnectorBundle\Documents;
+namespace ONGR\MagentoConnectorBundle\Document;
 
 use ONGR\ContentBundle\Document\Traits\CategoryTrait;
 use ONGR\ElasticsearchBundle\Annotation as ES;
@@ -42,7 +42,7 @@ class CategoryDocument implements DocumentInterface
      *
      * @var UrlObject[]|\Iterator
      *
-     * @ES\Property(name="urls", type="object", objectName="MagentoConnectorBundle:UrlObject", multiple=true)
+     * @ES\Property(name="urls", type="object", objectName="ONGRMagentoConnectorBundle:UrlObject", multiple=true)
      */
     private $urls = [];
 

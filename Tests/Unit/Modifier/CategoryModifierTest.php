@@ -12,11 +12,11 @@
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
+use ONGR\MagentoConnectorBundle\Document\CategoryDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Modifier\CategoryModifier;
-use ONGR\MagentoConnectorBundle\Documents\CategoryDocument;
 
 class CategoryModifierTest extends \PHPUnit_Framework_TestCase
 {

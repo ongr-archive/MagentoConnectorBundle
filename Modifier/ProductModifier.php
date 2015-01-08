@@ -13,9 +13,9 @@ namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
-use ONGR\MagentoConnectorBundle\Documents\CategoryObject;
-use ONGR\MagentoConnectorBundle\Documents\PriceObject;
-use ONGR\MagentoConnectorBundle\Documents\ProductDocument;
+use ONGR\MagentoConnectorBundle\Document\CategoryObject;
+use ONGR\MagentoConnectorBundle\Document\PriceObject;
+use ONGR\MagentoConnectorBundle\Document\ProductDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText;

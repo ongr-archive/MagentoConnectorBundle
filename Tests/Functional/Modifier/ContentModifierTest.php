@@ -13,7 +13,7 @@ namespace ONGR\MagentoConnectorBundle\Tests\Functional\Modifier;
 
 use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
-use ONGR\MagentoConnectorBundle\Documents\ContentDocument;
+use ONGR\MagentoConnectorBundle\Document\ContentDocument;
 use ONGR\MagentoConnectorBundle\Modifier\ContentModifier;
 use ONGR\MagentoConnectorBundle\Tests\Functional\TestBase;
 

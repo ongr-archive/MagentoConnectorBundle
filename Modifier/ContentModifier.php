@@ -13,7 +13,7 @@ namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
-use ONGR\MagentoConnectorBundle\Documents\ContentDocument;
+use ONGR\MagentoConnectorBundle\Document\ContentDocument;
 use ONGR\MagentoConnectorBundle\Entity\CmsPage;
 
 /**

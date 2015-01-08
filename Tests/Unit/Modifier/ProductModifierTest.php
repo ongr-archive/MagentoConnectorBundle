@@ -12,9 +12,10 @@
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
-use ONGR\MagentoConnectorBundle\Documents\CategoryObject;
-use ONGR\MagentoConnectorBundle\Documents\PriceObject;
-use ONGR\MagentoConnectorBundle\Documents\UrlObject;
+use ONGR\MagentoConnectorBundle\Document\CategoryObject;
+use ONGR\MagentoConnectorBundle\Document\PriceObject;
+use ONGR\MagentoConnectorBundle\Document\ProductDocument;
+use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryProduct;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity;
@@ -23,7 +24,6 @@ use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductIndexPrice;
 use ONGR\MagentoConnectorBundle\Modifier\CategoryModifier;
 use ONGR\MagentoConnectorBundle\Modifier\ProductModifier;
-use ONGR\MagentoConnectorBundle\Documents\ProductDocument;
 
 class ProductModifierTest extends \PHPUnit_Framework_TestCase
 {
