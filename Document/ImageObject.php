@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ONGR\MagentoConnectorBundle\Documents;
+namespace ONGR\MagentoConnectorBundle\Document;
 
 use ONGR\ElasticsearchBundle\Annotation as ES;
 
@@ -44,7 +44,7 @@ class ImageObject
     /**
      * @var object
      *
-     * @ES\Property(name="cdn", type="object", objectName="MagentoConnectorBundle:CdnObject")
+     * @ES\Property(name="cdn", type="object", objectName="ONGRMagentoConnectorBundle:CdnObject")
      */
     private $cdn;
 

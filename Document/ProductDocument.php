@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ONGR\MagentoConnectorBundle\Documents;
+namespace ONGR\MagentoConnectorBundle\Document;
 
 use ONGR\ContentBundle\Document\Traits\ProductTrait;
 use ONGR\ElasticsearchBundle\Annotation as ES;
@@ -40,7 +40,7 @@ class ProductDocument implements DocumentInterface
      *
      * @var UrlObject[]|\Iterator
      *
-     * @ES\Property(name="urls", type="object", objectName="MagentoConnectorBundle:UrlObject", multiple=true)
+     * @ES\Property(name="urls", type="object", objectName="ONGRMagentoConnectorBundle:UrlObject", multiple=true)
      */
     private $urls;
 
@@ -54,28 +54,28 @@ class ProductDocument implements DocumentInterface
     /**
      * @var ImageObject[]|\Iterator
      *
-     * @ES\Property(name="images", type="object", objectName="MagentoConnectorBundle:ImageObject", multiple=true)
+     * @ES\Property(name="images", type="object", objectName="ONGRMagentoConnectorBundle:ImageObject", multiple=true)
      */
     private $images;
 
     /**
      * @var ImageObject[]|\Iterator
      *
-     * @ES\Property(name="small_images", type="object", objectName="MagentoConnectorBundle:ImageObject", multiple=true)
+     * @ES\Property(name="small_images", type="object", objectName="ONGRMagentoConnectorBundle:ImageObject", multiple=true)
      */
     private $smallImages;
 
     /**
      * @var CategoryObject[]|\Iterator
      *
-     * @ES\Property(name="categories", type="object", objectName="MagentoConnectorBundle:CategoryObject", multiple=true)
+     * @ES\Property(name="categories", type="object", objectName="ONGRMagentoConnectorBundle:CategoryObject", multiple=true)
      */
     private $categories;
 
     /**
      * @var PriceObject[]|\Iterator
      *
-     * @ES\Property(name="prices", type="object", objectName="MagentoConnectorBundle:PriceObject", multiple=true)
+     * @ES\Property(name="prices", type="object", objectName="ONGRMagentoConnectorBundle:PriceObject", multiple=true)
      */
     private $prices;
 
