@@ -23,9 +23,15 @@ use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
  */
 class CategoryModifier extends AbstractImportModifyEventListener
 {
-    const CATEGORY_TITLE = 41;
+    const CATEGORY_NAME = 41;
     const CATEGORY_IS_ACTIVE = 42;
-    const CATEGORY_LINKS_TITLE = 57;
+    const CATEGORY_DESCRIPTION = 44;
+    const CATEGORY_IMAGE = 45;
+    const CATEGORY_META_TITLE = 46;
+    const CATEGORY_META_KEYWORDS = 47;
+    const CATEGORY_META_DESCRIPTION = 48;
+    const CATEGORY_PATH = 52;
+    const CATEGORY_URL_PATH = 57;
 
     /**
      * @var int
@@ -103,10 +109,10 @@ class CategoryModifier extends AbstractImportModifyEventListener
             }
             /** @var CatalogCategoryEntityVarchar $attribute */
             switch ($attribute->getAttributeId()) {
-                case self::CATEGORY_TITLE:
+                case self::CATEGORY_NAME:
                     $document->setTitle($attribute->getValue());
                     break;
-                case self::CATEGORY_LINKS_TITLE:
+                case self::CATEGORY_URL_PATH:
                     $document->addUrlString($attribute->getValue());
                     break;
                 default:

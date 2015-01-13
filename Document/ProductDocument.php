@@ -90,6 +90,13 @@ class ProductDocument implements DocumentInterface
     private $prices;
 
     /**
+     * @var string
+     *
+     * @ES\Property(name="short_description", type="string")
+     */
+    private $shortDescription;
+
+    /**
      * @return string[]
      */
     public function getExpiredUrls()
@@ -261,5 +268,21 @@ class ProductDocument implements DocumentInterface
     public function addPrice($price)
     {
         $this->prices[] = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
+    }
+
+    /**
+     * @param string $shortDescription
+     */
+    public function setShortDescription($shortDescription)
+    {
+        $this->shortDescription = $shortDescription;
     }
 }

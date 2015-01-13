@@ -59,7 +59,7 @@ class ProductModifierTest extends TestBase
         $category->setUrl($url);
         $category->setCategories(['5', '15']);
         $expectedEntity1->setCategories([$category]);
-        $expectedEntity1->setLongDescription(
+        $expectedEntity1->setShortDescription(
             'Made with wrinkle resistant cotton twill, this French-cuffed luxury' .
             ' dress shirt is perfect for Business Class frequent flyers.'
         );
@@ -82,7 +82,7 @@ class ProductModifierTest extends TestBase
         $category->addCategory('5');
         $category->addCategory('15');
         $expectedEntity2->addCategory($category);
-        $expectedEntity2->setLongDescription(
+        $expectedEntity2->setShortDescription(
             'Made with wrinkle resistant cotton twill, this French-cuffed luxury' .
             ' dress shirt is perfect for Business Class frequent flyers.'
         );
