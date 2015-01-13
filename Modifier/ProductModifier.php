@@ -146,7 +146,7 @@ class ProductModifier extends AbstractImportModifyEventListener
                     $document->setTitle($attribute->getValue());
                     break;
                 case self::PRODUCT_URL_PATH:
-                    $document->addUrl($attribute->getValue());
+                    $document->addUrlString($attribute->getValue());
                     break;
                 case self::PRODUCT_IMAGE:
                     $document->addImageUrl($attribute->getValue());

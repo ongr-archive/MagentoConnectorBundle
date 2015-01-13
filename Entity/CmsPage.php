@@ -12,6 +12,7 @@
 namespace ONGR\MagentoConnectorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ONGR\MagentoConnectorBundle\Helpers\GetterSetterHelperTrait;
 
 /**
  * Entity for table "cms_page".
@@ -20,6 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class CmsPage
 {
+    use GetterSetterHelperTrait;
+
     /**
      * @var int
      *
@@ -354,20 +357,5 @@ abstract class CmsPage
     public function setSortOrder($sortOrder)
     {
         $this->sortOrder = $sortOrder;
-    }
-
-    /**
-     * Removes element from array.
-     *
-     * @param CmsPageStore   $element
-     * @param CmsPageStore[] $array
-     */
-    private function removeElement($element, &$array)
-    {
-        $key = array_search($element, $array, true);
-
-        if ($key !== false) {
-            unset($array[$key]);
-        }
     }
 }

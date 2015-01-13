@@ -11,6 +11,7 @@
 
 namespace ONGR\MagentoConnectorBundle\Document;
 
+use ONGR\MagentoConnectorBundle\Helpers\GetterSetterHelperTrait;
 use ONGR\ContentBundle\Document\Traits\CategoryTrait;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 use ONGR\ElasticsearchBundle\Document\DocumentInterface;
@@ -25,6 +26,7 @@ class CategoryDocument implements DocumentInterface
 {
     use DocumentTrait;
     use CategoryTrait;
+    use GetterSetterHelperTrait;
 
     const ROOT_ID = 'magentorootid';
 
@@ -85,6 +87,14 @@ class CategoryDocument implements DocumentInterface
     }
 
     /**
+     * @param string $expiredUrl
+     */
+    public function removeExpiredUrl($expiredUrl)
+    {
+        $this->removeElement($expiredUrl, $this->expiredUrls);
+    }
+
+    /**
      * @return \Iterator|UrlObject[]
      */
     public function getUrls()
@@ -106,6 +116,14 @@ class CategoryDocument implements DocumentInterface
     public function addUrl($urlObject)
     {
         $this->urls[] = $urlObject;
+    }
+
+    /**
+     * @param UrlObject $urlObject
+     */
+    public function removeUrl($urlObject)
+    {
+        $this->removeElement($urlObject, $this->urls);
     }
 
     /**

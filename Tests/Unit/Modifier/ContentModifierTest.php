@@ -11,6 +11,7 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\MagentoConnectorBundle\Document\ContentDocument;
 use ONGR\MagentoConnectorBundle\Entity\CmsPage;
@@ -43,13 +44,9 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
 
         $document = new ContentDocument();
         $item = new ImportItem($page, $document);
-
-        $method = new \ReflectionMethod(
-            'ONGR\MagentoConnectorBundle\Modifier\ContentModifier',
-            'modify'
-        );
-        $method->setAccessible(true);
-        $method->invoke(new ContentModifier($shopId), $item);
+        $event = new ItemPipelineEvent($item);
+        $modifier = new ContentModifier($shopId);
+        $modifier->onModify($event);
 
         $this->assertEquals($expectedDocument, $document);
     }

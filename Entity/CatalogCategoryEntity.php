@@ -12,6 +12,7 @@
 namespace ONGR\MagentoConnectorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ONGR\MagentoConnectorBundle\Helpers\GetterSetterHelperTrait;
 
 /**
  * Entity for table "catalog_category_entity".
@@ -20,6 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class CatalogCategoryEntity
 {
+    use GetterSetterHelperTrait;
+
     /**
      * @var int
      *
@@ -368,20 +371,5 @@ abstract class CatalogCategoryEntity
         $this->removeElement($product, $this->products);
 
         return $this;
-    }
-
-    /**
-     * Removes element from array.
-     *
-     * @param mixed $element
-     * @param array $array
-     */
-    private function removeElement($element, &$array)
-    {
-        $key = array_search($element, $array, true);
-
-        if ($key !== false) {
-            unset($array[$key]);
-        }
     }
 }

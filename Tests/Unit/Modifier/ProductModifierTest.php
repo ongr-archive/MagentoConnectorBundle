@@ -11,12 +11,14 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\MagentoConnectorBundle\Document\CategoryObject;
 use ONGR\MagentoConnectorBundle\Document\PriceObject;
 use ONGR\MagentoConnectorBundle\Document\ProductDocument;
 use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
+use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryProduct;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText;
@@ -111,8 +113,8 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $category->setId(1);
         $category->setPath('1/2/3');
 
-        /** @var CatalogProductEntityVarchar $varchar */
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
+        /** @var CatalogCategoryEntityVarchar $varchar */
+        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar');
         $varchar->setAttributeId(CategoryModifier::CATEGORY_NAME);
         $varchar->setValue('category title');
         $category->addVarcharAttribute($varchar);
@@ -158,19 +160,15 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setTitle('meta title');
         $expectedDocument->addImageUrl('image');
         $expectedDocument->addSmallImageUrl('thumb');
-        $expectedDocument->addUrl('link');
+        $expectedDocument->addUrlString('link');
         $expectedDocument->addCategory($categoryObject);
         $expectedDocument->setExpiredUrls([]);
 
         $document = new ProductDocument();
         $item = new ImportItem($entity, $document);
-
-        $method = new \ReflectionMethod(
-            'ONGR\MagentoConnectorBundle\Modifier\ProductModifier',
-            'modify'
-        );
-        $method->setAccessible(true);
-        $method->invoke(new ProductModifier($shopId), $item);
+        $event = new ItemPipelineEvent($item);
+        $modifier = new ProductModifier($shopId);
+        $modifier->onModify($event);
 
         $this->assertEquals($expectedDocument, $document);
     }
