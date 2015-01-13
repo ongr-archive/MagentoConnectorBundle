@@ -46,8 +46,8 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $textAttributes = [ $text ];
 
         $text = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText');
-        $text->setAttributeId(ProductModifier::PRODUCT_LONG_DESCRIPTION);
-        $text->setValue('long description');
+        $text->setAttributeId(ProductModifier::PRODUCT_SHORT_DESCRIPTION);
+        $text->setValue('short description');
         $text->setStore($shopId);
         $textAttributes[] = $text;
 
@@ -65,13 +65,13 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
 
         /** @var CatalogProductEntityVarchar $varchar */
         $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(ProductModifier::PRODUCT_META_TITLE);
+        $varchar->setAttributeId(ProductModifier::PRODUCT_NAME);
         $varchar->setValue('meta title');
         $varchar->setStore($shopId);
         $varcharAttributes = [ $varchar ];
 
         $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(ProductModifier::PRODUCT_LINKS_TITLE);
+        $varchar->setAttributeId(ProductModifier::PRODUCT_URL_PATH);
         $varchar->setValue('link');
         $varchar->setStore($shopId);
         $varcharAttributes[] = $varchar;
@@ -113,12 +113,12 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
 
         /** @var CatalogProductEntityVarchar $varchar */
         $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(CategoryModifier::CATEGORY_TITLE);
+        $varchar->setAttributeId(CategoryModifier::CATEGORY_NAME);
         $varchar->setValue('category title');
         $category->addVarcharAttribute($varchar);
 
         $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(CategoryModifier::CATEGORY_LINKS_TITLE);
+        $varchar->setAttributeId(CategoryModifier::CATEGORY_URL_PATH);
         $varchar->setValue('category link');
         $category->addVarcharAttribute($varchar);
 
@@ -153,7 +153,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setId(123);
         $expectedDocument->addPrice($priceObject);
         $expectedDocument->setSku('foo');
-        $expectedDocument->setLongDescription('long description');
+        $expectedDocument->setShortDescription('short description');
         $expectedDocument->setDescription('description');
         $expectedDocument->setTitle('meta title');
         $expectedDocument->addImageUrl('image');

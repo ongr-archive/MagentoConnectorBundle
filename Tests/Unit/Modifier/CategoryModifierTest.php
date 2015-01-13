@@ -29,14 +29,14 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
 
         /** @var CatalogCategoryEntityVarchar $varchar */
         $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar');
-        $varchar->setAttributeId(CategoryModifier::CATEGORY_TITLE);
+        $varchar->setAttributeId(CategoryModifier::CATEGORY_NAME);
         $varchar->setValue('title');
         $varchar->setStore($shopId);
         $varcharAttributes = [$varchar];
 
         /** @var CatalogCategoryEntityVarchar $varchar */
         $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar');
-        $varchar->setAttributeId(CategoryModifier::CATEGORY_LINKS_TITLE);
+        $varchar->setAttributeId(CategoryModifier::CATEGORY_URL_PATH);
         $varchar->setValue('url');
         $varchar->setStore($shopId);
         $varcharAttributes[] = $varchar;
