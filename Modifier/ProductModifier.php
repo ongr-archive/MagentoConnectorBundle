@@ -26,13 +26,16 @@ use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar;
  */
 class ProductModifier extends AbstractImportModifyEventListener
 {
+    const ENTITY_TYPE_PRODUCT = 4;
+    const PRODUCT_NAME = 71;
     const PRODUCT_DESCRIPTION = 72;
-    const PRODUCT_LONG_DESCRIPTION = 73;
-    const PRODUCT_META_TITLE = 71;
+    const PRODUCT_SHORT_DESCRIPTION = 73;
+    const PRODUCT_META_TITLE = 82;
+    const PRODUCT_META_KEYWORD = 83;
+    const PRODUCT_META_DESCRIPTION = 84;
     const PRODUCT_IMAGE = 85;
     const PRODUCT_SMALL_IMAGE = 86;
-    const PRODUCT_LINKS_TITLE = 98;
-    const ENTITY_TYPE_PRODUCT = 4;
+    const PRODUCT_URL_PATH = 98;
 
     /**
      * @var int
@@ -113,7 +116,7 @@ class ProductModifier extends AbstractImportModifyEventListener
                 case self::PRODUCT_DESCRIPTION:
                     $document->setDescription($attribute->getValue());
                     break;
-                case self::PRODUCT_LONG_DESCRIPTION:
+                case self::PRODUCT_SHORT_DESCRIPTION:
                     $document->setLongDescription($attribute->getValue());
                     break;
                 default:
@@ -139,10 +142,10 @@ class ProductModifier extends AbstractImportModifyEventListener
                 continue;
             }
             switch ($attribute->getAttributeId()) {
-                case self::PRODUCT_META_TITLE:
+                case self::PRODUCT_NAME:
                     $document->setTitle($attribute->getValue());
                     break;
-                case self::PRODUCT_LINKS_TITLE:
+                case self::PRODUCT_URL_PATH:
                     $document->addUrl($attribute->getValue());
                     break;
                 case self::PRODUCT_IMAGE:
@@ -184,10 +187,10 @@ class ProductModifier extends AbstractImportModifyEventListener
             foreach ($categoryProduct->getCategory()->getVarcharAttributes() as $attribute) {
                 /** @var CatalogCategoryEntityVarchar $attribute */
                 switch ($attribute->getAttributeId()) {
-                    case CategoryModifier::CATEGORY_TITLE:
+                    case CategoryModifier::CATEGORY_NAME:
                         $categoryObject->setTitle($attribute->getValue());
                         break;
-                    case CategoryModifier::CATEGORY_LINKS_TITLE:
+                    case CategoryModifier::CATEGORY_URL_PATH:
                         $categoryObject->setUrlString($attribute->getValue());
                         break;
                     default:
