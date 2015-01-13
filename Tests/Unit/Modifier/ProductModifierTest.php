@@ -47,7 +47,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
 
         $text = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText');
         $text->setAttributeId(ProductModifier::PRODUCT_SHORT_DESCRIPTION);
-        $text->setValue('long description');
+        $text->setValue('short description');
         $text->setStore($shopId);
         $textAttributes[] = $text;
 
@@ -153,7 +153,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setId(123);
         $expectedDocument->addPrice($priceObject);
         $expectedDocument->setSku('foo');
-        $expectedDocument->setLongDescription('long description');
+        $expectedDocument->setShortDescription('short description');
         $expectedDocument->setDescription('description');
         $expectedDocument->setTitle('meta title');
         $expectedDocument->addImageUrl('image');

@@ -117,7 +117,7 @@ class ProductModifier extends AbstractImportModifyEventListener
                     $document->setDescription($attribute->getValue());
                     break;
                 case self::PRODUCT_SHORT_DESCRIPTION:
-                    $document->setLongDescription($attribute->getValue());
+                    $document->setShortDescription($attribute->getValue());
                     break;
                 default:
                     // Do nothing.
