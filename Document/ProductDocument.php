@@ -15,6 +15,7 @@ use ONGR\ContentBundle\Document\Traits\ProductTrait;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\MagentoConnectorBundle\Helpers\GetterSetterHelperTrait;
 
 /**
  * ElasticSearch Product document.
@@ -25,6 +26,7 @@ class ProductDocument implements DocumentInterface
 {
     use DocumentTrait;
     use ProductTrait;
+    use GetterSetterHelperTrait;
 
     /**
      * Structure that represents possible URLs for the model.
@@ -121,6 +123,16 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
+     * Remove expired url from array.
+     *
+     * @param string $expiredUrl
+     */
+    public function removeExpiredUrl($expiredUrl)
+    {
+        $this->removeElement($expiredUrl, $this->expiredUrls);
+    }
+
+    /**
      * @return \Iterator|UrlObject[]
      */
     public function getUrls()
@@ -139,15 +151,25 @@ class ProductDocument implements DocumentInterface
     /**
      * @param UrlObject $urlObject
      */
-    public function addUrlObject($urlObject)
+    public function addUrl($urlObject)
     {
         $this->urls[] = $urlObject;
     }
 
     /**
+     * Remove url from array.
+     *
+     * @param UrlObject $urlObject
+     */
+    public function removeUrl($urlObject)
+    {
+        $this->removeElement($urlObject, $this->urls);
+    }
+
+    /**
      * @param string $urlString
      */
-    public function addUrl($urlString)
+    public function addUrlString($urlString)
     {
         $urlObject = new UrlObject();
         $urlObject->setUrl($urlString);
@@ -176,6 +198,16 @@ class ProductDocument implements DocumentInterface
     public function addCategory($categoryObject)
     {
         $this->categories[] = $categoryObject;
+    }
+
+    /**
+     * Remove Category from array.
+     *
+     * @param CategoryObject $categoryObject
+     */
+    public function removeCategory($categoryObject)
+    {
+        $this->removeElement($categoryObject, $this->categories);
     }
 
     /**

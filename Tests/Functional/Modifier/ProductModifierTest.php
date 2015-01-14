@@ -41,7 +41,7 @@ class ProductModifierTest extends TestBase
         $expectedEntity1->setExpiredUrls([]);
         $url = new UrlObject();
         $url->setUrl('french-cuff-cotton-twill-oxford.html');
-        $expectedEntity1->addUrlObject($url);
+        $expectedEntity1->addUrl($url);
         $image = new ImageObject();
         $image->setUrl('/m/s/msj000t_1.jpg');
         $expectedEntity1->addImage($image);
@@ -71,7 +71,7 @@ class ProductModifierTest extends TestBase
         $expectedEntity2->setDescription('Button front. Long sleeves. Tapered collar, chest pocket, french cuffs.');
         $expectedEntity2->addPrice(new PriceObject(190));
         $expectedEntity2->setExpiredUrls([]);
-        $expectedEntity2->addUrl('french-cuff-cotton-twill-oxford-563.html');
+        $expectedEntity2->addUrlString('french-cuff-cotton-twill-oxford-563.html');
         $expectedEntity2->addSmallImageUrl('/m/s/msj000t_1.jpg');
         $expectedEntity2->addImageUrl('/m/s/msj000t_1.jpg');
         $category = new CategoryObject();

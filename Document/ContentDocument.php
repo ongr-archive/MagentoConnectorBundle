@@ -15,6 +15,7 @@ use ONGR\ContentBundle\Document\Traits\ContentTrait;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\MagentoConnectorBundle\Helpers\GetterSetterHelperTrait;
 
 /**
  * ElasticSearch Content document.
@@ -25,6 +26,7 @@ class ContentDocument implements DocumentInterface
 {
     use DocumentTrait;
     use ContentTrait;
+    use GetterSetterHelperTrait;
 
     /**
      * Structure that represents possible URLs for the model.
@@ -83,6 +85,16 @@ class ContentDocument implements DocumentInterface
     }
 
     /**
+     * Remove expired url from array.
+     *
+     * @param string $expiredUrl
+     */
+    public function removeExpiredUrl($expiredUrl)
+    {
+        $this->removeElement($expiredUrl, $this->expiredUrls);
+    }
+
+    /**
      * @return \Iterator|UrlObject[]
      */
     public function getUrls()
@@ -104,6 +116,16 @@ class ContentDocument implements DocumentInterface
     public function addUrl($urlObject)
     {
         $this->urls[] = $urlObject;
+    }
+
+    /**
+     * Remove Url from array.
+     *
+     * @param UrlObject $urlObject
+     */
+    public function removeUrl($urlObject)
+    {
+        $this->removeElement($urlObject, $this->urls);
     }
 
     /**
