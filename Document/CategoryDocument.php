@@ -11,11 +11,11 @@
 
 namespace ONGR\MagentoConnectorBundle\Document;
 
-use ONGR\MagentoConnectorBundle\Helpers\GetterSetterHelperTrait;
 use ONGR\ContentBundle\Document\Traits\CategoryTrait;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\MagentoConnectorBundle\Helpers\GetterSetterHelperTrait;
 
 /**
  * ElasticSearch Category document.
@@ -87,6 +87,8 @@ class CategoryDocument implements DocumentInterface
     }
 
     /**
+     * Remove expired url from array.
+     *
      * @param string $expiredUrl
      */
     public function removeExpiredUrl($expiredUrl)
@@ -119,6 +121,8 @@ class CategoryDocument implements DocumentInterface
     }
 
     /**
+     * Remove Url from array.
+     *
      * @param UrlObject $urlObject
      */
     public function removeUrl($urlObject)

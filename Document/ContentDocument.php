@@ -85,6 +85,8 @@ class ContentDocument implements DocumentInterface
     }
 
     /**
+     * Remove expired url from array.
+     *
      * @param string $expiredUrl
      */
     public function removeExpiredUrl($expiredUrl)
@@ -117,6 +119,8 @@ class ContentDocument implements DocumentInterface
     }
 
     /**
+     * Remove Url from array.
+     *
      * @param UrlObject $urlObject
      */
     public function removeUrl($urlObject)

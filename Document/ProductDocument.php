@@ -123,6 +123,8 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
+     * Remove expired url from array.
+     *
      * @param string $expiredUrl
      */
     public function removeExpiredUrl($expiredUrl)
@@ -155,6 +157,8 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
+     * Remove url from array.
+     *
      * @param UrlObject $urlObject
      */
     public function removeUrl($urlObject)
@@ -197,6 +201,8 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
+     * Remove Category from array.
+     *
      * @param CategoryObject $categoryObject
      */
     public function removeCategory($categoryObject)

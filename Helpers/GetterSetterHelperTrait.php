@@ -11,6 +11,9 @@
 
 namespace ONGR\MagentoConnectorBundle\Helpers;
 
+/**
+ * Helper class for setters and getters.
+ */
 trait GetterSetterHelperTrait
 {
     /**
