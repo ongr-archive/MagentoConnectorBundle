@@ -24,7 +24,6 @@ use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 class ProductDocument implements DocumentInterface
 {
     use DocumentTrait;
-    use ProductTrait;
 
     /**
      * Structure that represents possible URLs for the model.

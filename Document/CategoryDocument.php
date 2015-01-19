@@ -11,7 +11,6 @@
 
 namespace ONGR\MagentoConnectorBundle\Document;
 
-use ONGR\ContentBundle\Document\Traits\CategoryTrait;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
@@ -24,7 +23,6 @@ use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 class CategoryDocument implements DocumentInterface
 {
     use DocumentTrait;
-    use CategoryTrait;
 
     const ROOT_ID = 'magentorootid';
 
