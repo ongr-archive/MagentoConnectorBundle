@@ -1,5 +1,6 @@
 imports:
     - { resource: parameters_test.yml }
+    - { resource: sync.yml }
 
 # Framework Configuration
 framework:
@@ -45,9 +46,9 @@ doctrine:
                 is_bundle: false
 
 ongr_connections:
-    active_shop: test
     shops:
-        test: ~
+        - shop_id: 0
+    active_shop: 0
 
 ongr_elasticsearch:
     connections:
@@ -63,3 +64,7 @@ ongr_elasticsearch:
             connection: default
             mappings:
                 - ONGRConnectionsBundle
+                - ONGRMagentoConnectorBundle
+
+ongr_magento:
+    shop: 0
