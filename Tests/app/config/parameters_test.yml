@@ -13,3 +13,6 @@ parameters:
 
     # Dummy override for connections bundle to work
     ongr_connections.import.modifier.class: ONGR\MagentoConnectorBundle\Modifier\ProductModifier
+
+    shop_ids:
+        - 0
