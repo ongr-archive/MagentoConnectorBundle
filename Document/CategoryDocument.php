@@ -12,18 +12,15 @@
 namespace ONGR\MagentoConnectorBundle\Document;
 
 use ONGR\ElasticsearchBundle\Annotation as ES;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\ContentBundle\Document\AbstractCategoryDocument;
 
 /**
  * ElasticSearch Category document.
  *
  * @ES\Document(type="category")
  */
-class CategoryDocument implements DocumentInterface
+class CategoryDocument extends AbstractCategoryDocument
 {
-    use DocumentTrait;
-
     const ROOT_ID = 'magentorootid';
 
     /**

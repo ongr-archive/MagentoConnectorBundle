@@ -11,9 +11,8 @@
 
 namespace ONGR\MagentoConnectorBundle\Document;
 
-use ONGR\ContentBundle\Document\Traits\ProductTrait;
 use ONGR\ElasticsearchBundle\Annotation as ES;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
+use ONGR\ContentBundle\Document\AbstractProductDocument;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 
 /**
@@ -21,10 +20,8 @@ use ONGR\ElasticsearchBundle\Document\DocumentTrait;
  *
  * @ES\Document(type="product")
  */
-class ProductDocument implements DocumentInterface
+class ProductDocument extends AbstractProductDocument
 {
-    use DocumentTrait;
-
     /**
      * Structure that represents possible URLs for the model.
      *
