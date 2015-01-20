@@ -1,5 +1,7 @@
 imports:
     - { resource: parameters_test.yml }
+    - { resource: services.yml }
+    - { resource: import.yml }
     - { resource: sync.yml }
 
 # Framework Configuration
@@ -64,6 +66,7 @@ ongr_elasticsearch:
             connection: default
             mappings:
                 - ONGRConnectionsBundle
+                - MagentoTestBundle
                 - ONGRMagentoConnectorBundle
 
 ongr_magento:

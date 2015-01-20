@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new ONGR\ConnectionsBundle\ONGRConnectionsBundle(),
             new ONGR\MagentoConnectorBundle\ONGRMagentoConnectorBundle(),
             new ONGR\RouterBundle\ONGRRouterBundle(),
+            new ONGR\MagentoConnectorBundle\Tests\app\fixtures\MagentoTestBundle\MagentoTestBundle(),
         ];
     }
 
