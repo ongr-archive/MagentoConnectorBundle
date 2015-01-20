@@ -13,6 +13,7 @@ namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
+use ONGR\ConnectionsBundle\Pipeline\ItemSkipException;
 use ONGR\MagentoConnectorBundle\Document\CategoryDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
@@ -65,7 +66,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
      * @param CategoryDocument      $document
      * @param CatalogCategoryEntity $entity
      *
-     * @throws \Exception
+     * @throws ItemSkipException
      */
     protected function transform(CategoryDocument $document, CatalogCategoryEntity $entity)
     {
@@ -78,7 +79,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
             // Root categories.
             $document->setParentId(CategoryDocument::ROOT_ID);
         } elseif ($entity->getLevel() < 2) {
-            throw new \Exception('Wrong category level. Got level=' . $entity->getLevel());
+            throw new ItemSkipException('Wrong category level. Got level=' . $entity->getLevel());
         }
 
         // Trim first two categories (RootCatalog and DefaultCatalog) from path.
