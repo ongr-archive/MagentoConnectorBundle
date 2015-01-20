@@ -66,7 +66,6 @@ class SyncTest extends ESDoctrineTestCase
         $executeCommandTester = new CommandTester($executeCommand);
         $createCommandTester = new CommandTester($createCommand);
 
-
         $createCommandTester->execute(
             [
                 'command' => $createCommand->getName(),
