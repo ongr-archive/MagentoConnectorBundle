@@ -11,9 +11,8 @@
 
 namespace ONGR\MagentoConnectorBundle\Document;
 
-use ONGR\ContentBundle\Document\Traits\ContentTrait;
 use ONGR\ElasticsearchBundle\Annotation as ES;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
+use ONGR\ContentBundle\Document\AbstractContentDocument;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 
 /**
@@ -21,7 +20,7 @@ use ONGR\ElasticsearchBundle\Document\DocumentTrait;
  *
  * @ES\Document(type="content")
  */
-class ContentDocument implements DocumentInterface
+class ContentDocument extends AbstractContentDocument
 {
     use DocumentTrait;
 

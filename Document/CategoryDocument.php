@@ -12,7 +12,7 @@
 namespace ONGR\MagentoConnectorBundle\Document;
 
 use ONGR\ElasticsearchBundle\Annotation as ES;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
+use ONGR\ContentBundle\Document\AbstractCategoryDocument;
 use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 
 /**
@@ -20,7 +20,7 @@ use ONGR\ElasticsearchBundle\Document\DocumentTrait;
  *
  * @ES\Document(type="category")
  */
-class CategoryDocument implements DocumentInterface
+class CategoryDocument extends AbstractCategoryDocument
 {
     use DocumentTrait;
 
