@@ -1,0 +1,34 @@
+services:
+  test.import.source:
+      class: %ongr_connections.import.source.class%
+      parent: ongr_connections.import.source
+      arguments:
+          - @doctrine.orm.default_entity_manager
+          - %ongr_demo.magento.import.product.doctrine_entity_type%
+          - @es.manager
+          - %ongr_demo.magento.import.product.elastic_document_type%
+      tags:
+          - { name: kernel.event_listener, event: ongr.pipeline.import.default.source, method: onSource }
+  
+  test.import.modifier:
+      class: %ongr_connections.import.modifier.class%
+      arguments:
+          - %ongr_demo.magento.import.shop_id%
+      tags:
+          - { name: kernel.event_listener, event: ongr.pipeline.import.default.modify, method: onModify }
+
+  test.import.consumer:
+      class: %ongr_connections.import.consumer.class%
+      parent: ongr_connections.import.consumer
+      arguments:
+          - @es.manager
+      tags:
+          - { name: kernel.event_listener, event: ongr.pipeline.import.default.consume, method: onConsume }
+
+  test.import.finish:
+      class: %ongr_connections.import.finish.class%
+      parent: ongr_connections.import.finish
+      arguments:
+          - @es.manager
+      tags:
+          - { name: kernel.event_listener, event: ongr.pipeline.import.default.finish, method: onFinish }

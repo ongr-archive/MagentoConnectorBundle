@@ -15,6 +15,7 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -27,6 +28,19 @@ abstract class TestBase extends WebTestCase
      * @var ContainerInterface
      */
     protected $container;
+
+    /**
+     * @var Client
+     */
+    private $client;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
+    {
+        $this->client = self::createClient();
+    }
 
     /**
      * Return an array of elements required for testing.
@@ -63,11 +77,11 @@ abstract class TestBase extends WebTestCase
      */
     protected function getServiceContainer()
     {
-        if ($this->container === null) {
-            $this->container = self::createClient()->getContainer();
+        if ($this->client === null) {
+            $this->client = self::createClient();
         }
 
-        return $this->container;
+        return $this->client->getContainer();
     }
 
     /**
@@ -126,6 +140,22 @@ abstract class TestBase extends WebTestCase
     public function importData($file)
     {
         $this->executeSqlFile($this->getEntityManager()->getConnection(), 'Tests/Functional/Fixtures/' . $file);
+    }
+
+    /**
+     * @return Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Reboots kernel re-caching resources.
+     */
+    public function rebootKernel()
+    {
+        $this->client = self::createClient();
     }
 
     /**
