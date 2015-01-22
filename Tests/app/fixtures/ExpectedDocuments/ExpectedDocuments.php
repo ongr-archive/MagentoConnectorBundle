@@ -10,6 +10,11 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\app\fixtures\ExpectedDocuments;
 
+use ONGR\MagentoConnectorBundle\Document\CategoryObject;
+use ONGR\MagentoConnectorBundle\Document\CdnObject;
+use ONGR\MagentoConnectorBundle\Document\ImageObject;
+use ONGR\MagentoConnectorBundle\Document\PriceObject;
+use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Tests\app\fixtures\MagentoTestBundle\Document\Product;
 
 /**
@@ -414,5 +419,194 @@ class ExpectedDocuments
                 'content' => '<div class="page-head"><h3>OUR STORY</h3></div>',
             ],
         ];
+    }
+
+    /**
+     * Return expected urls objects array for testing.
+     *
+     * @param int $count
+     * @param int $from
+     *
+     * @return UrlObject[]
+     */
+    public static function getExpectedUrlsObjects($count, $from = 0)
+    {
+        $expectedAttributes = self::getCategoryDocument();
+
+        foreach ($expectedAttributes as $key => $value) {
+            $urlObject = new UrlObject();
+            $urlObject->setUrl($value['urls'][0]['url']);
+            $expectedUrls[] = $urlObject;
+        }
+
+        return array_slice($expectedUrls, $from, $count);
+    }
+
+    /**
+     * Return expected urls array for testing.
+     *
+     * @param int $count
+     * @param int $from
+     *
+     * @return UrlObject[]
+     */
+    public static function getExpectedUrlsArray($count, $from = 0)
+    {
+        $expectedAttributes = self::getCategoryDocument();
+
+        foreach ($expectedAttributes as $key => $value) {
+            $expectedUrls[] = $value['urls'][0];
+        }
+
+        return array_slice($expectedUrls, $from, $count);
+    }
+
+    /**
+     * Return expected category objects array for testing.
+     *
+     * @param int $count
+     * @param int $from
+     *
+     * @return CategoryObject[]
+     */
+    public static function getExpectedCategoryObject($count, $from = 0)
+    {
+        $expectedAttributes = self::getCategoryDocument();
+
+        foreach ($expectedAttributes as $key => $value) {
+            $categoryObject = new CategoryObject();
+            $categoryObject->setId($key);
+            $categoryObject->setTitle($value['title']);
+            $categoryObject->setUrl($value['urls'][0]['url']);
+            $categoryObject->setPath($value['path']);
+            $categoryObject->setCategories([$value['parent_id']]);
+
+            $expectedCategories[] = $categoryObject;
+        }
+
+        return array_slice($expectedCategories, $from, $count);
+    }
+
+    /**
+     * Return expected image objects array for testing.
+     *
+     * @param int $count
+     * @param int $from
+     *
+     * @return ImageObject[]
+     */
+    public static function getExpectedImageObject($count, $from = 0)
+    {
+        $expectedAttributes = self::getProductDocument();
+
+        foreach ($expectedAttributes as $key => $value) {
+            $imageObject = new ImageObject();
+
+            $imageObject->setUrl($value['images'][0]['url']);
+
+            $expectedImages[] = $imageObject;
+        }
+
+        return array_slice($expectedImages, $from, $count);
+    }
+
+    /**
+     * Return expected image objects array for testing.
+     *
+     * @param int $count
+     * @param int $from
+     *
+     * @return PriceObject[]
+     */
+    public static function getExpectedPriceObject($count, $from = 0)
+    {
+        $expectedAttributes = self::getProductDocument();
+
+        foreach ($expectedAttributes as $key => $value) {
+            $priceObject = new PriceObject(0.0);
+            $priceObject->setPrice($value['prices'][0]['price']);
+            $expectedPrices[] = $priceObject;
+        }
+
+        return array_slice($expectedPrices, $from, $count);
+    }
+
+    /**
+     * Return expected image objects array for testing.
+     *
+     * @param int $count
+     * @param int $from
+     *
+     * @return string[]
+     */
+    public static function getExpectedDescriptionArray($count, $from = 0)
+    {
+        $expectedDescriptions = self::getExpectedStringArray('getProductDocument', 'title');
+
+        return array_slice($expectedDescriptions, $from, $count);
+    }
+
+    /**
+     * Return expected image objects array for testing.
+     *
+     * @param int $count
+     * @param int $from
+     *
+     * @return string[]
+     */
+    public static function getExpectedPathArray($count, $from = 0)
+    {
+        $expectedPaths = self::getExpectedStringArray('getCategoryDocument', 'path');
+
+        return array_slice($expectedPaths, $from, $count);
+    }
+
+    /**
+     * Return expected image objects array for testing.
+     *
+     * @param int $fromMethod
+     * @param int $attribute
+     *
+     * @return string[]
+     */
+    public static function getExpectedStringArray($fromMethod, $attribute)
+    {
+        $attributes = self::$fromMethod();
+
+        foreach ($attributes as $key => $value) {
+            $expectedArrays[] = $value[$attribute];
+        }
+
+        return $expectedArrays;
+    }
+
+    /**
+     * Return expected image objects array for testing.
+     *
+     * @param int $count
+     * @param int $from
+     *
+     * @return string[]
+     */
+    public static function getExpectedTitleArray($count, $from = 0)
+    {
+        $expectedPaths = self::getExpectedStringArray('getCategoryDocument', 'title');
+
+        return array_slice($expectedPaths, $from, $count);
+    }
+
+    /**
+     * Return expected image objects array for testing.
+     *
+     * @param int $count
+     * @param int $from
+     *
+     * @return string[]
+     */
+    public static function getExpectedIdArray($count, $from = 0)
+    {
+        $expectedPaths = self::getExpectedStringArray('getProductDocument', 'sku');
+
+        return array_slice($expectedPaths, $from, $count);
     }
 }
