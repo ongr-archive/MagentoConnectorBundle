@@ -30,7 +30,7 @@ class PriceObject
     /**
      * @param float $price
      */
-    public function __construct($price)
+    public function __construct($price = null)
     {
         $this->setPrice($price);
     }
