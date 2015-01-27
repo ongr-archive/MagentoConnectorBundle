@@ -100,6 +100,12 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $varchar->setStore($shopId + 1);
         $varcharAttributes[] = $varchar;
 
+        $integer = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt');
+        $integer->setAttributeId(96);
+        $integer->setValue(1);
+        $integer->setStore($shopId + 1);
+        $integerAttributes[] = $integer;
+
         /** @var CatalogProductEntity $entity */
         $entity = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity');
 
@@ -135,6 +141,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             ->addPrice($price)
             ->setTextAttributes($textAttributes)
             ->setVarcharAttributes($varcharAttributes)
+            ->setIntegerAttributes($integerAttributes)
             ->addCategory($categoryCross);
 
         $categoryObject = new CategoryObject();
