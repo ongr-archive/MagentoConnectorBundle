@@ -13,6 +13,7 @@ namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
+use ONGR\ConnectionsBundle\Pipeline\ItemSkipException;
 use ONGR\MagentoConnectorBundle\Document\CategoryObject;
 use ONGR\MagentoConnectorBundle\Document\PriceObject;
 use ONGR\MagentoConnectorBundle\Document\ProductDocument;
@@ -28,6 +29,7 @@ class ProductModifier extends AbstractImportModifyEventListener
 {
     const ENTITY_TYPE_PRODUCT = 4;
     const PRODUCT_NAME = 71;
+    const PRODUCT_IS_ACTIVE = 96;
     const PRODUCT_DESCRIPTION = 72;
     const PRODUCT_SHORT_DESCRIPTION = 73;
     const PRODUCT_META_TITLE = 82;
@@ -59,7 +61,6 @@ class ProductModifier extends AbstractImportModifyEventListener
         $document = $eventItem->getDocument();
         /** @var CatalogProductEntity $entity */
         $entity = $eventItem->getEntity();
-
         $this->transform($document, $entity);
     }
 
@@ -68,18 +69,48 @@ class ProductModifier extends AbstractImportModifyEventListener
      *
      * @param ProductDocument      $document
      * @param CatalogProductEntity $entity
+     *
+     * @throws ItemSkipException
      */
     protected function transform(ProductDocument $document, CatalogProductEntity $entity)
     {
-        $document->setId($entity->getId());
-        $document->setUrls([]);
-        $document->setExpiredUrls([]);
-        $document->setSku($entity->getSku());
+        if ($this->isProductActive($entity)) {
+            $document->setId($entity->getId());
+            $document->setUrls([]);
+            $document->setExpiredUrls([]);
+            $document->setSku($entity->getSku());
 
-        $this->addPrice($entity, $document);
-        $this->addTextAttributes($entity, $document);
-        $this->addVarcharAttributes($entity, $document);
-        $this->addCategories($entity, $document);
+            $this->addPrice($entity, $document);
+            $this->addTextAttributes($entity, $document);
+            $this->addVarcharAttributes($entity, $document);
+            $this->addCategories($entity, $document);
+        } else {
+            throw new ItemSkipException('Product ' . $entity->getId() . ' is disabled, so it wont be imported.');
+        }
+    }
+
+    /**
+     * Checks if product is active (check only if product is set as enabled disabled in magento).
+     *
+     * @param CatalogProductEntity $entity
+     *
+     * @return bool
+     */
+    public function isProductActive(CatalogProductEntity $entity)
+    {
+        $integerAttributes = $entity->getIntegerAttributes();
+
+        foreach ($integerAttributes as $attribute) {
+            if ($attribute->getAttributeId() === self::PRODUCT_IS_ACTIVE) {
+                if ($attribute->getValue() !== 1) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
