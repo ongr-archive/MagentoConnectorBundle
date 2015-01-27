@@ -85,7 +85,7 @@ class ProductModifier extends AbstractImportModifyEventListener
             $this->addVarcharAttributes($entity, $document);
             $this->addCategories($entity, $document);
         } else {
-            throw new ItemSkipException('Product ' . $entity->getId() . ' is not active, so it wont be imported.');
+            throw new ItemSkipException('Product ' . $entity->getId() . ' is disabled, so it wont be imported.');
         }
     }
 
