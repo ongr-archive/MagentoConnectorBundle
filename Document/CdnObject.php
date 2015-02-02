@@ -27,7 +27,7 @@ class CdnObject implements DocumentInterface
     /**
      * @var string
      */
-    private $cdn;
+    protected $cdn;
 
     /**
      * @return string

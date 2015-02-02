@@ -11,6 +11,7 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\MagentoConnectorBundle\Document\CategoryObject;
 use ONGR\MagentoConnectorBundle\Document\PriceObject;
@@ -177,7 +178,8 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             'modify'
         );
         $method->setAccessible(true);
-        $method->invoke(new ProductModifier($shopId), $item);
+        $event = new ItemPipelineEvent($item);
+        $method->invoke(new ProductModifier($shopId), $item, $event);
 
         $this->assertEquals($expectedDocument, $document);
     }

@@ -87,22 +87,25 @@ class SyncTest extends ESDoctrineTestCase
                 ]
             );
         }
-        foreach ($this->getExpectedDocuments() as $repo => $info) {
+        foreach ($this->getExpectedDocuments() as $repo => $data) {
             $repository = $manager->getRepository($repo);
             $search = $repository->createSearch();
-            $actualDocuments = [];
             foreach ($repository->execute($search) as $document) {
-                // Save values as arrays not iterators for comparing.
-                foreach ($info['arrays'] as $field) {
-                    $values = [];
-                    foreach ($document->{'get' . $field}() as $value) {
-                        $values[] = $value;
-                    }
-                    $document->{'set' . $field}($values);
+                $expectedObject = $data['documents'][$document->getId()];
+
+                $this->assertEquals($expectedObject->getId(), $document->getId());
+                $this->assertEquals($expectedObject->getTitle(), $document->getTitle());
+
+                if ($repo == 'ONGRMagentoConnectorBundle:ProductDocument') {
+                    $expectedCategory = $expectedObject->getCategories();
+                    $realCategory = $document->getCategories()->current();
+                    $this->assertEquals($expectedCategory[0]->getId(), $realCategory->getId());
+
+                    $expectedUrl = $expectedObject->getUrls()[0]->getUrl();
+                    $realUrl = $document->getUrls()->current()->getUrl();
+                    $this->assertEquals($expectedUrl, $realUrl);
                 }
-                $actualDocuments[] = $document;
             }
-            $this->assertEquals($info['documents'], $actualDocuments);
         }
     }
 
@@ -128,6 +131,7 @@ class SyncTest extends ESDoctrineTestCase
             ],
         ];
 
+        // Category.
         $expectedDocument = new CategoryDocument();
         $expectedDocument->setId('4');
         $expectedDocument->setScore(1.0);
@@ -138,8 +142,22 @@ class SyncTest extends ESDoctrineTestCase
         $expectedDocument->setParentId('magentorootid');
         $expectedDocument->setTitle('cat update');
 
-        $expectedDocuments['ONGRMagentoConnectorBundle:CategoryDocument']['documents'][] = $expectedDocument;
+        $id = $expectedDocument->getId();
+        $expectedDocuments['ONGRMagentoConnectorBundle:CategoryDocument']['documents'][$id] = $expectedDocument;
 
+        // Content.
+        $expectedDocument = new ContentDocument();
+        $expectedDocument->setId('8');
+        $expectedDocument->setScore(1.0);
+        $expectedDocument->setHeading('Heading');
+        $expectedDocument->setSlug('newpage');
+        $expectedDocument->setTitle('NewPageUpdated');
+        $expectedDocument->setContent('<p>Content&nbsp;Updated</p>');
+
+        $id = $expectedDocument->getId();
+        $expectedDocuments['ONGRMagentoConnectorBundle:ContentDocument']['documents'][$id] = $expectedDocument;
+
+        // Product With Category and With Url.
         $defaultCategory = new CategoryObject();
         $defaultCategory->setId(2);
         $defaultCategory->setTitle('Default Category');
@@ -158,8 +176,10 @@ class SyncTest extends ESDoctrineTestCase
         $expectedDocument->addImageUrl('no_selection');
         $expectedDocument->addSmallImageUrl('no_selection');
 
-        $expectedDocuments['ONGRMagentoConnectorBundle:ProductDocument']['documents'][] = $expectedDocument;
+        $id = $expectedDocument->getId();
+        $expectedDocuments['ONGRMagentoConnectorBundle:ProductDocument']['documents'][$id] = $expectedDocument;
 
+        // Product With Category With Url.
         $expectedDocument = new ProductDocument();
         $expectedDocument->setSku('sku');
         $expectedDocument->setDescription('New desc update');
@@ -172,17 +192,8 @@ class SyncTest extends ESDoctrineTestCase
         $expectedDocument->addImageUrl('no_selection');
         $expectedDocument->addSmallImageUrl('no_selection');
 
-        $expectedDocuments['ONGRMagentoConnectorBundle:ProductDocument']['documents'][] = $expectedDocument;
-
-        $expectedDocument = new ContentDocument();
-        $expectedDocument->setId('8');
-        $expectedDocument->setScore(1.0);
-        $expectedDocument->setHeading('Heading');
-        $expectedDocument->setSlug('newpage');
-        $expectedDocument->setTitle('NewPageUpdated');
-        $expectedDocument->setContent('<p>Content&nbsp;Updated</p>');
-
-        $expectedDocuments['ONGRMagentoConnectorBundle:ContentDocument']['documents'][] = $expectedDocument;
+        $id = $expectedDocument->getId();
+        $expectedDocuments['ONGRMagentoConnectorBundle:ProductDocument']['documents'][$id] = $expectedDocument;
 
         return $expectedDocuments;
     }

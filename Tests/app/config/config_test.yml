@@ -49,8 +49,8 @@ doctrine:
 
 ongr_connections:
     shops:
-        - shop_id: 0
-    active_shop: 0
+        test: { shop_id: 0 }
+    active_shop: test
 
 ongr_elasticsearch:
     connections:

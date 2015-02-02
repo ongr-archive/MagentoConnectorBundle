@@ -13,7 +13,8 @@ namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
-use ONGR\ConnectionsBundle\Pipeline\ItemSkipException;
+use ONGR\ConnectionsBundle\Pipeline\ItemSkipper;
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\MagentoConnectorBundle\Document\CategoryDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
@@ -50,14 +51,14 @@ class CategoryModifier extends AbstractImportModifyEventListener
     /**
      * {@inheritdoc}
      */
-    protected function modify(AbstractImportItem $eventItem)
+    protected function modify(AbstractImportItem $eventItem, ItemPipelineEvent $event)
     {
         /** @var CategoryDocument $document */
         $document = $eventItem->getDocument();
         /** @var CatalogCategoryEntity $entity */
         $entity = $eventItem->getEntity();
 
-        $this->transform($document, $entity);
+        $this->transform($document, $entity, $event);
     }
 
     /**
@@ -65,10 +66,9 @@ class CategoryModifier extends AbstractImportModifyEventListener
      *
      * @param CategoryDocument      $document
      * @param CatalogCategoryEntity $entity
-     *
-     * @throws ItemSkipException
+     * @param ItemPipelineEvent     $event
      */
-    protected function transform(CategoryDocument $document, CatalogCategoryEntity $entity)
+    protected function transform(CategoryDocument $document, CatalogCategoryEntity $entity, ItemPipelineEvent $event)
     {
         $document->setId($entity->getId());
         $document->setParentId($entity->getParentId());
@@ -79,7 +79,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
             // Root categories.
             $document->setParentId(CategoryDocument::ROOT_ID);
         } elseif ($entity->getLevel() < 2) {
-            throw new ItemSkipException('Wrong category level. Got level=' . $entity->getLevel());
+            ItemSkipper::skip($event, 'Wrong category level. Got level=' . $entity->getLevel());
         }
 
         // Trim first two categories (RootCatalog and DefaultCatalog) from path.
