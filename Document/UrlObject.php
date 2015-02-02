@@ -25,21 +25,21 @@ class UrlObject
      *
      * @ES\Property(name="url", type="string")
      */
-    private $url;
+    protected $url;
 
     /**
      * @var string
      *
      * @ES\Property(name="key", type="string", index="no")
      */
-    private $urlKey;
+    protected $urlKey;
 
     /**
      * @var string
      *
      * @ES\Property(name="cdn_url", type="string")
      */
-    private $cdnUrl;
+    protected $cdnUrl;
 
     /**
      * @return string

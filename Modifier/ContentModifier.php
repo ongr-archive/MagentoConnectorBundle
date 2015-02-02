@@ -12,6 +12,7 @@
 namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
 use ONGR\MagentoConnectorBundle\Document\ContentDocument;
 use ONGR\MagentoConnectorBundle\Entity\CmsPage;
@@ -37,7 +38,7 @@ class ContentModifier extends AbstractImportModifyEventListener
     /**
      * {@inheritdoc}
      */
-    protected function modify(AbstractImportItem $eventItem)
+    protected function modify(AbstractImportItem $eventItem, ItemPipelineEvent $event = null)
     {
         /** @var ContentDocument $document */
         $document = $eventItem->getDocument();

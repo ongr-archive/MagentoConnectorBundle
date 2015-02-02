@@ -25,35 +25,35 @@ class CategoryObject
      *
      * @ES\Property(name="id", type="string")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ES\Property(name="title", type="string")
      */
-    private $title;
+    protected $title;
 
     /**
      * @var UrlObject
      *
      * @ES\Property(name="url", type="object", objectName="ONGRMagentoConnectorBundle:UrlObject")
      */
-    private $url;
+    protected $url;
 
     /**
      * @var string
      *
      * @ES\Property(name="path", type="string")
      */
-    private $path;
+    protected $path;
 
     /**
      * @var string[]
      *
      * @ES\Property(name="categories", type="string", multiple=true)
      */
-    private $categories;
+    protected $categories;
 
     /**
      * @return string

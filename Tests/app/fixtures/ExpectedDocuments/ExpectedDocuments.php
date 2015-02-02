@@ -52,6 +52,7 @@ class ExpectedDocuments
                 'title' => 'French Cuff Cotton Twill Oxford',
                 'description' => 'Button front. Long sleeves. Tapered collar, chest pocket, french cuffs.',
                 'sku' => 'msj001',
+                'expired_urls' => [],
             ],
             [
                 'urls' => [['url' => 'plaid-cotton-shirt.html']],
@@ -75,6 +76,7 @@ class ExpectedDocuments
                     'Available in Sharp fit. Refined collar. Button cuff. ' .
                     'Cotton. Machine wash. Made in US.',
                 'sku' => 'msj006',
+                'expired_urls' => [],
             ],
             [
                 'urls' => [['url' => 'linen-blazer-578.html']],
@@ -98,6 +100,7 @@ class ExpectedDocuments
                 'description' =>
                     'Single vented, notched lapels. Flap pockets. Tonal stitching. Fully lined. Linen. Dry clean.',
                 'sku' => 'msj013',
+                'expired_urls' => [],
             ],
             [
                 'urls' => [['url' => 'chelsea-tee.html']],
@@ -119,6 +122,7 @@ class ExpectedDocuments
                 'title' => 'Chelsea Tee',
                 'description' => 'Ultrasoft, lightweight V-neck tee. 100% cotton. Machine wash.',
                 'sku' => 'mtk000',
+                'expired_urls' => [],
             ],
             [
                 'urls' => [['url' => 'chelsea-tee-697.html']],
@@ -140,6 +144,7 @@ class ExpectedDocuments
                 'title' => 'Chelsea Tee',
                 'description' => 'Ultrasoft, lightweight V-neck tee. 100% cotton. Machine wash.',
                 'sku' => 'mtk002',
+                'expired_urls' => [],
             ],
             [
                 'urls' => [['url' => 'merino-v-neck-pullover-sweater-554.html']],
@@ -165,6 +170,7 @@ class ExpectedDocuments
                     'Long sleeve, pull over style. V-neck. Relaxed fit through the chest. ' .
                     'Ribbed neckline, cuff and hem. 100% Merino wool. Dry clean.',
                 'sku' => 'mtk007',
+                'expired_urls' => [],
             ],
             [
                 'urls' => [['url' => 'core-striped-sport-shirt-546.html']],
@@ -187,6 +193,7 @@ class ExpectedDocuments
                 'description' =>
                     'Slim fit. Two chest pockets. Silver grommet detail. Grinding and nicking at hems. 100% cotton. ',
                 'sku' => 'mtk014',
+                'expired_urls' => [],
             ],
             [
                 'urls' => [['url' => 'bowery-chino-pants-539.html']],
@@ -212,6 +219,7 @@ class ExpectedDocuments
                 'description' =>
                     'Straight leg chino. Back pockets with button closure. 14" leg opening. Zip fly. 100% cotton.',
                 'sku' => 'mpd004',
+                'expired_urls' => [],
             ],
             [
                 'urls' => [['url' => 'the-essential-boot-cut-jean.html']],
@@ -237,6 +245,7 @@ class ExpectedDocuments
                     'Lightly faded cotton denim. Sits below waist. Slim through hip and thigh. ' .
                     '15" leg opening. Zip fly. Machine wash. ',
                 'sku' => 'mpd006',
+                'expired_urls' => [],
             ],
             [
                 'urls' => [['url' => 'the-essential-boot-cut-jean-540.html']],
@@ -262,6 +271,7 @@ class ExpectedDocuments
                     'Lightly faded cotton denim. Sits below waist. Slim through hip and thigh. ' .
                     '15" leg opening. Zip fly. Machine wash. ',
                 'sku' => 'mpd011',
+                'expired_urls' => [],
             ],
         ];
     }
@@ -281,6 +291,9 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 'magentorootid',
                 'title' => 'Women',
+                'expired_urls' => [],
+                'is_hidden' => false,
+
             ],
             [
                 'urls' => [['url' => 'vip.html']],
@@ -289,6 +302,8 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 'magentorootid',
                 'title' => 'VIP',
+                'expired_urls' => [],
+                'is_hidden' => false,
             ],
             [
                 'urls' => [['url' => 'women/tops-blouses.html']],
@@ -297,6 +312,8 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 4,
                 'title' => 'Tops & Blouses',
+                'expired_urls' => [],
+                'is_hidden' => false,
             ],
             [
                 'urls' => [['url' => 'men/tees-knits-and-polos.html']],
@@ -305,6 +322,8 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 5,
                 'title' => 'Tees, Knits and Polos',
+                'expired_urls' => [],
+                'is_hidden' => false,
             ],
             [
                 'urls' => [['url' => 'home-decor/bed-bath.html']],
@@ -313,6 +332,8 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 7,
                 'title' => 'Bed & Bath',
+                'expired_urls' => [],
+                'is_hidden' => false,
             ],
             [
                 'urls' => [['url' => 'sale/accessories.html']],
@@ -321,6 +342,8 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 8,
                 'title' => 'Accessories',
+                'expired_urls' => [],
+                'is_hidden' => false,
             ],
             [
                 'urls' => [['url' => 'men.html']],
@@ -329,6 +352,8 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 'magentorootid',
                 'title' => 'Men',
+                'expired_urls' => [],
+                'is_hidden' => false,
             ],
             [
                 'urls' => [['url' => 'women/pants-denim.html']],
@@ -337,6 +362,8 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 4,
                 'title' => 'Pants & Denim',
+                'expired_urls' => [],
+                'is_hidden' => false,
             ],
             [
                 'urls' => [['url' => 'men/pants-denim.html']],
@@ -345,6 +372,8 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 5,
                 'title' => 'Pants & Denim',
+                'expired_urls' => [],
+                'is_hidden' => false,
             ],
             [
                 'urls' => [['url' => 'home-decor/electronics.html']],
@@ -353,6 +382,8 @@ class ExpectedDocuments
                 'active' => true,
                 'parent_id' => 7,
                 'title' => 'Electronics',
+                'expired_urls' => [],
+                'is_hidden' => false,
             ],
         ];
     }
@@ -369,6 +400,9 @@ class ExpectedDocuments
                 'slug' => 'customer-service',
                 'title' => 'Customer Service',
                 'content' => 'Customer Service content',
+                'urls' => [],
+                'expired_urls' => [],
+
             ],
             [
                 'heading' => 'Reward Points',
@@ -376,47 +410,65 @@ class ExpectedDocuments
                 'title' => 'Reward Points',
                 'content' => '<p>The Reward Points Program allows you to earn points for certain actions you ' .
                     'take on the site.</p>',
+                'urls' => [],
+                'expired_urls' => [],
             ],
             [
                 'slug' => 'enable-cookies',
                 'title' => 'Enable Cookies',
                 'content' => '<div class="std">Enable Cookies</div>',
+                'urls' => [],
+                'expired_urls' => [],
             ],
             [
                 'slug' => 'no-route',
                 'title' => '404 Not Found',
                 'content' => '<p><img src="{{media url="wysiwyg/404-banner-3.jpg"}}" alt="404bannerimage" />',
+                'urls' => [],
+                'expired_urls' => [],
             ],
             [
                 'heading' => 'Privacy Policy',
                 'slug' => 'privacy-policy-cookie-restriction-mode',
                 'title' => 'Privacy Policy',
                 'content' => 'Privacy Policy Content',
+                'urls' => [],
+                'expired_urls' => [],
             ],
             [
                 'slug' => 'home',
                 'title' => 'Madison Island',
                 'content' => '<div class="slideshow-container">Madison Island content</div>',
+                'urls' => [],
+                'expired_urls' => [],
             ],
             [
                 'slug' => 'service-unavailable',
                 'title' => '503 Service Unavailable',
                 'content' => '<p>service unavailable</p>',
+                'urls' => [],
+                'expired_urls' => [],
             ],
             [
                 'slug' => 'about-magento-demo-store',
                 'title' => 'About Us',
                 'content' => 'About us content',
+                'urls' => [],
+                'expired_urls' => [],
             ],
             [
                 'slug' => 'private-sales',
                 'title' => 'Welcome to our Exclusive Online Store',
                 'content' => '<h1>Welcome to our Exclusive Online Store</h1>',
+                'urls' => [],
+                'expired_urls' => [],
             ],
             [
                 'slug' => 'company',
                 'title' => 'Company',
                 'content' => '<div class="page-head"><h3>OUR STORY</h3></div>',
+                'urls' => [],
+                'expired_urls' => [],
             ],
         ];
     }
