@@ -20,6 +20,7 @@ use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryProduct;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity;
+use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductIndexPrice;
@@ -182,5 +183,30 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $method->invoke(new ProductModifier($shopId), $item, $event);
 
         $this->assertEquals($expectedDocument, $document);
+    }
+
+    /**
+     * Test for modify method.
+     */
+    public function testIsProductActive()
+    {
+        /** @var CatalogProductEntityInt $integer */
+        $integer = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt');
+        $integer->setAttributeId(3);
+        $integer->setValue(1);
+        $integer->setStore(1);
+        $integerAttributes[] = $integer;
+
+        /** @var CatalogProductEntity $entity */
+        $entity = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity');
+        $entity->setIntegerAttributes($integerAttributes);
+
+        $method = new \ReflectionMethod(
+            'ONGR\MagentoConnectorBundle\Modifier\ProductModifier',
+            'isProductActive'
+        );
+        $result = $method->invoke(new ProductModifier(1), $entity);
+
+        $this->assertTrue($result);
     }
 }
