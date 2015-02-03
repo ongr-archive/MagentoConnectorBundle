@@ -86,6 +86,8 @@ class ProductModifier extends AbstractImportModifyEventListener
             $this->addCategories($entity, $document);
         } else {
             ItemSkipper::skip($event, 'Product ' . $entity->getId() . ' is disabled, so it wont be imported.');
+
+            return;
         }
     }
 
