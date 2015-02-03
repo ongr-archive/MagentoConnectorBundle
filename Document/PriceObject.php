@@ -25,7 +25,7 @@ class PriceObject
      *
      * @ES\Property(name="price", type="float")
      */
-    private $price;
+    protected $price;
 
     /**
      * @param float $price

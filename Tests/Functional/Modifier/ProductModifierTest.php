@@ -87,7 +87,8 @@ class ProductModifierTest extends TestBase
             ' dress shirt is perfect for Business Class frequent flyers.'
         );
 
-        $expectedEntities = [$expectedEntity1, $expectedEntity2];
+        $expectedEntities[231] = $expectedEntity1;
+        $expectedEntities[232] = $expectedEntity2;
 
         $productItems = $this->getTestElements(
             [231, 232],
@@ -104,8 +105,8 @@ class ProductModifierTest extends TestBase
             $event = new ItemPipelineEvent($item);
             $modifier->onModify($event);
             $createdProducts[] = $createdProduct;
-        }
 
-        $this->assertEquals($expectedEntities, $createdProducts);
+            $this->assertEquals($expectedEntities[$productItem->getId()], $createdProduct);
+        }
     }
 }

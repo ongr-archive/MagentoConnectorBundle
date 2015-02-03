@@ -13,7 +13,8 @@ namespace ONGR\MagentoConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
-use ONGR\ConnectionsBundle\Pipeline\ItemSkipException;
+use ONGR\ConnectionsBundle\Pipeline\ItemSkipper;
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\MagentoConnectorBundle\Document\CategoryObject;
 use ONGR\MagentoConnectorBundle\Document\PriceObject;
 use ONGR\MagentoConnectorBundle\Document\ProductDocument;
@@ -55,13 +56,13 @@ class ProductModifier extends AbstractImportModifyEventListener
     /**
      * {@inheritdoc}
      */
-    protected function modify(AbstractImportItem $eventItem)
+    protected function modify(AbstractImportItem $eventItem, ItemPipelineEvent $event)
     {
         /** @var ProductDocument $document */
         $document = $eventItem->getDocument();
         /** @var CatalogProductEntity $entity */
         $entity = $eventItem->getEntity();
-        $this->transform($document, $entity);
+        $this->transform($document, $entity, $event);
     }
 
     /**
@@ -69,24 +70,25 @@ class ProductModifier extends AbstractImportModifyEventListener
      *
      * @param ProductDocument      $document
      * @param CatalogProductEntity $entity
-     *
-     * @throws ItemSkipException
+     * @param ItemPipelineEvent    $event
      */
-    protected function transform(ProductDocument $document, CatalogProductEntity $entity)
+    protected function transform(ProductDocument $document, CatalogProductEntity $entity, ItemPipelineEvent $event)
     {
-        if ($this->isProductActive($entity)) {
-            $document->setId($entity->getId());
-            $document->setUrls([]);
-            $document->setExpiredUrls([]);
-            $document->setSku($entity->getSku());
+        if (!$this->isProductActive($entity)) {
+            ItemSkipper::skip($event, 'Product ' . $entity->getId() . ' is disabled, so it wont be imported.');
 
-            $this->addPrice($entity, $document);
-            $this->addTextAttributes($entity, $document);
-            $this->addVarcharAttributes($entity, $document);
-            $this->addCategories($entity, $document);
-        } else {
-            throw new ItemSkipException('Product ' . $entity->getId() . ' is disabled, so it wont be imported.');
+            return;
         }
+
+        $document->setId($entity->getId());
+        $document->setUrls([]);
+        $document->setExpiredUrls([]);
+        $document->setSku($entity->getSku());
+
+        $this->addPrice($entity, $document);
+        $this->addTextAttributes($entity, $document);
+        $this->addVarcharAttributes($entity, $document);
+        $this->addCategories($entity, $document);
     }
 
     /**

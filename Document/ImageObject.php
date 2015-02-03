@@ -25,28 +25,28 @@ class ImageObject
      *
      * @ES\Property(name="url", type="string")
      */
-    private $url;
+    protected $url;
 
     /**
      * @var string
      *
      * @ES\Property(name="title", type="string", index="no")
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      *
      * @ES\Property(name="description", type="string", index="no")
      */
-    private $description;
+    protected $description;
 
     /**
      * @var object
      *
      * @ES\Property(name="cdn", type="object", objectName="ONGRMagentoConnectorBundle:CdnObject")
      */
-    private $cdn;
+    protected $cdn;
 
     /**
      * @return object

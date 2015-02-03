@@ -11,6 +11,7 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Modifier;
 
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\MagentoConnectorBundle\Document\CategoryDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
@@ -103,7 +104,8 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
 
         $document = new CategoryDocument();
         $item = new ImportItem($entity, $document);
-        $method->invoke($modifier, $item);
+        $event = new ItemPipelineEvent($item);
+        $method->invoke($modifier, $item, $event);
         $this->assertEquals($expectedDocument, $document);
 
         $entity
@@ -112,14 +114,8 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setPath('');
         $expectedDocument->setParentId(CategoryDocument::ROOT_ID);
         $item = new ImportItem($entity, $document);
-        $method->invoke($modifier, $item);
+        $event = new ItemPipelineEvent($item);
+        $method->invoke($modifier, $item, $event);
         $this->assertEquals($expectedDocument, $document);
-
-        $entity
-            ->setPath('1')
-            ->setLevel(1);
-        $this->setExpectedException('Exception');
-        $item = new ImportItem($entity, $document);
-        $method->invoke($modifier, $item);
     }
 }

@@ -39,21 +39,21 @@ class CategoryDocument extends AbstractCategoryDocument
      *
      * @ES\Property(name="urls", type="object", objectName="ONGRMagentoConnectorBundle:UrlObject", multiple=true)
      */
-    private $urls = [];
+    protected $urls = [];
 
     /**
      * @var string[] Array of expired urls hashes.
      *
      * @ES\Property(name="expired_urls", type="string", multiple=true)
      */
-    private $expiredUrls = [];
+    protected $expiredUrls = [];
 
     /**
      * @var string
      *
      * @ES\Property(name="path", type="string")
      */
-    private $path;
+    protected $path;
 
     /**
      * @return string[]
