@@ -74,21 +74,21 @@ class ProductModifier extends AbstractImportModifyEventListener
      */
     protected function transform(ProductDocument $document, CatalogProductEntity $entity, ItemPipelineEvent $event)
     {
-        if ($this->isProductActive($entity)) {
-            $document->setId($entity->getId());
-            $document->setUrls([]);
-            $document->setExpiredUrls([]);
-            $document->setSku($entity->getSku());
-
-            $this->addPrice($entity, $document);
-            $this->addTextAttributes($entity, $document);
-            $this->addVarcharAttributes($entity, $document);
-            $this->addCategories($entity, $document);
-        } else {
+        if (!$this->isProductActive($entity)) {
             ItemSkipper::skip($event, 'Product ' . $entity->getId() . ' is disabled, so it wont be imported.');
 
             return;
         }
+
+        $document->setId($entity->getId());
+        $document->setUrls([]);
+        $document->setExpiredUrls([]);
+        $document->setSku($entity->getSku());
+
+        $this->addPrice($entity, $document);
+        $this->addTextAttributes($entity, $document);
+        $this->addVarcharAttributes($entity, $document);
+        $this->addCategories($entity, $document);
     }
 
     /**
