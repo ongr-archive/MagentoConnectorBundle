@@ -157,7 +157,7 @@ class SyncTest extends ESDoctrineTestCase
         $id = $expectedDocument->getId();
         $expectedDocuments['ONGRMagentoConnectorBundle:ContentDocument']['documents'][$id] = $expectedDocument;
 
-        // Product With Category and With Url.
+        // Product with category and with url.
         $defaultCategory = new CategoryObject();
         $defaultCategory->setId(2);
         $defaultCategory->setTitle('Default Category');
@@ -179,7 +179,6 @@ class SyncTest extends ESDoctrineTestCase
         $id = $expectedDocument->getId();
         $expectedDocuments['ONGRMagentoConnectorBundle:ProductDocument']['documents'][$id] = $expectedDocument;
 
-        // Product With Category With Url.
         $expectedDocument = new ProductDocument();
         $expectedDocument->setSku('sku');
         $expectedDocument->setDescription('New desc update');

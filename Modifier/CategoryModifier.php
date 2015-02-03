@@ -80,6 +80,8 @@ class CategoryModifier extends AbstractImportModifyEventListener
             $document->setParentId(CategoryDocument::ROOT_ID);
         } elseif ($entity->getLevel() < 2) {
             ItemSkipper::skip($event, 'Wrong category level. Got level=' . $entity->getLevel());
+
+            return;
         }
 
         // Trim first two categories (RootCatalog and DefaultCatalog) from path.
