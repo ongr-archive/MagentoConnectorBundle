@@ -3,19 +3,20 @@ Quick start
 ===========
 
 Let's get started. We'll guide you step by step through installing and running ``ONGR sandbox`` integration with ``Magento`` for
-the first time. The first installation should not need more than 1.5 hour.
+the first time. The first installation should not need more than 1.5 hours.
 
 Step 1: Requirements.
 ---------------------
 
-Yes there are a few.
+Yes, there are a few.
 
-Please check if your development environment in our handbook.
+Please check if your development environment satisfies minimum requirements in our handbook.
 
 Step 2: Download ONGR
 ---------------------
 
-Download the latest release here `archive <https://github.com/ongr-io/ongr-sandbox/releases>`_ and unpack it somewhere under your project directory. Make sure that we have the "Vagrantfile" in the your project root folder.
+Download the latest release from `our archive <https://github.com/ongr-io/ongr-sandbox/releases>`_ and unpack it somewhere under your project directory.
+Make sure that we have the "Vagrantfile" in the your project root folder.
 
 Checkout branch ``magento``
 
@@ -29,7 +30,7 @@ Step 4: Install Vagrant
 
 Either install or upgrade `vagrant <https://www.vagrantup.com/downloads.html>`_. We need Vagrant >= 1.6.5
 
-    (optional) Now we need to install the hosts updater vagrant plugin.
+    (optional) Now we can install the hosts updater vagrant plugin.
 
 .. code-block:: bash
 
@@ -39,7 +40,7 @@ Either install or upgrade `vagrant <https://www.vagrantup.com/downloads.html>`_.
 
    It will help to automatically update /etc/hosts file via adding your new ongr.dev host with correct IP.
 
-And finally - ONLY_FOR_LINUX you need to install the nfs server:
+And finally - ``ONLY FOR LINUX`` you need to install the nfs server:
 
 .. code-block:: bash
 
@@ -58,7 +59,7 @@ Let's rock. Move into your project root folder and execute:
 
 ..
 
-(In case you have also something like VMWare installed on your local machine, it is a good idea to give the provider when upping your box:
+In case you have also something like VMWare installed on your local machine, it is a good idea to give the provider when upping your box:
 
 .. code-block:: bash
 
@@ -66,18 +67,17 @@ Let's rock. Move into your project root folder and execute:
 
 ..
 
-)
 
 That's it. The ONGR is alive.
 
-If you experience any problems (e.g. vagrant tends to change the rules with each update and we might lag a bit) please do not hesitate to @@TODO contact us. We'll help.
+If you experience any problems (e.g. vagrant tends to change the rules with each update and we might lag a bit) please do not hesitate to contact us. We'll help.
 
 Now, let's feed the donkey with some data.
 
 Step 6: Install Magento with the demo data
 ------------------------------------------
 
-In case to get Magento and its demo content you need to make a following steps:
+In case to get Magento and its demo content you need to take a following steps:
 
 .. code-block:: bash
 
@@ -90,7 +90,7 @@ In case to get Magento and its demo content you need to make a following steps:
    NOTE: If composer prompts input questions just press enter.
 
 
-Then run magento install script (be patient it takes some time):
+Then run magento install script (be patient, it takes some time):
 
 .. code-block:: bash
 
@@ -107,7 +107,7 @@ After Magento installation is complete, clear Magento cache:
 
 ..
 
-Now You must create new index for ElasticSearch:
+Now you must create new index for ElasticSearch:
 
 .. code-block:: bash
 
@@ -124,7 +124,7 @@ And import demo content for `ongr.dev <http://ongr.dev>`_ pages:
 
 ..
 
-Now you need to import data from magento to Your newly baked ONGR shop:
+Now you need to import data from magento to your newly baked ONGR shop:
 
 .. code-block:: bash
 
@@ -138,12 +138,12 @@ Step 7: Open your browser
 
 Navigate your browser to `http://ongr.dev <http://ongr.dev/>`_
 
-Here You will find Your new shops front end.
+Here you will find your new shops front end.
 
 
-If You would visit `http://magento.ongr.dev/ <http://magento.ongr.dev/>`_  You would find original Magento e-shop with demo data.
+If you visit `http://magento.ongr.dev/ <http://magento.ongr.dev/>`_  you will find original Magento e-shop with demo data.
 
-If You would like to check Magento administrators UI go to `http://magento.ongr.dev/admin <http://magento.ongr.dev/admin>`_
+If you wish to check Magento administrators UI go to `http://magento.ongr.dev/admin <http://magento.ongr.dev/admin>`_
 
     Username: admin
 
@@ -153,7 +153,7 @@ Step 7: Sync
 -------------------------
 
 
-If You wish to check how sync works You should make a change in Magento admin and run following commands:
+If you wish to check how data sync, between Magento and ONGR databases works, you should make a change in Magento admin and run following commands:
 
 .. code-block:: bash
 
