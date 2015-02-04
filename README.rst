@@ -39,8 +39,8 @@ Magento Connector Bundle is responsible for transferring data from Magento insta
 Documentation
 ~~~~~~~~~~~~~
 
-Documentation for this bundle can be found in 
-`here <https://github.com/ongr-io/MagentoConnectorBundle/blob/master/Resources/doc/index.rst>`_.
+Documentation for this bundle usage with `ongr-sandbox <https://github.com/ongr-io/ongr-sandbox>`_ and Magento demo
+data can be found in `here <https://github.com/ongr-io/MagentoConnectorBundle/blob/master/Resources/doc/index.rst>`_.
 
 License
 ~~~~~~~
