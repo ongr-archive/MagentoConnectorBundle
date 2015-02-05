@@ -15,12 +15,14 @@ use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\MagentoConnectorBundle\Document\CategoryDocument;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
-use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Modifier\CategoryModifier;
+use ONGR\MagentoConnectorBundle\Tests\Unit\Modifier\Helper\ModifierHelperTrait;
 
 class CategoryModifierTest extends \PHPUnit_Framework_TestCase
 {
+    use ModifierHelperTrait;
+
     /**
      * Test for modify method.
      */
@@ -29,56 +31,61 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $shopId = 1;
 
         /** @var CatalogCategoryEntityVarchar $varchar */
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar');
-        $varchar->setAttributeId(CategoryModifier::CATEGORY_NAME);
-        $varchar->setValue('title');
-        $varchar->setStore($shopId);
-        $varcharAttributes = [$varchar];
+        $data = [
+            [
+                'attributeId' => CategoryModifier::CATEGORY_NAME,
+                'value' => 'title',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => CategoryModifier::CATEGORY_URL_PATH,
+                'value' => 'url',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => 3,
+                'value' => 'nothing',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => 3,
+                'value' => 'nothing',
+                'store' => $shopId + 1,
+            ],
+        ];
 
-        /** @var CatalogCategoryEntityVarchar $varchar */
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar');
-        $varchar->setAttributeId(CategoryModifier::CATEGORY_URL_PATH);
-        $varchar->setValue('url');
-        $varchar->setStore($shopId);
-        $varcharAttributes[] = $varchar;
+        $varcharAttributes = $this->getAttributesArray(
+            $data,
+            'ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar'
+        );
 
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(3);
-        $varchar->setStore($shopId);
-        $varchar->setValue('nothing');
-        $varcharAttributes[] = $varchar;
+        $data = [
+            [
+                'attributeId' => 3,
+                'value' => 0,
+                'store' => $shopId + 1,
+            ],
+            [
+                'attributeId' => CategoryModifier::CATEGORY_IS_ACTIVE,
+                'value' => 1,
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => 3,
+                'value' => 0,
+                'store' => $shopId,
+            ],
+        ];
 
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(3);
-        $varchar->setStore($shopId + 1);
-        $varchar->setValue('nothing');
-        $varcharAttributes[] = $varchar;
-
-        /** @var CatalogCategoryEntityInt $integer */
-        $integer = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt');
-        $integer->setAttributeId(3);
-        $integer->setValue(0);
-        $integer->setStore($shopId + 1);
-        $integerAttributes = [$integer];
-
-        /** @var CatalogCategoryEntityInt $integer1 */
-        $integer1 = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt');
-        $integer1->setAttributeId(CategoryModifier::CATEGORY_IS_ACTIVE);
-        $integer1->setValue(1);
-        $integer1->setStore($shopId);
-
-        /** @var CatalogCategoryEntityInt $integer2 */
-        $integer2 = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt');
-        $integer2->setAttributeId(3);
-        $integer2->setValue(0);
-        $integer2->setStore($shopId);
+        $integerAttributes = $this->getAttributesArray(
+            $data,
+            'ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt'
+        );
 
         /** @var CatalogCategoryEntity $entity */
         $entity = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity');
         $entity->setVarcharAttributes($varcharAttributes)
             ->setIntegerAttributes($integerAttributes)
-            ->addIntegerAttribute($integer1)
-            ->addIntegerAttribute($integer2)
             ->setId(2)
             ->setParentId(1)
             ->setLevel(3)

@@ -20,15 +20,16 @@ use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryProduct;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity;
-use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt;
-use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar;
 use ONGR\MagentoConnectorBundle\Entity\CatalogProductIndexPrice;
 use ONGR\MagentoConnectorBundle\Modifier\CategoryModifier;
 use ONGR\MagentoConnectorBundle\Modifier\ProductModifier;
+use ONGR\MagentoConnectorBundle\Tests\Unit\Modifier\Helper\ModifierHelperTrait;
 
 class ProductModifierTest extends \PHPUnit_Framework_TestCase
 {
+    use ModifierHelperTrait;
+
     /**
      * Test for modify method.
      */
@@ -36,101 +37,126 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
     {
         $shopId = 1;
 
+        $data = [
+            [
+                'attributeId' => ProductModifier::PRODUCT_DESCRIPTION,
+                'value' => 'description',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => ProductModifier::PRODUCT_SHORT_DESCRIPTION,
+                'value' => 'short description',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => 3,
+                'value' => 'nothing',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => 3,
+                'value' => 'nothing',
+                'store' => $shopId + 1,
+            ],
+        ];
+
+        $textAttributes = $this->getAttributesArray(
+            $data,
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText'
+        );
+
+        $data = [
+            [
+                'attributeId' => ProductModifier::PRODUCT_NAME,
+                'value' => 'meta title',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => ProductModifier::PRODUCT_URL_PATH,
+                'value' => 'link',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => ProductModifier::PRODUCT_IMAGE,
+                'value' => 'image',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => ProductModifier::PRODUCT_SMALL_IMAGE,
+                'value' => 'thumb',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => 3,
+                'value' => 'nothing',
+                'store' => $shopId,
+            ],
+            [
+                'attributeId' => 3,
+                'value' => 'nothing',
+                'store' => $shopId + 1,
+            ],
+        ];
+
+        $varcharAttributes = $this->getAttributesArray(
+            $data,
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar'
+        );
+
+        $data = [
+            [
+                'attributeId' => 96,
+                'value' => 1,
+                'store' => $shopId + 1,
+            ],
+        ];
+
+        $integerAttributes = $this->getAttributesArray(
+            $data,
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt'
+        );
+
         /** @var CatalogProductIndexPrice $price */
-        $price = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductIndexPrice');
+        $price = $this->getMockForAbstractClass(
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductIndexPrice'
+        );
         $price->setPrice(123.99);
 
-        /** @var CatalogProductEntityText $text */
-        $text = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText');
-        $text->setAttributeId(ProductModifier::PRODUCT_DESCRIPTION);
-        $text->setValue('description');
-        $text->setStore($shopId);
-        $textAttributes = [ $text ];
-
-        $text = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText');
-        $text->setAttributeId(ProductModifier::PRODUCT_SHORT_DESCRIPTION);
-        $text->setValue('short description');
-        $text->setStore($shopId);
-        $textAttributes[] = $text;
-
-        $text = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText');
-        $text->setAttributeId(3);
-        $text->setValue('nothing');
-        $text->setStore($shopId);
-        $textAttributes[] = $text;
-
-        $text = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityText');
-        $text->setAttributeId(3);
-        $text->setValue('nothing');
-        $text->setStore($shopId + 1);
-        $textAttributes[] = $text;
-
-        /** @var CatalogProductEntityVarchar $varchar */
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(ProductModifier::PRODUCT_NAME);
-        $varchar->setValue('meta title');
-        $varchar->setStore($shopId);
-        $varcharAttributes = [ $varchar ];
-
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(ProductModifier::PRODUCT_URL_PATH);
-        $varchar->setValue('link');
-        $varchar->setStore($shopId);
-        $varcharAttributes[] = $varchar;
-
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(ProductModifier::PRODUCT_IMAGE);
-        $varchar->setValue('image');
-        $varchar->setStore($shopId);
-        $varcharAttributes[] = $varchar;
-
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(ProductModifier::PRODUCT_SMALL_IMAGE);
-        $varchar->setValue('thumb');
-        $varchar->setStore($shopId);
-        $varcharAttributes[] = $varchar;
-
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(3);
-        $varchar->setValue('nothing');
-        $varchar->setStore($shopId);
-        $varcharAttributes[] = $varchar;
-
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
-        $varchar->setAttributeId(3);
-        $varchar->setValue('nothing');
-        $varchar->setStore($shopId + 1);
-        $varcharAttributes[] = $varchar;
-
-        $integer = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt');
-        $integer->setAttributeId(96);
-        $integer->setValue(1);
-        $integer->setStore($shopId + 1);
-        $integerAttributes[] = $integer;
-
         /** @var CatalogProductEntity $entity */
-        $entity = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity');
+        $entity = $this->getMockForAbstractClass(
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity'
+        );
 
         /** @var CatalogCategoryProduct $categoryCross */
-        $categoryCross = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryProduct');
+        $categoryCross = $this->getMockForAbstractClass(
+            'ONGR\MagentoConnectorBundle\Entity\CatalogCategoryProduct'
+        );
 
         /** @var CatalogCategoryEntity $category */
-        $category = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity');
+        $category = $this->getMockForAbstractClass(
+            'ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity'
+        );
         $category->setId(1);
         $category->setPath('1/2/3');
 
         /** @var CatalogProductEntityVarchar $varchar */
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
+        $varchar = $this->getMockForAbstractClass(
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar'
+        );
         $varchar->setAttributeId(CategoryModifier::CATEGORY_NAME);
         $varchar->setValue('category title');
         $category->addVarcharAttribute($varchar);
 
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
+        $varchar = $this->getMockForAbstractClass(
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar'
+        );
         $varchar->setAttributeId(CategoryModifier::CATEGORY_URL_PATH);
         $varchar->setValue('category link');
         $category->addVarcharAttribute($varchar);
 
-        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
+        $varchar = $this->getMockForAbstractClass(
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar'
+        );
         $varchar->setAttributeId(3);
         $varchar->setValue('value');
         $category->addVarcharAttribute($varchar);
@@ -190,15 +216,23 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsProductActive()
     {
-        /** @var CatalogProductEntityInt $integer */
-        $integer = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt');
-        $integer->setAttributeId(3);
-        $integer->setValue(1);
-        $integer->setStore(1);
-        $integerAttributes[] = $integer;
+        $data = [
+            [
+                'attributeId' => 3,
+                'value' => 1,
+                'store' => 1,
+            ],
+        ];
+
+        $integerAttributes = $this->getAttributesArray(
+            $data,
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt'
+        );
 
         /** @var CatalogProductEntity $entity */
-        $entity = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity');
+        $entity = $this->getMockForAbstractClass(
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntity'
+        );
         $entity->setIntegerAttributes($integerAttributes);
 
         $method = new \ReflectionMethod(
