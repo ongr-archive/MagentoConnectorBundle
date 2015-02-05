@@ -59,7 +59,6 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
             'ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar'
         );
 
-
         $data = [
             [
                 'attributeId' => 3,

@@ -37,12 +37,6 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
     {
         $shopId = 1;
 
-        /** @var CatalogProductIndexPrice $price */
-        $price = $this->getMockForAbstractClass(
-            'ONGR\MagentoConnectorBundle\Entity\CatalogProductIndexPrice'
-        );
-
-        $price->setPrice(123.99);
         $data = [
             [
                 'attributeId' => ProductModifier::PRODUCT_DESCRIPTION,
@@ -121,6 +115,12 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             $data,
             'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt'
         );
+
+        /** @var CatalogProductIndexPrice $price */
+        $price = $this->getMockForAbstractClass(
+            'ONGR\MagentoConnectorBundle\Entity\CatalogProductIndexPrice'
+        );
+        $price->setPrice(123.99);
 
         /** @var CatalogProductEntity $entity */
         $entity = $this->getMockForAbstractClass(
