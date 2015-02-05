@@ -139,7 +139,7 @@ class SyncTest extends ESDoctrineTestCase
         $expectedDocument->setPath('/4');
         $expectedDocument->setSort(2);
         $expectedDocument->setActive(true);
-        $expectedDocument->setParentId('magentorootid');
+        $expectedDocument->setParentId('rootid');
         $expectedDocument->setTitle('cat update');
 
         $id = $expectedDocument->getId();

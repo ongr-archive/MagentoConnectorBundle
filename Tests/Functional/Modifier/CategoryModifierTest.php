@@ -123,7 +123,7 @@ class CategoryModifierTest extends TestBase
         $expectedEntity1->setHidden(false);
         $expectedEntity1->setLeft(null);
         $expectedEntity1->setRight(null);
-        $expectedEntity1->setParentId('magentorootid');
+        $expectedEntity1->setParentId('rootid');
         $expectedEntity1->setSort(2);
         $expectedEntity1->setTitle('Women');
 
@@ -138,7 +138,7 @@ class CategoryModifierTest extends TestBase
         $expectedEntity2->setHidden(false);
         $expectedEntity2->setLeft(null);
         $expectedEntity2->setRight(null);
-        $expectedEntity2->setParentId('magentorootid');
+        $expectedEntity2->setParentId('rootid');
         $expectedEntity2->setSort(3);
         $expectedEntity2->setTitle('Men');
         $expectedEntity2->addUrlString('men.html');
