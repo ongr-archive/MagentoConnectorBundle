@@ -21,7 +21,7 @@ use ONGR\ContentBundle\Document\AbstractCategoryDocument;
  */
 class CategoryDocument extends AbstractCategoryDocument
 {
-    const ROOT_ID = 'magentorootid';
+    const ROOT_ID = 'rootid';
 
     /**
      * Structure that represents possible URLs for the model.
