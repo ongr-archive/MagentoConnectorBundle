@@ -23,7 +23,7 @@ abstract class EavAttribute
     /**
      * @var int
      *
-     * @ORM\Column(name="attribute_id", type="integer")
+     * @ORM\Column(name="attribute_id", type="integer", nullable=false)
      * @ORM\Id
      */
     protected $id;
@@ -31,14 +31,14 @@ abstract class EavAttribute
     /**
      * @var int
      *
-     * @ORM\Column(name="entity_type_id", type="integer")
+     * @ORM\Column(name="entity_type_id", type="integer", nullable=false)
      */
     protected $entityTypeId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="attribute_code", type="string")
+     * @ORM\Column(name="attribute_code", type="string", nullable=false)
      */
     protected $attributeCode;
 
@@ -46,7 +46,7 @@ abstract class EavAttribute
      * @var CatalogProductEntityInt
      *
      * @ORM\OneToOne(targetEntity="CatalogProductEntityInt", inversedBy="eavAttribute")
-     * @ORM\JoinColumn(name="attribute_id", referencedColumnName="attribute_id")
+     * @ORM\JoinColumn(name="attribute_id", referencedColumnName="attribute_id", nullable=false)
      */
     protected $catalogProductEntityInt;
 

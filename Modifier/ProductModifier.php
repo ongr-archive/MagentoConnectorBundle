@@ -31,7 +31,7 @@ class ProductModifier extends AbstractImportModifyEventListener
 {
     const ENTITY_TYPE_PRODUCT = 4;
     const PRODUCT_NAME = 71;
-    const PRODUCT_IS_ACTIVE = 96;
+    const PRODUCT_IS_ACTIVE = 'status';
     const PRODUCT_DESCRIPTION = 72;
     const PRODUCT_SHORT_DESCRIPTION = 73;
     const PRODUCT_META_TITLE = 82;
@@ -114,13 +114,18 @@ class ProductModifier extends AbstractImportModifyEventListener
      */
     public function isProductActive(CatalogProductEntity $entity)
     {
-        $integerAttributesArray = $entity->integerAttributesArray();
+        $integerAttributes = $entity->getIntegerAttributes();
 
-        if (isset($integerAttributesArray[self::PRODUCT_IS_ACTIVE])) {
-            if ($integerAttributesArray[self::PRODUCT_IS_ACTIVE] !== 1) {
-                return false;
-            } else {
-                return true;
+        foreach ($integerAttributes as $value) {
+            $eavAttribute = $value->getEavAttribute();
+            if (!empty($eavAttribute)) {
+                if ($eavAttribute->getAttributeCode() === self::PRODUCT_IS_ACTIVE) {
+                    if ($value->getValue() !== 1) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
             }
         }
 

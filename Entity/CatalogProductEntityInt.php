@@ -61,7 +61,7 @@ abstract class CatalogProductEntityInt
     /**
      * @var EavAttribute
      *
-     * @ORM\OneToOne(targetEntity="EavAttribute", mappedBy="catalogProductEntityInt")
+     * @ORM\OneToOne(targetEntity="EavAttribute", mappedBy="catalogProductEntityInt", orphanRemoval=true)
      */
     protected $eavAttribute;
 
