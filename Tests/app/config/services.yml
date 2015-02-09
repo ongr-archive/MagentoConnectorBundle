@@ -13,6 +13,7 @@ services:
   test.import.modifier:
       class: %ongr_connections.import.modifier.class%
       arguments:
+          - %ongr_demo.magento.import.store_id%
           - %ongr_demo.magento.import.shop_id%
       tags:
           - { name: kernel.event_listener, event: ongr.pipeline.import.default.modify, method: onModify }

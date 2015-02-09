@@ -59,6 +59,13 @@ abstract class CatalogProductEntityInt
     protected $store;
 
     /**
+     * @var EavAttribute
+     *
+     * @ORM\OneToOne(targetEntity="EavAttribute", mappedBy="catalogProductEntityInt")
+     */
+    protected $eavAttribute;
+
+    /**
      * @return int
      */
     public function getAttributeId()
@@ -154,6 +161,26 @@ abstract class CatalogProductEntityInt
     public function setStore($store)
     {
         $this->store = $store;
+
+        return $this;
+    }
+
+    /**
+     * @return EavAttribute
+     */
+    public function getEavAttribute()
+    {
+        return $this->eavAttribute;
+    }
+
+    /**
+     * @param EavAttribute $eavAttribute
+     *
+     * @return self
+     */
+    public function setEavAttribute($eavAttribute)
+    {
+        $this->eavAttribute = $eavAttribute;
 
         return $this;
     }

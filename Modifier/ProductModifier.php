@@ -11,6 +11,7 @@
 
 namespace ONGR\MagentoConnectorBundle\Modifier;
 
+use Exception;
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
 use ONGR\ConnectionsBundle\Pipeline\ItemSkipper;
@@ -46,11 +47,18 @@ class ProductModifier extends AbstractImportModifyEventListener
     protected $storeId;
 
     /**
-     * @param int $storeId
+     * @var int
      */
-    public function __construct($storeId)
+    protected $shopId;
+
+    /**
+     * @param int $storeId
+     * @param int $shopId
+     */
+    public function __construct($storeId, $shopId)
     {
         $this->storeId = $storeId;
+        $this->shopId = $shopId;
     }
 
     /**
@@ -80,6 +88,12 @@ class ProductModifier extends AbstractImportModifyEventListener
             return;
         }
 
+        if (!in_array($this->shopId, $this->getWebIdArray($entity))) {
+            ItemSkipper::skip($event, 'Product ' . $entity->getId() . ' is for other shop, so it wont be imported.');
+
+            return;
+        }
+
         $document->setId($entity->getId());
         $document->setUrls([]);
         $document->setExpiredUrls([]);
@@ -100,15 +114,13 @@ class ProductModifier extends AbstractImportModifyEventListener
      */
     public function isProductActive(CatalogProductEntity $entity)
     {
-        $integerAttributes = $entity->getIntegerAttributes();
+        $integerAttributesArray = $entity->integerAttributesArray();
 
-        foreach ($integerAttributes as $attribute) {
-            if ($attribute->getAttributeId() === self::PRODUCT_IS_ACTIVE) {
-                if ($attribute->getValue() !== 1) {
-                    return false;
-                } else {
-                    return true;
-                }
+        if (isset($integerAttributesArray[self::PRODUCT_IS_ACTIVE])) {
+            if ($integerAttributesArray[self::PRODUCT_IS_ACTIVE] !== 1) {
+                return false;
+            } else {
+                return true;
             }
         }
 
@@ -139,10 +151,9 @@ class ProductModifier extends AbstractImportModifyEventListener
     public function addTextAttributes($entity, ProductDocument $document)
     {
         $textAttributes = $entity->getTextAttributes();
-
         /** @var CatalogProductEntityText $attribute */
         foreach ($textAttributes as $attribute) {
-            if ($this->storeId !== $attribute->getStore()) {
+            if ($this->storeId !== $attribute->getStore() && $attribute->getStore() !== 0) {
                 continue;
             }
             switch ($attribute->getAttributeId()) {
@@ -171,7 +182,7 @@ class ProductModifier extends AbstractImportModifyEventListener
 
         /** @var CatalogProductEntityVarchar $attribute */
         foreach ($varcharAttributes as $attribute) {
-            if ($this->storeId !== $attribute->getStore()) {
+            if ($this->storeId !== $attribute->getStore() && $attribute->getStore() !== 0) {
                 continue;
             }
             switch ($attribute->getAttributeId()) {
@@ -236,5 +247,23 @@ class ProductModifier extends AbstractImportModifyEventListener
         }
 
         $document->setCategories($documentCategories);
+    }
+
+    /**
+     * Get product websites id array.
+     *
+     * @param CatalogProductEntity $entity
+     *
+     * @return array
+     */
+    public function getWebIdArray($entity)
+    {
+        $webSiteIds = $entity->getWebsiteIds();
+        $webSiteArray = [];
+        foreach ($webSiteIds as $value) {
+            $webSiteArray[] = $value->getWebsiteId();
+        }
+
+        return $webSiteArray;
     }
 }

@@ -50,6 +50,12 @@ class CatalogProductEntityTest extends AbstractEntityTest
                 'removeVarcharAttribute',
             ],
             [
+                'websiteIds',
+                'ONGR\MagentoConnectorBundle\Entity\CatalogProductWebsite',
+                'addWebsiteId',
+                'removeWebsiteId',
+            ],
+            [
                 'categories',
                 'ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntity',
                 'addCategory',

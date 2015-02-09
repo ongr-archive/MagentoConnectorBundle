@@ -96,6 +96,16 @@ class CategoryDocument extends AbstractCategoryDocument
     }
 
     /**
+     * @param string $urlString
+     */
+    public function setUrlString($urlString)
+    {
+        $urlObject = new UrlObject();
+        $urlObject->setUrl($urlString);
+        $this->urls = [$urlObject];
+    }
+
+    /**
      * @param UrlObject $urlObject
      */
     public function addUrl($urlObject)
