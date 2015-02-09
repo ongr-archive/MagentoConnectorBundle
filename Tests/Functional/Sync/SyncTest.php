@@ -73,6 +73,15 @@ class SyncTest extends ESDoctrineTestCase
                 '--shop-id' => 0,
             ]
         );
+
+        $createCommandTester->execute(
+            [
+                'command' => $createCommand->getName(),
+                'storage' => SyncStorage::STORAGE_MYSQL,
+                '--shop-id' => 1,
+            ]
+        );
+
         $provideCommandTester->execute(
             [
                 'command' => $provideCommand->getName(),

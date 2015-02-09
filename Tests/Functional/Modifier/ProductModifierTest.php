@@ -32,6 +32,7 @@ class ProductModifierTest extends TestBase
     public function testModify()
     {
         $shopId = 0;
+        $domain_id = 1;
 
         $expectedEntity1 = new ProductDocument();
         $expectedEntity1->setId(231);
@@ -96,7 +97,7 @@ class ProductModifierTest extends TestBase
         );
         $this->assertCount(2, $productItems);
 
-        $modifier = new ProductModifier($shopId);
+        $modifier = new ProductModifier($shopId, $domain_id);
         $createdProducts = [];
 
         foreach ($productItems as $productItem) {

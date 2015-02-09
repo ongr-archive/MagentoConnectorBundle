@@ -31,7 +31,8 @@ class ONGRMagentoConnectorExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('ongr_magento.shop', $config['shop']);
+        $container->setParameter('ongr_magento.store_id', $config['store_id']);
+        $container->setParameter('ongr_magento.shop_id', $config['shop_id']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');

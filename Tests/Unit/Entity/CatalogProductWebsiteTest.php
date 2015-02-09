@@ -13,7 +13,7 @@ namespace ONGR\MagentoConnectorBundle\Tests\Unit\Entity;
 
 use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 
-class CatalogProductEntityIntTest extends AbstractEntityTest
+class CatalogProductWebsiteTest extends AbstractEntityTest
 {
     /**
      * {@inheritdoc}
@@ -22,11 +22,8 @@ class CatalogProductEntityIntTest extends AbstractEntityTest
     {
         return [
             ['id'],
-            ['attributeId'],
-            ['value'],
+            ['websiteId'],
             ['product'],
-            ['store'],
-            ['eavAttribute'],
         ];
     }
 
@@ -35,6 +32,6 @@ class CatalogProductEntityIntTest extends AbstractEntityTest
      */
     public function getClassName()
     {
-        return 'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt';
+        return 'ONGR\MagentoConnectorBundle\Entity\CatalogProductWebsite';
     }
 }

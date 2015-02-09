@@ -93,6 +93,13 @@ abstract class CatalogProductEntity
     protected $categories;
 
     /**
+     * @var CatalogProductWebsite[]
+     *
+     * @ORM\OneToMany(targetEntity="CatalogProductWebsite", mappedBy="product")
+     */
+    protected $websiteIds;
+
+    /**
      * @return CatalogCategoryProduct[]
      */
     public function getCategories()
@@ -184,6 +191,23 @@ abstract class CatalogProductEntity
     public function getIntegerAttributes()
     {
         return $this->integerAttributes;
+    }
+
+    /**
+     * Return array with integer entity attributes.
+     *
+     * @return array
+     */
+    public function integerAttributesArray()
+    {
+        $integerAttributes = $this->getIntegerAttributes();
+        $integerAttributesArray = [];
+
+        foreach ($integerAttributes as $attribute) {
+            $integerAttributesArray[$attribute->getAttributeId()] = $attribute->getValue();
+        }
+
+        return $integerAttributesArray;
     }
 
     /**
@@ -435,5 +459,65 @@ abstract class CatalogProductEntity
         if ($key !== false) {
             unset($array[$key]);
         }
+    }
+
+    /**
+     * @return CatalogProductWebsiteEntity[]
+     */
+    public function getWebsiteIds()
+    {
+        return $this->websiteIds;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWebsiteIdsArray()
+    {
+        $webSiteIds = $this->getWebsiteIds();
+        $webSiteArray = [];
+        foreach ($webSiteIds as $value) {
+            $webSiteArray[] = $value->getWebsiteId();
+        }
+
+        return $webSiteArray;
+    }
+
+    /**
+     * @param CatalogProductWebsiteEntity[] $websiteIds
+     *
+     * @return self
+     */
+    public function setWebsiteIds($websiteIds)
+    {
+        $this->websiteIds = $websiteIds;
+
+        return $this;
+    }
+
+    /**
+     * @param CatalogProductWebsite $websiteId
+     *
+     * @return self
+     */
+    public function addWebsiteId($websiteId)
+    {
+        $this->websiteIds[] = $websiteId;
+
+        return $this;
+    }
+
+    /**
+     * Removes price from websiteIds ArrayColection.
+     *
+     * @param CatalogProductWebsite $websiteId
+     *
+     * @return self
+     */
+    public function removeWebsiteId($websiteId)
+    {
+        $this->removeElement($websiteId, $this->websiteIds);
+
+        return $this;
     }
 }

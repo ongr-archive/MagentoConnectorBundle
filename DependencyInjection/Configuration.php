@@ -29,7 +29,10 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('shop')
+                ->scalarNode('shop_id')
+                    ->defaultValue(0)
+                ->end()
+                ->scalarNode('store_id')
                     ->defaultValue(0)
                 ->end()
             ->end();

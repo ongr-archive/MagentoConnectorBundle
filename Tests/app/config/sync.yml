@@ -1,5 +1,6 @@
 parameters:
-    test.magento.sync.execute.shop_id: 0
+    test.magento.sync.execute.shop_id: 1
+    test.magento.sync.execute.store_id: 0
     test.magento.sync.execute.chunk_size: 1
 
     test.magento.sync.execute.finish.class: ONGR\MagentoConnectorBundle\Tests\Functional\Fixtures\Sync\EventListener\ImportFinishEventListener
@@ -47,6 +48,7 @@ services:
     test.magento.sync.execute.product.modifier:
         class: %test.magento.sync.execute.product.modifier.class%
         arguments:
+            - %test.magento.sync.execute.store_id%
             - %test.magento.sync.execute.shop_id%
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.magento.product.modify, method: onModify }

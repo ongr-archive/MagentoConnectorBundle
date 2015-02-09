@@ -5,6 +5,7 @@ services:
     ongr_magento.modifier.product:
         class: %ongr_magento.modifier.product.class%
         arguments:
-            - %ongr_magento.shop%
+            - %ongr_demo.magento.import.store_id%
+            - %ongr_demo.magento.import.shop_id%
         tags:
             - { name: 'ongr_connections.doctrine.modifier', type: 'product' }

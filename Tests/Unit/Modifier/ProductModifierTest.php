@@ -35,7 +35,8 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testModify()
     {
-        $shopId = 1;
+        $shopId = 0;
+        $store_id = 1;
 
         $data = [
             [
@@ -111,6 +112,16 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
+        $websiteId = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductWebsite');
+        $websiteId->setId(1);
+        $websiteId->setWebsiteId(0);
+        $websiteIdArray[] = $websiteId;
+
+        /** @var CatalogProductEntityVarchar $varchar */
+        $varchar = $this->getMockForAbstractClass('ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityVarchar');
+        $varchar->setAttributeId(ProductModifier::PRODUCT_NAME);
+        $varchar->setValue('meta title');
+        $varchar->setStore($shopId);
         $integerAttributes = $this->getAttributesArray(
             $data,
             'ONGR\MagentoConnectorBundle\Entity\CatalogProductEntityInt'
@@ -169,8 +180,9 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             ->addPrice($price)
             ->setTextAttributes($textAttributes)
             ->setVarcharAttributes($varcharAttributes)
-            ->setIntegerAttributes($integerAttributes)
-            ->addCategory($categoryCross);
+            ->addCategory($categoryCross)
+            ->addWebsiteId($websiteId)
+            ->setIntegerAttributes($integerAttributes);
 
         $categoryObject = new CategoryObject();
         $categoryObject->setId(1);
@@ -206,7 +218,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         );
         $method->setAccessible(true);
         $event = new ItemPipelineEvent($item);
-        $method->invoke(new ProductModifier($shopId), $item, $event);
+        $method->invoke(new ProductModifier($store_id, $shopId), $item, $event);
 
         $this->assertEquals($expectedDocument, $document);
     }
@@ -239,7 +251,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             'ONGR\MagentoConnectorBundle\Modifier\ProductModifier',
             'isProductActive'
         );
-        $result = $method->invoke(new ProductModifier(1), $entity);
+        $result = $method->invoke(new ProductModifier(1, 0), $entity);
 
         $this->assertTrue($result);
     }
