@@ -119,7 +119,8 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
             ->setPath('1/2')
             ->setLevel(2);
         $expectedDocument->setPath('');
-        $expectedDocument->setParentId(CategoryDocument::ROOT_ID);
+        $expectedDocument->setHidden(false);
+        $expectedDocument->setParentId(1);
         $item = new ImportItem($entity, $document);
         $event = new ItemPipelineEvent($item);
         $method->invoke($modifier, $item, $event);
