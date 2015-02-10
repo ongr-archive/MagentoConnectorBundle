@@ -74,11 +74,10 @@ class CategoryModifier extends AbstractImportModifyEventListener
         $document->setParentId($entity->getParentId());
         $document->setExpiredUrls([]);
         $document->setHidden(false);
-
-        if ($entity->getLevel() == 2) {
+        if ($entity->getLevel() == 1) {
             // Root categories.
             $document->setParentId(CategoryDocument::ROOT_ID);
-        } elseif ($entity->getLevel() < 2) {
+        } elseif ($entity->getLevel() < 1) {
             ItemSkipper::skip($event, 'Wrong category level. Got level=' . $entity->getLevel());
 
             return;
