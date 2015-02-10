@@ -40,8 +40,8 @@ class UrlObjectTest extends AbstractGetterSetterTest
                 'expectedMethod' => 'getExpectedUrlsArray',
             ],
             [
-                'setter' => 'setUrlKey',
-                'getter' => 'getUrlKey',
+                'setter' => 'setKey',
+                'getter' => 'getKey',
                 'expectedMethod' => 'getExpectedUrlsArray',
             ],
         ];

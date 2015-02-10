@@ -32,7 +32,7 @@ class UrlObject
      *
      * @ES\Property(name="key", type="string", index="no")
      */
-    protected $urlKey;
+    protected $key;
 
     /**
      * @var string
@@ -74,18 +74,18 @@ class UrlObject
     }
 
     /**
-     * @param string $urlKey
+     * @param string $key
      */
-    public function setUrlKey($urlKey)
+    public function setKey($key)
     {
-        $this->urlKey = $urlKey;
+        $this->key = $key;
     }
 
     /**
      * @return string
      */
-    public function getUrlKey()
+    public function getKey()
     {
-        return $this->urlKey;
+        return $this->key;
     }
 }
