@@ -12,28 +12,15 @@
 namespace ONGR\MagentoConnectorBundle\Document;
 
 use ONGR\ElasticsearchBundle\Annotation as ES;
+use ONGR\RouterBundle\Document\UrlObject as ParentUrlObject;
 
 /**
  * ElasticSearch Url object.
  *
  * @ES\Object
  */
-class UrlObject
+class UrlObject extends ParentUrlObject
 {
-    /**
-     * @var string
-     *
-     * @ES\Property(name="url", type="string")
-     */
-    protected $url;
-
-    /**
-     * @var string
-     *
-     * @ES\Property(name="key", type="string", index="no")
-     */
-    protected $urlKey;
-
     /**
      * @var string
      *
@@ -55,37 +42,5 @@ class UrlObject
     public function setCdnUrl($cdn_url)
     {
         $this->cdnUrl = $cdn_url;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param string $url
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
-
-    /**
-     * @param string $urlKey
-     */
-    public function setUrlKey($urlKey)
-    {
-        $this->urlKey = $urlKey;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrlKey()
-    {
-        return $this->urlKey;
     }
 }
