@@ -38,6 +38,11 @@ class CategoryModifier extends AbstractImportModifyEventListener
     /**
      * @var int
      */
+    protected $categoryRootId = 1;
+
+    /**
+     * @var int
+     */
     protected $storeId;
 
     /**
@@ -74,10 +79,10 @@ class CategoryModifier extends AbstractImportModifyEventListener
         $document->setParentId($entity->getParentId());
         $document->setExpiredUrls([]);
         $document->setHidden(false);
-        if ($entity->getLevel() == 1) {
+        if ($entity->getLevel() == $this->categoryRootId) {
             // Root categories.
             $document->setParentId(CategoryDocument::ROOT_ID);
-        } elseif ($entity->getLevel() < 1) {
+        } elseif ($entity->getLevel() < $this->categoryRootId) {
             ItemSkipper::skip($event, 'Wrong category level. Got level=' . $entity->getLevel());
 
             return;
