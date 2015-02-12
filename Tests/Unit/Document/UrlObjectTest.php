@@ -22,7 +22,7 @@ class UrlObjectTest extends AbstractEntityTest
     {
         return [
             ['url'],
-            ['urlKey'],
+            ['key'],
             ['cdnUrl'],
         ];
     }
