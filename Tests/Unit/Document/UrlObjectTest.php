@@ -11,39 +11,27 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Document;
 
-use ONGR\MagentoConnectorBundle\Document\UrlObject;
+use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 
-class UrlObjectTest extends AbstractGetterSetterTest
+class UrlObjectTest extends AbstractEntityTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    public function getFieldsData()
     {
-        $this->document = new UrlObject();
+        return [
+            ['url'],
+            ['urlKey'],
+            ['cdnUrl'],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributesDataProvider()
+    public function getClassName()
     {
-        return [
-            [
-                'setter' => 'setCdnUrl',
-                'getter' => 'getCdnUrl',
-                'expectedMethod' => 'getExpectedUrlsArray',
-            ],
-            [
-                'setter' => 'setUrl',
-                'getter' => 'getUrl',
-                'expectedMethod' => 'getExpectedUrlsArray',
-            ],
-            [
-                'setter' => 'setUrlKey',
-                'getter' => 'getUrlKey',
-                'expectedMethod' => 'getExpectedUrlsArray',
-            ],
-        ];
+        return 'ONGR\MagentoConnectorBundle\Document\UrlObject';
     }
 }
