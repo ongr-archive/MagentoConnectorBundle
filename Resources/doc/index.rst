@@ -36,15 +36,6 @@ Then run magento install script (be patient, it takes some time):
 
 ..
 
-After Magento installation is complete, clear Magento cache:
-
-.. code-block:: bash
-
-    rm -r ./magento/var/cache/
-    ./magento.sh
-
-..
-
 Now you must create new index for ElasticSearch:
 
 .. code-block:: bash
