@@ -11,29 +11,25 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Document;
 
-use ONGR\MagentoConnectorBundle\Document\CdnObject;
+use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 
-class CdnObjectTest extends AbstractGetterSetterTest
+class CdnObjectTest extends AbstractEntityTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    public function getFieldsData()
     {
-        $this->document = new CdnObject();
+        return [
+            ['cdn'],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributesDataProvider()
+    public function getClassName()
     {
-        return [
-            [
-                'setter' => 'setCdn',
-                'getter' => 'getCdn',
-                'expectedMethod' => 'getExpectedUrlsArray',
-            ],
-        ];
+        return 'ONGR\MagentoConnectorBundle\Document\CdnObject';
     }
 }

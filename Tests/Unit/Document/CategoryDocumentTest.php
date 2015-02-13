@@ -11,44 +11,33 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Document;
 
-use ONGR\MagentoConnectorBundle\Document\CategoryDocument;
-use ONGR\MagentoConnectorBundle\Tests\app\fixtures\ExpectedDocuments\ExpectedDocuments;
+use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
+use ONGR\MagentoConnectorBundle\Document\UrlObject;
 
-class CategoryDocumentTest extends AbstractGetterSetterTest
+class CategoryDocumentTest extends AbstractEntityTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    public function getFieldsData()
     {
-        $this->document = new CategoryDocument();
+        $urlObject = new UrlObject();
+        $urlObject->setUrl('test');
+
+        return [
+            ['urls', 'ONGR\MagentoConnectorBundle\Document\UrlObject', 'addUrl'],
+            ['urls', 'array', 'addUrlString'],
+            ['urls', 'array', null, null, ['setUrlString' => ['test', [$urlObject]]]],
+            ['expiredUrls', 'array', 'addExpiredUrl'],
+            ['path'],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributesDataProvider()
+    public function getClassName()
     {
-        return [
-            [
-                'setter' => 'setExpiredUrls',
-                'getter' => 'getExpiredUrls',
-                'expectedMethod' => 'getExpectedUrlsArray',
-                'addObject' => 'addExpiredUrl',
-            ],
-            [
-                'setter' => 'setUrls',
-                'getter' => 'getUrls',
-                'expectedMethod' => 'getExpectedUrlsObjects',
-                'addObject' => 'addUrl',
-                'stringSetter' => 'addUrlString',
-                'stringForSetter' => ExpectedDocuments::getCategoryDocument()[2]['urls'][0]['url'],
-            ],
-            [
-                'setter' => 'setPath',
-                'getter' => 'getPath',
-                'expectedMethod' => 'getExpectedPathArray',
-            ],
-        ];
+        return 'ONGR\MagentoConnectorBundle\Document\CategoryDocument';
     }
 }

@@ -11,44 +11,28 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Document;
 
-use ONGR\MagentoConnectorBundle\Document\ContentDocument;
-use ONGR\MagentoConnectorBundle\Tests\app\fixtures\ExpectedDocuments\ExpectedDocuments;
+use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 
-class ContentDocumentTest extends AbstractGetterSetterTest
+class ContentDocumentTest extends AbstractEntityTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    public function getFieldsData()
     {
-        $this->document = new ContentDocument();
+        return [
+            ['heading'],
+            ['urls', 'ONGR\MagentoConnectorBundle\Document\UrlObject', 'addUrl'],
+            ['urls', 'array', 'addUrlString'],
+            ['expiredUrls', 'array', 'addExpiredUrl'],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributesDataProvider()
+    public function getClassName()
     {
-        return [
-            [
-                'setter' => 'setExpiredUrls',
-                'getter' => 'getExpiredUrls',
-                'expectedMethod' => 'getExpectedUrlsArray',
-                'addObject' => 'addExpiredUrl',
-            ],
-            [
-                'setter' => 'setUrls',
-                'getter' => 'getUrls',
-                'expectedMethod' => 'getExpectedUrlsObjects',
-                'addObject' => 'addUrl',
-                'stringSetter' => 'addUrlString',
-                'stringForSetter' => ExpectedDocuments::getCategoryDocument()[2]['urls'][0]['url'],
-            ],
-            [
-                'setter' => 'setHeading',
-                'getter' => 'getHeading',
-                'expectedMethod' => 'getExpectedDescriptionArray',
-            ],
-        ];
+        return 'ONGR\MagentoConnectorBundle\Document\ContentDocument';
     }
 }

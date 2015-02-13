@@ -11,51 +11,33 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Document;
 
-use ONGR\MagentoConnectorBundle\Document\CategoryObject;
-use ONGR\MagentoConnectorBundle\Tests\app\fixtures\ExpectedDocuments\ExpectedDocuments;
+use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
+use ONGR\MagentoConnectorBundle\Document\UrlObject;
 
-class CategoryObjectTest extends AbstractGetterSetterTest
+class CategoryObjectTest extends AbstractEntityTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    public function getFieldsData()
     {
-        $this->document = new CategoryObject();
+        $urlObject = new UrlObject();
+        $urlObject->setUrl('test');
+
+        return [
+            ['id'],
+            ['title'],
+            ['url', 'string', null, null, ['setUrlString' => ['test', $urlObject]]],
+            ['path'],
+            ['categories', 'array', 'addCategory'],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributesDataProvider()
+    public function getClassName()
     {
-        return [
-            [
-                'setter' => 'setId',
-                'getter' => 'getId',
-                'expectedMethod' => 'getExpectedIdArray',
-            ],
-            [
-                'setter' => 'setTitle',
-                'getter' => 'getTitle',
-                'expectedMethod' => 'getExpectedTitleArray',
-            ],
-            [
-                'setter' => 'setUrl',
-                'getter' => 'getUrl',
-                'expectedMethod' => 'getExpectedUrlsObjects',
-            ],
-            [
-                'setter' => 'setCategories',
-                'getter' => 'getCategories',
-                'expectedMethod' => 'getExpectedCategoryObject',
-                'addObject' => 'addCategory',
-            ],
-            [
-                'setter' => 'setPath',
-                'getter' => 'getPath',
-                'expectedMethod' => 'getExpectedPathArray',
-            ],
-        ];
+        return 'ONGR\MagentoConnectorBundle\Document\CategoryObject';
     }
 }
