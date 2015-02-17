@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\MappedSuperclass
  */
-abstract class CatalogProductEntityVarchar
+class CatalogProductEntityVarchar
 {
     /**
      * @var int

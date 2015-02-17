@@ -20,9 +20,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class TestBase.
+ * Class AbstractTestCase.
  */
-abstract class TestBase extends WebTestCase
+abstract class AbstractTestCase extends WebTestCase
 {
     /**
      * @var ContainerInterface
