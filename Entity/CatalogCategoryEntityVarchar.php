@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\MappedSuperclass
  */
-abstract class CatalogCategoryEntityVarchar extends AbstractCatalogCategoryEntityAttribute
+class CatalogCategoryEntityVarchar extends AbstractCatalogCategoryEntityAttribute
 {
     /**
      * @var CatalogCategoryEntity
