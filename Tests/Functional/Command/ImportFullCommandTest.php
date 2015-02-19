@@ -29,9 +29,9 @@ class ImportFullCommandTest extends AbstractTestCase
      */
     public function testDefaultImportCommand()
     {
-        $manager = $this->getServiceContainer()->get('es.manager.default');
+        $manager = static::createClient()->getContainer()->get('es.manager.default');
 
-        $kernel = $this->getClient()->getKernel();
+        $kernel = static::createClient()->getKernel();
         $application = new Application($kernel);
         $application->add(new ImportFullCommand());
 
