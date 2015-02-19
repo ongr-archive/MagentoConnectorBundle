@@ -19,12 +19,12 @@ use ONGR\MagentoConnectorBundle\Document\PriceObject;
 use ONGR\MagentoConnectorBundle\Document\ProductDocument;
 use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Modifier\ProductModifier;
-use ONGR\MagentoConnectorBundle\Tests\Functional\TestBase;
+use ONGR\MagentoConnectorBundle\Tests\Functional\AbstractTestCase;
 
 /**
  * Tests if product modifier works as expected.
  */
-class ProductModifierTest extends TestBase
+class ProductModifierTest extends AbstractTestCase
 {
     /**
      * Test modification.

@@ -11,29 +11,25 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Document;
 
-use ONGR\MagentoConnectorBundle\Document\PriceObject;
+use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 
-class PriceObjectTest extends AbstractGetterSetterTest
+class PriceObjectTest extends AbstractEntityTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    public function getFieldsData()
     {
-        $this->document = new PriceObject(0.0);
+        return [
+            ['price'],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributesDataProvider()
+    public function getClassName()
     {
-        return [
-            [
-                'setter' => 'setPrice',
-                'getter' => 'getPrice',
-                'expectedMethod' => 'getExpectedPriceObject',
-            ],
-        ];
+        return 'ONGR\MagentoConnectorBundle\Document\PriceObject';
     }
 }

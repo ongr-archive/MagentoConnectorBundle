@@ -11,70 +11,38 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Document;
 
-use ONGR\MagentoConnectorBundle\Document\ProductDocument;
-use ONGR\MagentoConnectorBundle\Tests\app\fixtures\ExpectedDocuments\ExpectedDocuments;
+use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
+use ONGR\MagentoConnectorBundle\Document\ImageObject;
 
-class ProductDocumentTest extends AbstractGetterSetterTest
+class ProductDocumentTest extends AbstractEntityTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    public function getFieldsData()
     {
-        $this->document = new ProductDocument();
+        $imageObject = new ImageObject();
+        $imageObject->setUrl('test');
+
+        return [
+            ['urls', 'ONGR\MagentoConnectorBundle\Document\UrlObject', 'addUrlObject'],
+            ['urls', 'array', 'addUrl'],
+            ['expiredUrls', 'array', 'addExpiredUrl'],
+            ['images', 'ONGR\MagentoConnectorBundle\Document\ImageObject', 'addImage'],
+            ['images', 'array', null, null, ['addImageUrl' => ['test', [$imageObject]]]],
+            ['smallImages', 'ONGR\MagentoConnectorBundle\Document\ImageObject', 'addSmallImage'],
+            ['smallImages', 'array', null, null, ['addSmallImageUrl' => ['test', [$imageObject]]]],
+            ['categories', 'array', 'addCategory'],
+            ['prices', 'array', 'addPrice'],
+            ['shortDescription'],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributesDataProvider()
+    public function getClassName()
     {
-        return [
-            [
-                'setter' => 'setPrices',
-                'getter' => 'getPrices',
-                'expectedMethod' => 'getExpectedPriceObject',
-                'addObject' => 'addPrice',
-            ],
-            [
-                'setter' => 'setImages',
-                'getter' => 'getImages',
-                'expectedMethod' => 'getExpectedImageObject',
-                'addObject' => 'addImage',
-            ],
-            [
-                'setter' => 'setCategories',
-                'getter' => 'getCategories',
-                'expectedMethod' => 'getExpectedCategoryObject',
-                'addObject' => 'addCategory',
-            ],
-            [
-                'setter' => 'setSmallImages',
-                'getter' => 'getSmallImages',
-                'expectedMethod' => 'getExpectedImageObject',
-                'addObject' => 'addSmallImage',
-                'stringSetter' => 'addSmallImageUrl',
-                'stringForSetter' => ExpectedDocuments::getProductDocument()[2]['images'][0]['url'],
-            ],
-            [
-                'setter' => 'setUrls',
-                'getter' => 'getUrls',
-                'expectedMethod' => 'getExpectedUrlsObjects',
-                'addObject' => 'addUrlObject',
-                'stringSetter' => 'addUrl',
-                'stringForSetter' => ExpectedDocuments::getCategoryDocument()[2]['urls'][0]['url'],
-            ],
-            [
-                'setter' => 'setExpiredUrls',
-                'getter' => 'getExpiredUrls',
-                'expectedMethod' => 'getExpectedUrlsArray',
-                'addObject' => 'addExpiredUrl',
-            ],
-            [
-                'setter' => 'setShortDescription',
-                'getter' => 'getShortDescription',
-                'expectedMethod' => 'getExpectedDescriptionArray',
-            ],
-        ];
+        return 'ONGR\MagentoConnectorBundle\Document\ProductDocument';
     }
 }

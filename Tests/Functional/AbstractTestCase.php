@@ -14,7 +14,7 @@ namespace ONGR\MagentoConnectorBundle\Tests\Functional;
 use ONGR\ConnectionsBundle\Tests\Functional\AbstractTestCase as ParentTestBase;
 
 /**
- * Class TestBase.
+ * Class AbstractTestCase.
  */
 abstract class AbstractTestCase extends ParentTestBase
 {

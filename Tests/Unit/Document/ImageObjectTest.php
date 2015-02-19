@@ -11,44 +11,28 @@
 
 namespace ONGR\MagentoConnectorBundle\Tests\Unit\Document;
 
-use ONGR\MagentoConnectorBundle\Document\ImageObject;
+use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 
-class ImageObjectTest extends AbstractGetterSetterTest
+class ImageObjectTest extends AbstractEntityTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    public function getFieldsData()
     {
-        $this->document = new ImageObject();
+        return [
+            ['url'],
+            ['title'],
+            ['description'],
+            ['cdn'],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributesDataProvider()
+    public function getClassName()
     {
-        return [
-            [
-                'setter' => 'setCdn',
-                'getter' => 'getCdn',
-                'expectedMethod' => 'getExpectedUrlsArray',
-            ],
-            [
-                'setter' => 'setDescription',
-                'getter' => 'getDescription',
-                'expectedMethod' => 'getExpectedDescriptionArray',
-            ],
-            [
-                'setter' => 'setTitle',
-                'getter' => 'getTitle',
-                'expectedMethod' => 'getExpectedTitleArray',
-            ],
-            [
-                'setter' => 'setUrl',
-                'getter' => 'getUrl',
-                'expectedMethod' => 'getExpectedUrlsArray',
-            ],
-        ];
+        return 'ONGR\MagentoConnectorBundle\Document\ImageObject';
     }
 }

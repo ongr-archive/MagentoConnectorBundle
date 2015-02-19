@@ -15,14 +15,14 @@ use ONGR\ConnectionsBundle\Command\ImportFullCommand;
 use ONGR\ElasticsearchBundle\ORM\Manager;
 use ONGR\ElasticsearchBundle\ORM\Repository;
 use ONGR\MagentoConnectorBundle\Tests\app\fixtures\ExpectedDocuments\ExpectedDocuments;
-use ONGR\MagentoConnectorBundle\Tests\Functional\TestBase;
+use ONGR\MagentoConnectorBundle\Tests\Functional\AbstractTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * Functional test for ongr:magento:import commands.
  */
-class ImportFullCommandTest extends TestBase
+class ImportFullCommandTest extends AbstractTestCase
 {
     /**
      * Check if a document is saved as expected after collecting data from providers.

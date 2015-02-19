@@ -19,12 +19,12 @@ use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Modifier\CategoryModifier;
 use ONGR\MagentoConnectorBundle\Tests\Functional\Entity\CatalogCategoryEntity as CategoryEntity;
-use ONGR\MagentoConnectorBundle\Tests\Functional\TestBase;
+use ONGR\MagentoConnectorBundle\Tests\Functional\AbstractTestCase;
 
 /**
  * Tests if category modifier works as expected.
  */
-class CategoryModifierTest extends TestBase
+class CategoryModifierTest extends AbstractTestCase
 {
     const ATTRIBUTE_TYPE_INT = 1;
     const ATTRIBUTE_TYPE_VARCHAR = 2;
