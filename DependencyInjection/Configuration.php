@@ -35,6 +35,15 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('store_id')
                     ->defaultValue(0)
                 ->end()
+                ->scalarNode('es_manager')
+                    ->defaultValue('default')
+                ->end()
+                ->scalarNode('url')
+                    ->defaultValue('')
+                ->end()
+                ->scalarNode('product_repository')
+                    ->defaultValue('')
+                ->end()
             ->end();
 
         return $treeBuilder;

@@ -1,3 +1,27 @@
+parameters:
+    ongr_magento.sync.abstract.class: ONGR\MagentoConnectorBundle\Magento\AbstractMagentoSync
+    ongr_magento.sync.cart.class: ONGR\MagentoConnectorBundle\Magento\Cart
+    ongr_magento.sync.customer.class: ONGR\MagentoConnectorBundle\Magento\Customer
+
+services:
+    ongr_magento.sync.abstract:
+        abstract:  true
+        class: %ongr_magento.sync.abstract.class%
+        calls:
+            - [ setRequestStack, [ @request_stack ] ]
+            - [ setMagentoUrl, [ %ongr_magento.store_url% ] ]
+
+    ongr_magento.sync.cart:
+        parent: ongr_magento.sync.abstract
+        class: %ongr_magento.sync.cart.class%
+        calls:
+            - [ setRouter, [ @router ] ]
+            # Manager is injected by compiler.
+
+    ongr_magento.sync.customer:
+        parent: ongr_magento.sync.abstract
+        class: %ongr_magento.sync.customer.class%
+
 services:
     ongr_magento.sql_relations.category.delete:
         class: %ongr_connections.extractor.descriptor.class%
