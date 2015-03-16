@@ -165,7 +165,7 @@ class Cart extends AbstractMagentoSync implements \Countable
     }
 
     /**
-     * Ensures contents are valid.
+     * Ensures contents are valid by removing invalid data.
      *
      * @param mixed $content
      *

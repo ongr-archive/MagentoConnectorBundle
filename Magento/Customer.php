@@ -69,7 +69,7 @@ class Customer extends AbstractMagentoSync
     }
 
     /**
-     * Ensures user data is valid.
+     * Ensures user data is valid by removing invalid data.
      *
      * @param mixed $data
      *
