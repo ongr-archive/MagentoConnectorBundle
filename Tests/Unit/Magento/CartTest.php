@@ -99,7 +99,7 @@ class CartTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Provider for cookie tes.
+     * Provider for cookie test.
      *
      * @return array
      */

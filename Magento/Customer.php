@@ -45,11 +45,11 @@ class Customer extends AbstractMagentoSync
      *
      * @return string
      */
-    private function appendBackUrl($url)
+    private function appendReturnUrl($url)
     {
         $backUrl = $this->getRequestStack()->getMasterRequest()->getUri();
 
-        return $url . '?' . http_build_query([self::MAGENTO_BACK_URL_PARAM_NAME => $backUrl]);
+        return $url . '?' . http_build_query([self::MAGENTO_RETURN_URL_PARAM_NAME => $backUrl]);
     }
 
     /**
@@ -57,7 +57,7 @@ class Customer extends AbstractMagentoSync
      */
     public function getLogoutUrl()
     {
-        return $this->appendBackUrl($this->getMagentoUrl() . self::LOGOUT_PATH);
+        return $this->appendReturnUrl($this->getMagentoUrl() . self::LOGOUT_PATH);
     }
 
     /**
@@ -65,7 +65,7 @@ class Customer extends AbstractMagentoSync
      */
     public function getLoginUrl()
     {
-        return $this->appendBackUrl($this->getMagentoUrl() . self::LOGIN_PATH);
+        return $this->appendReturnUrl($this->getMagentoUrl() . self::LOGIN_PATH);
     }
 
     /**

@@ -42,12 +42,12 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
         $instance->setRequestStack($requestStack);
 
         $this->assertEquals(
-            'testing.url' . Customer::LOGIN_PATH . '?' . Cart::MAGENTO_BACK_URL_PARAM_NAME . '=testing.uri',
+            'testing.url' . Customer::LOGIN_PATH . '?' . Cart::MAGENTO_RETURN_URL_PARAM_NAME . '=testing.uri',
             $instance->getLoginUrl()
         );
 
         $this->assertEquals(
-            'testing.url' . Customer::LOGOUT_PATH . '?' . Cart::MAGENTO_BACK_URL_PARAM_NAME . '=testing.uri',
+            'testing.url' . Customer::LOGOUT_PATH . '?' . Cart::MAGENTO_RETURN_URL_PARAM_NAME . '=testing.uri',
             $instance->getLogoutUrl()
         );
 

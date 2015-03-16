@@ -21,7 +21,7 @@ abstract class AbstractMagentoSync
     /**
      * Parameter name for syncing with magento.
      */
-    const MAGENTO_BACK_URL_PARAM_NAME = 'OngrUrl';
+    const MAGENTO_RETURN_URL_PARAM_NAME = 'OngrUrl';
 
     /**
      * @var string
