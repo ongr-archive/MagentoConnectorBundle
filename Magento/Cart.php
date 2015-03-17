@@ -95,7 +95,7 @@ class Cart extends AbstractMagentoSync implements \Countable
      *
      * @return string
      */
-    private function getReturnUrl()
+    protected function getReturnUrl()
     {
         return $this->getRouter()->generate('ongr_cart', [], UrlGeneratorInterface::ABSOLUTE_URL);
     }
