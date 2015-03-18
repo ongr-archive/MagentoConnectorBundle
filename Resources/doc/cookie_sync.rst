@@ -98,6 +98,8 @@ Magento after adding products will redirect to ``ongr_cart`` route.
 
 Magento will add list of products that were not and that list can be accessed by ``getErrorDocuments`` method.
 
+Also ``getCheckoutUrl`` method will return url for checking out product in magento.
+
 Displaying products
 ~~~~~~~~~~~~~~~~~~~
 
@@ -111,5 +113,65 @@ for displaying purposes. Returned array format:
         ['document' => $document2, 'quantity' => $quantity2],
         ...
     ]
+
+..
+
+Example actions
+---------------
+
+.. code-block:: php
+
+    /**
+     * Displays cart contents.
+     *
+     * @Route("/cart")
+     */
+    public function cartAction()
+    {
+        return $this->render(
+            'AcmeMagentoBundle::cart:html.twig',
+            [
+                'cart' => $this->getCart()->getCartDocuments(),
+                'error' => $this->getCart()->getErrorDocuments(),
+                'checkoutUrl' => $this->getCart()->getCheckoutUrl(),
+            ]
+        );
+    }
+
+..
+
+.. code-block:: php
+
+    /**
+     * Adds product to cart and syncs cart with magento.
+     *
+     * @Route("/cart/add/{id}/{quantity}", defaults={"quantity" : 1})
+     */
+    public function addAction($id, $quantity)
+    {
+        return $this->getCart()->addProduct($id, $quantity)->getUpdateResponse();
+    }
+
+..
+
+.. code-block:: php
+
+    /**
+     * Display user block.
+     *
+     * @Route("/customer")
+     */
+    public function customerAction()
+    {
+        return $this->render(
+            'AcmeMagentoBundle::cart:html.twig',
+            [
+                'userData' => $this->getCustomer()->getUserData(),
+                'cartCount' => count($this->getCart()),
+                'logoutUrl' => $this->getCustomer()->getLogoutUrl(),
+                'loginUrl' => $this->getCustomer()->getLoginUrl(),
+            ]
+        );
+    }
 
 ..
