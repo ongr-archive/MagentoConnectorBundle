@@ -1,13 +1,13 @@
 <?php
 
 /*
-* This file is part of the ONGR package.
-*
-* (c) NFQ Technologies UAB <info@nfq.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace ONGR\MagentoConnectorBundle\Tests\Functional\DependencyInjection;
 
@@ -16,7 +16,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * This class contains tests to find out if services are defined correctly.
  */
-
 class ServiceCreationTest extends WebTestCase
 {
     /**
