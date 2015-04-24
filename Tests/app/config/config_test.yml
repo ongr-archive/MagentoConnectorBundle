@@ -50,6 +50,7 @@ doctrine:
 ongr_connections:
     shops:
         test: { shop_id: 0 }
+        test2: { shop_id: 1 }
     active_shop: test
 
 ongr_elasticsearch:
