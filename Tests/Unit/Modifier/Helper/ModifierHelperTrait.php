@@ -23,7 +23,7 @@ trait ModifierHelperTrait
      *                       Example: [['attributeId' => 3, 'description' => 'value', 'store' => 1]].
      * @param string $entity Entity class name.
      *
-     * @return array $attributes
+     * @return array
      */
     function getAttributesArray($data, $entity)
     {

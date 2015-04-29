@@ -18,7 +18,7 @@ use ONGR\ConnectionsBundle\Command\SyncStorageCreateCommand;
 use ONGR\ConnectionsBundle\Sync\DiffProvider\Binlog\BinlogDiffProvider;
 use ONGR\ConnectionsBundle\Sync\DiffProvider\Binlog\BinlogParser;
 use ONGR\ConnectionsBundle\Sync\SyncStorage\SyncStorage;
-use ONGR\ConnectionsBundle\Tests\Functional\ESDoctrineTestCase;
+use ONGR\ConnectionsBundle\Tests\Functional\AbstractESDoctrineTestCase;
 use ONGR\MagentoConnectorBundle\Document\CategoryDocument;
 use ONGR\MagentoConnectorBundle\Document\CategoryObject;
 use ONGR\MagentoConnectorBundle\Document\ContentDocument;
@@ -29,7 +29,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * Tests sync process all the way from binlog to ES.
  */
-class SyncTest extends ESDoctrineTestCase
+class SyncTest extends AbstractESDoctrineTestCase
 {
     /**
      * {@inheritdoc}
