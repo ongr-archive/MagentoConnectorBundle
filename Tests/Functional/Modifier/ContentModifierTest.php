@@ -43,11 +43,13 @@ class ContentModifierTest extends AbstractTestCase
 
         $expectedEntities = [$expectedEntity1, $expectedEntity2];
 
-        $contentItems = $this->getTestElements(
-            ['2', '3'],
-            'ONGRMagentoConnectorBundleTest:CmsPage'
-        );
-        $this->assertCount(2, $contentItems);
+        $repository = $this->getEntityManager()->getRepository('ONGRMagentoConnectorBundleTest:CmsPage');
+        $contentItems = [];
+        $contentItems[0] = $repository->find('2');
+        $contentItems[1] = $repository->find('3');
+
+        $this->assertNotNull($contentItems[0]);
+        $this->assertNotNull($contentItems[1]);
 
         $modifier = new ContentModifier($shopId);
         $createdContents = [];

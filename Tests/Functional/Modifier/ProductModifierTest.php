@@ -20,6 +20,7 @@ use ONGR\MagentoConnectorBundle\Document\ProductDocument;
 use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Modifier\ProductModifier;
 use ONGR\MagentoConnectorBundle\Tests\Functional\AbstractTestCase;
+use ONGR\MagentoConnectorBundle\Tests\Functional\Entity\CatalogProductEntity;
 
 /**
  * Tests if product modifier works as expected.
@@ -91,11 +92,13 @@ class ProductModifierTest extends AbstractTestCase
         $expectedEntities[231] = $expectedEntity1;
         $expectedEntities[232] = $expectedEntity2;
 
-        $productItems = $this->getTestElements(
-            [231, 232],
-            'ONGRMagentoConnectorBundleTest:CatalogProductEntity'
-        );
-        $this->assertCount(2, $productItems);
+        $repository = $this->getEntityManager()->getRepository('ONGRMagentoConnectorBundleTest:CatalogProductEntity');
+        /** @var CatalogProductEntity[] $productItems */
+        $productItems = [];
+        $productItems[0] = $repository->find(231);
+        $productItems[1] = $repository->find(232);
+        $this->assertNotNull($productItems[0]);
+        $this->assertNotNull($productItems[1]);
 
         $modifier = new ProductModifier($shopId, $domain_id);
         $createdProducts = [];
