@@ -23,8 +23,8 @@ abstract class AbstractTestCase extends ParentTestBase
      */
     protected function setUp()
     {
-        $this->setSetUpDbFile('/fixtures/magento_db.sql');
-
         parent::setUp();
+
+        $this->getEntityManager()->getConnection()->exec(file_get_contents('Tests/app/fixtures/magento_db.sql'));
     }
 }

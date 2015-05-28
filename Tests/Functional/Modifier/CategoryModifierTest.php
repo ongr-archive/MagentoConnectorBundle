@@ -18,8 +18,8 @@ use ONGR\MagentoConnectorBundle\Document\UrlObject;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityInt;
 use ONGR\MagentoConnectorBundle\Entity\CatalogCategoryEntityVarchar;
 use ONGR\MagentoConnectorBundle\Modifier\CategoryModifier;
-use ONGR\MagentoConnectorBundle\Tests\Functional\Entity\CatalogCategoryEntity as CategoryEntity;
 use ONGR\MagentoConnectorBundle\Tests\Functional\AbstractTestCase;
+use ONGR\MagentoConnectorBundle\Tests\Functional\Entity\CatalogCategoryEntity as CategoryEntity;
 
 /**
  * Tests if category modifier works as expected.
@@ -83,10 +83,9 @@ class CategoryModifierTest extends AbstractTestCase
         }
 
         /** @var CategoryEntity $categoryItem */
-        $categoryItem = $this->getTestElements(
-            [$categoryId],
-            'ONGRMagentoConnectorBundleTest:CatalogCategoryEntity'
-        )[0];
+        $categoryItem = $this->getEntityManager()
+            ->getRepository('ONGRMagentoConnectorBundleTest:CatalogCategoryEntity')
+            ->find($categoryId);
 
         if ($attributeType == self::ATTRIBUTE_TYPE_INT) {
             /** @var CatalogCategoryEntityInt[] $categoryAttributes */
@@ -146,11 +145,13 @@ class CategoryModifierTest extends AbstractTestCase
         $expectedEntities = [$expectedEntity1, $expectedEntity2];
 
         /** @var CategoryEntity[] $categoryItems */
-        $categoryItems = $this->getTestElements(
-            ['4', '5'],
-            'ONGRMagentoConnectorBundleTest:CatalogCategoryEntity'
-        );
-        $this->assertCount(2, $categoryItems);
+        $categoryItems = [];
+        $repository = $this->getEntityManager()->getRepository('ONGRMagentoConnectorBundleTest:CatalogCategoryEntity');
+        $categoryItems[0] = $repository->find('4');
+        $categoryItems[1] = $repository->find('5');
+
+        $this->assertNotNull($categoryItems[0]);
+        $this->assertNotNull($categoryItems[1]);
 
         $modifier = new CategoryModifier($shopId);
         $createdCategories = [];

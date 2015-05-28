@@ -38,9 +38,6 @@ class ONGRMagentoConnectorExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-        $loader->load('modifiers/category.yml');
-        $loader->load('modifiers/content.yml');
-        $loader->load('modifiers/product.yml');
 
         if ($container->hasDefinition('ongr_magento.sync.cart')) {
             $cartDefinition = $container->getDefinition('ongr_magento.sync.cart');
