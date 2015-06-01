@@ -44,6 +44,7 @@ class ONGRMagentoConnectorExtension extends Extension
 
             $cartDefinition->addMethodCall('setManager', [new Reference('es.manager.' . $config['es_manager'])]);
             $cartDefinition->addMethodCall('setRepositoryName', [$config['product_repository']]);
+            $cartDefinition->addMethodCall('setCartRoute', [$config['cart_route']]);
         }
     }
 
