@@ -65,6 +65,11 @@ class Cart extends AbstractMagentoSync implements \Countable
     private $repositoryName;
 
     /**
+     * @var string
+     */
+    private $cartRoute;
+
+    /**
      * @return string
      */
     public function getCheckoutUrl()
@@ -75,15 +80,17 @@ class Cart extends AbstractMagentoSync implements \Countable
     /**
      * Constructs request to update cart in magento.
      *
+     * @param string|null $cartRoute If null takes route from config.
+     *
      * @return RedirectResponse
      */
-    public function getUpdateResponse()
+    public function getUpdateResponse($cartRoute = null)
     {
         $url = $this->getMagentoUrl() . '?'
             . http_build_query(
                 [
                     self::CART_DATA_SYNC_PARAM_NAME => $this->getCartContent(),
-                    self::MAGENTO_RETURN_URL_PARAM_NAME => $this->getReturnUrl(),
+                    self::MAGENTO_RETURN_URL_PARAM_NAME => $this->getReturnUrl($cartRoute),
                 ]
             );
 
@@ -93,11 +100,17 @@ class Cart extends AbstractMagentoSync implements \Countable
     /**
      * Url magento should redirect to after adding products.
      *
+     * @param string|null $cartRoute If null takes route from config.
+     *
      * @return string
      */
-    protected function getReturnUrl()
+    protected function getReturnUrl($cartRoute = null)
     {
-        return $this->getRouter()->generate('ongr_cart', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        if ($cartRoute === null) {
+            $cartRoute = $this->getCartRoute();
+        }
+
+        return $this->getRouter()->generate($cartRoute, [], UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     /**
@@ -308,6 +321,26 @@ class Cart extends AbstractMagentoSync implements \Countable
     public function setRepositoryName($repositoryName)
     {
         $this->repositoryName = $repositoryName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCartRoute()
+    {
+        return $this->cartRoute;
+    }
+
+    /**
+     * @param string $cartRoute
+     *
+     * @return $this
+     */
+    public function setCartRoute($cartRoute)
+    {
+        $this->cartRoute = $cartRoute;
 
         return $this;
     }

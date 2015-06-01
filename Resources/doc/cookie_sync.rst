@@ -38,6 +38,7 @@ Example configuration:
         url: http://magento.ongr.dev
         es_manager: magento
         product_repository: ONGRMagentoConnectorBundle:ProductDocument
+        cart_route: ongr_cart
 
 ..
 
