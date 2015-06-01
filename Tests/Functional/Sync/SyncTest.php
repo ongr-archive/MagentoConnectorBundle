@@ -101,12 +101,13 @@ class SyncTest extends AbstractESDoctrineTestCase
             $search = $repository->createSearch();
             foreach ($repository->execute($search) as $document) {
                 $expectedObject = $data['documents'][$document->getId()];
-
+                /** @var ProductDocument $expectedObject */
                 $this->assertEquals($expectedObject->getId(), $document->getId());
                 $this->assertEquals($expectedObject->getTitle(), $document->getTitle());
 
                 if ($repo == 'ONGRMagentoConnectorBundle:ProductDocument') {
                     $expectedCategory = $expectedObject->getCategories();
+                    /** @var CategoryDocument $realCategory */
                     $realCategory = $document->getCategories()->current();
                     $this->assertEquals($expectedCategory[0]->getId(), $realCategory->getId());
 

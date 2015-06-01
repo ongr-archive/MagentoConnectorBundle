@@ -12,18 +12,15 @@
 namespace ONGR\MagentoConnectorBundle\Document;
 
 use ONGR\ElasticsearchBundle\Annotation as ES;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\ElasticsearchBundle\Document\AbstractDocument;
 
 /**
  * ElasticSearch Cdn object.
  *
  * @ES\Object
  */
-class CdnObject implements DocumentInterface
+class CdnObject extends AbstractDocument
 {
-    use DocumentTrait;
-
     /**
      * @var string
      */

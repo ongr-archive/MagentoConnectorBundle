@@ -11,9 +11,8 @@
 
 namespace ONGR\MagentoConnectorBundle\Document;
 
-use ONGR\ElasticsearchBundle\Annotation as ES;
 use ONGR\ContentBundle\Document\AbstractContentDocument;
-use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
  * ElasticSearch Content document.
@@ -36,7 +35,7 @@ class ContentDocument extends AbstractContentDocument
      *
      * @var UrlObject[]|\Iterator
      *
-     * @ES\Property(name="urls", type="object", objectName="ONGRMagentoConnectorBundle:UrlObject", multiple=true)
+     * @ES\Property(name="urls", type="nested", objectName="ONGRMagentoConnectorBundle:UrlObject", multiple=true)
      */
     protected $urls = [];
 

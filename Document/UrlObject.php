@@ -12,14 +12,14 @@
 namespace ONGR\MagentoConnectorBundle\Document;
 
 use ONGR\ElasticsearchBundle\Annotation as ES;
-use ONGR\RouterBundle\Document\UrlObject as ParentUrlObject;
+use ONGR\RouterBundle\Document\UrlNested;
 
 /**
  * ElasticSearch Url object.
  *
  * @ES\Object
  */
-class UrlObject extends ParentUrlObject
+class UrlObject extends UrlNested
 {
     /**
      * @var string
