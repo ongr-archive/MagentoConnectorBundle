@@ -44,6 +44,9 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('product_repository')
                     ->defaultValue('')
                 ->end()
+                ->scalarNode('cart_route')
+                    ->defaultNull()
+                ->end()
             ->end();
 
         return $treeBuilder;

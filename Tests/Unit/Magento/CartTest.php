@@ -35,6 +35,7 @@ class CartTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($instance->getManager());
         $this->assertNull($instance->getRouter());
         $this->assertNull($instance->getRepositoryName());
+        $this->assertNull($instance->getCartRoute());
 
         /** @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject $urlGenerator */
         $urlGenerator = $this->getMockBuilder('Symfony\Component\Routing\Generator\UrlGeneratorInterface')
@@ -52,6 +53,10 @@ class CartTest extends \PHPUnit_Framework_TestCase
         $repositoryName = 'products';
         $instance->setRepositoryName($repositoryName);
         $this->assertEquals($repositoryName, $instance->getRepositoryName());
+
+        $routeName = 'route_name';
+        $instance->setCartRoute($routeName);
+        $this->assertEquals($routeName, $instance->getCartRoute());
     }
 
     /**
@@ -85,6 +90,7 @@ class CartTest extends \PHPUnit_Framework_TestCase
         $instance->setRequestStack($requestStack);
 
         $instance->setMagentoUrl('testing.url');
+        $instance->setCartRoute('ongr_cart');
 
         return $instance;
     }
