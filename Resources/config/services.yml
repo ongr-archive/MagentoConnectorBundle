@@ -22,7 +22,6 @@ services:
         parent: ongr_magento.sync.abstract
         class: %ongr_magento.sync.customer.class%
 
-services:
     ongr_magento.sql_relations.category.delete:
         class: %ongr_connections.extractor.descriptor.class%
         arguments: [catalog_category_entity, D, OLD.entity_id, 1, category]
