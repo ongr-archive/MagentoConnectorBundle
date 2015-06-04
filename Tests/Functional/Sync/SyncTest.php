@@ -99,7 +99,9 @@ class SyncTest extends AbstractESDoctrineTestCase
         foreach ($this->getExpectedDocuments() as $repo => $data) {
             $repository = $manager->getRepository($repo);
             $search = $repository->createSearch();
+            /** @var ProductDocument $document */
             foreach ($repository->execute($search) as $document) {
+                $this->assertArrayHasKey($document->getId(), $data['documents'], "Unexpected {$repo} document found");
                 $expectedObject = $data['documents'][$document->getId()];
                 /** @var ProductDocument $expectedObject */
                 $this->assertEquals($expectedObject->getId(), $document->getId());
@@ -151,6 +153,17 @@ class SyncTest extends AbstractESDoctrineTestCase
         $expectedDocument->setActive(true);
         $expectedDocument->setParentId('magentorootid');
         $expectedDocument->setTitle('cat update');
+
+        $id = $expectedDocument->getId();
+        $expectedDocuments['ONGRMagentoConnectorBundle:CategoryDocument']['documents'][$id] = $expectedDocument;
+
+        $expectedDocument = new CategoryDocument();
+        $expectedDocument->setId('2');
+        $expectedDocument->setScore(1.0);
+        $expectedDocument->setSort(1);
+        $expectedDocument->setActive(true);
+        $expectedDocument->setParentId('magentorootid');
+        $expectedDocument->setTitle('Default Category');
 
         $id = $expectedDocument->getId();
         $expectedDocuments['ONGRMagentoConnectorBundle:CategoryDocument']['documents'][$id] = $expectedDocument;
