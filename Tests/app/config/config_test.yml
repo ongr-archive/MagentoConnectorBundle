@@ -1,8 +1,6 @@
 imports:
     - { resource: parameters_test.yml }
     - { resource: services.yml }
-    - { resource: import.yml }
-    - { resource: sync.yml }
 
 # Framework Configuration
 framework:
@@ -73,4 +71,14 @@ ongr_elasticsearch:
 ongr_magento:
     store_id: 0
     shop_id: 1
-
+    doctrine_repositories:
+        product: ONGRMagentoConnectorBundleTest:CatalogProductEntity
+        category: ONGRMagentoConnectorBundleTest:CatalogCategoryEntity
+        content: ONGRMagentoConnectorBundleTest:CmsPage
+    es_repositories:
+        product: MagentoTestBundle:Product
+        category: MagentoTestBundle:Category
+        content: MagentoTestBundle:Content
+    sync:
+        source:
+            provider: test.sync.diff_provider.binlog_diff_provider
