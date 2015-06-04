@@ -1,8 +1,6 @@
 imports:
     - { resource: parameters_test.yml }
     - { resource: services.yml }
-    - { resource: import.yml }
-    - { resource: sync.yml }
 
 # Framework Configuration
 framework:
