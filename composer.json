@@ -22,7 +22,11 @@
     "require-dev": {
         "phpunit/phpunit": "~4.2",
         "squizlabs/php_codesniffer": "~2.0",
-        "ongr/ongr-strict-standard": "~2.1"
+        "ongr/ongr-strict-standard": "~2.1",
+        "sensio/generator-bundle": "^2.5"
+    },
+    "suggest": {
+      "sensio/generator-bundle": "Required for generating required classes for import and sync."
     },
     "autoload": {
         "psr-4": {

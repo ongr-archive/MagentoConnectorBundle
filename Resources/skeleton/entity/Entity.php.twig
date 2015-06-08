@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }}\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use ONGR\MagentoConnectorBundle\Entity\{{ entity_name }} as ParentEntity;
+
+/**
+ * Category entity.
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="{{ entity_table }}")
+ */
+class {{ entity_name }} extends ParentEntity
+{
+}

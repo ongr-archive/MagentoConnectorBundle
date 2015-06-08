@@ -9,8 +9,8 @@
  * file that was distributed with this source code.
  */
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new ONGR\MagentoConnectorBundle\ONGRMagentoConnectorBundle(),
             new ONGR\RouterBundle\ONGRRouterBundle(),
             new ONGR\MagentoConnectorBundle\Tests\app\fixtures\MagentoTestBundle\MagentoTestBundle(),
+            new ONGR\MagentoConnectorBundle\Tests\app\fixtures\CommandTestBundle\CommandTestBundle(),
         ];
     }
 

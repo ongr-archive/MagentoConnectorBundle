@@ -1,0 +1,10 @@
+
+ongr_magento:
+    doctrine_repositories:
+        product: CommandTestBundle:CatalogProductEntity
+        category: CommandTestBundle:CatalogCategoryEntity
+        content: CommandTestBundle:CmsPage
+    es_repositories:
+        product: CommandTestBundle:Product
+        category: CommandTestBundle:Category
+        content: CommandTestBundle:Content

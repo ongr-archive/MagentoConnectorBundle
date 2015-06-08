@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }};
+
+use ONGR\MagentoConnectorBundle\Document\{{ document_name }} as ParentDocument;
+use ONGR\ElasticsearchBundle\Annotation as ES;
+
+/**
+ * ElasticSearch Content document.
+ *
+ * @ES\Document(type="{{ document_type }}")
+ */
+class {{ document_name }} extends ParentDocument
+{
+}
