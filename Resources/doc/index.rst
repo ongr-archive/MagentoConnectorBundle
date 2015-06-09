@@ -95,6 +95,9 @@ If you wish to check how data sync, between Magento and ONGR databases works, yo
 
 ..
 
+More information
+----------------
+
 .. toctree::
     :maxdepth: 1
     :titlesonly:
