@@ -69,6 +69,5 @@ class GenerateEntitiesCommand extends GenerateDoctrineCommand
         /** @var EntityGenerator $generator */
         $generator = $this->getGenerator($this->getConnectorBundle());
         $generator->generate($bundle, $input->getOption('configure'));
-
     }
 }
