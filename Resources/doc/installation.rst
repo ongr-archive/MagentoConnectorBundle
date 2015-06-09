@@ -122,3 +122,11 @@ Now it is possible to use this bundle and following commands will be available:
 - app/console ongr:sync:execute magento.product
 - app/console ongr:sync:execute magento.category
 - app/console ongr:sync:execute magento.content
+
+Things to do
+------------
+
+- Setup ``ongr-io/MagentoSyncModule`` in magento store
+- Implement cart and user functionality with help of ``ONGR\MagentoConnectorBundle\Magento\Cart``
+  and ``ONGR\MagentoConnectorBundle\Magento\Customer``
+- Implement frontend logic ( Example in ``ongr-io/MagentoExperimental`` )
