@@ -94,3 +94,12 @@ If you wish to check how data sync, between Magento and ONGR databases works, yo
     app/console ongr:sync:execute magento.category
 
 ..
+
+.. toctree::
+    :maxdepth: 1
+    :titlesonly:
+    :glob:
+
+    *
+
+..
